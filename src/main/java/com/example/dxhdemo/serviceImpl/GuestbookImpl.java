@@ -28,7 +28,7 @@ public class GuestbookImpl implements GuestbookService {
 
     @Override
     //删除
-    public int deleteOneGuestbook(int id) {
+    public int deleteOneGuestbook(long id) {
         guestbookMapper.deleteById(id);
         return 1;
     }

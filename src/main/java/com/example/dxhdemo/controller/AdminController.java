@@ -67,7 +67,7 @@ public class AdminController {
     }
     //修改单条记录
     @RequestMapping
-    public int changeOneLineById(@RequestParam("id")int id,@RequestParam("tno") String tno,
+    public int changeOneLineById(@RequestParam("id")long id,@RequestParam("tno") String tno,
                                  @RequestParam("xlname") String xlname,
                                  @RequestParam("tj") String tj,@RequestParam("dengji") String dengji,
                                  @RequestParam("xltype") String xltype,@RequestParam("xldate") Timestamp xldate,
@@ -107,13 +107,13 @@ public class AdminController {
 
     //删除一条订单记录
     @RequestMapping("/admin/deleteOneGuestyd")
-    public int deleteOneGuestyd(@RequestParam("id")int id){
+    public int deleteOneGuestyd(@RequestParam("id")long id){
         return guestydService.deleteOneGuestyd(id);
     }
 
     //修改一条订单记录
     @RequestMapping("/admin/changeOneGuestyd")
-    public int changeOneGuestyd(@RequestParam("id") int id,@RequestParam("uid") int uid,
+    public int changeOneGuestyd(@RequestParam("id") long id,@RequestParam("uid") int uid,
                                 @RequestParam("tno") String tno,@RequestParam("guestname") String guestname,
                                 @RequestParam("tel") String tel,@RequestParam("crs") int crs,
                                 @RequestParam("xhs") int xhs,@RequestParam("ydrq") Timestamp ydrq,
@@ -128,12 +128,12 @@ public class AdminController {
     }
     //删除一条景点信息
     @RequestMapping("/admin/deleteOneView")
-    public int deleteOneView(int id){
+    public int deleteOneView(long id){
         return viewsService.deleteOneView(id);
     }
     //修改一条景点信息
     @RequestMapping("/admin/changeOneView")
-    public int changeOneView(@RequestParam("id")int id,@RequestParam("view") String view,
+    public int changeOneView(@RequestParam("id")long id,@RequestParam("view") String view,
                              @RequestParam("imageUrl") String imageUrl,@RequestParam("content") String content,
                              @RequestParam("city") String city){
         return viewsService.changeOneView(id,view,imageUrl,content,city);
@@ -156,7 +156,7 @@ public class AdminController {
     }
     //删除留言
     @RequestMapping("/admin/deleteOneGuestbook")
-    public int deleteOneGuestbook(@RequestParam("id") int id){
+    public int deleteOneGuestbook(@RequestParam("id") long id){
         return guestbookService.deleteOneGuestbook(id);
     }
 }

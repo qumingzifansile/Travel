@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.dxhdemo.mapper.ViewsMapper">
+<mapper namespace="com.example.dxhdemo.mapper.ViewsMapperGB">
+    <select id="getInfo" resultType="com.example.dxhdemo.bean.Views">
+        SELECT * FROM views WHERE id = #{id}
+    </select>
+
+    <select id="getInfobyview" resultType="com.example.dxhdemo.bean.Views">
+        SELECT * FROM views WHERE view = #{view}
+    </select>
+
+    <insert id="addView">
+        INSERT INTO views(view, ImageUrl, Content, city) VALUES (#{view}, #{ImageUrl}, #{Content}, #{city})
+    </insert>
+
+    <select id="getall" resultType="com.example.dxhdemo.bean.Views">
+        SELECT * FROM views
+    </select>
+
+    <insert id="addsView">
+        INSERT INTO views(view) values (#{view})
+    </insert>
 
 </mapper>

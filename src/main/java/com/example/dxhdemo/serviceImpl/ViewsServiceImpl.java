@@ -22,14 +22,14 @@ public class ViewsServiceImpl implements ViewsService {
 
     @Override
     //删除
-    public int deleteOneView(int id) {
+    public int deleteOneView(long id) {
         viewsMapper.deleteById(id);
         return 1;
     }
 
     @Override
     //修改一个景点信息
-    public int changeOneView(int id,String view,String imageUrl,String content,String city) {
+    public int changeOneView(long id,String view,String imageUrl,String content,String city) {
         Views oldView = viewsMapper.findById(id);
         oldView.setView(view);
         oldView.setImageUrl(imageUrl);

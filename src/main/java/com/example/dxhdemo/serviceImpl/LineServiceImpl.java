@@ -37,7 +37,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     //通过旅游团查找记录
-    public Line getOneLineById(int id) {
+    public Line getOneLineById(long id) {
         return lineMapper.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     //通过id修改记录
-    public int changeOneLineById(int id,String tno, String xlname, String tj, String dengji, String xltype,
+    public int changeOneLineById(long id,String tno, String xlname, String tj, String dengji, String xltype,
                                   Timestamp xldate, int ts, int zrs, String dijie, String qp, String dp,
                                   String start, String jzd, String sz, String fc, String jz,
                                   String cfd, String ddd, int crxrs, int xhxrs, String xingchen,

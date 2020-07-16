@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dxhdemo.mapper.CompanyinfoMapperGB">
+
+    <select id="getAll" resultType="com.example.dxhdemo.bean.Companyinfo">
+        SELECT * FROM companyinfo
+    </select>
+
+    <select id="login" resultType="com.example.dxhdemo.bean.Companyinfo">
+        SELECT * FROM companyinfo WHERE RegPhone = #{RegPhone} AND Password = #{password}
+    </select>
+
+    <insert id="reg" >
+        INSERT INTO companyinfo(Password,About,Title,Description,Keywords,PhoneNumber,Address,RegPhone) VALUES (
+        #{Password},#{About},#{Title},#{Description},#{Keywords},#{PhoneNumber},#{Address},#{RegPhone})
+    </insert>
+
+    <update id="update">
+        UPDATE companyinfo SET Password = #{Password}, About = #{About}, Title = #{Title}, Description = #{Description},
+                               Keywords = #{Keywords}, PhoneNumber = #{PhoneNumber}, Address = #{Address},
+                               RegPhone = #{RegPhone})
+        WHERE CompanyID = #{CompanyID}
+    </update>
+
+    <select id="getMyInfo" resultType="com.example.dxhdemo.bean.Companyinfo">
+        SELECT * FROM companyinfo WHERE CompanyID = #{CompanyID}
+    </select>
+</mapper>

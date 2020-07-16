@@ -17,8 +17,8 @@ public interface LineMapper extends JpaRepository<Line,Integer> {
     List<Line> findAllLive();                   //获取全部还没开始的线路记录
 
     Line findByTno(String tno);                 //通过旅游团编号查找记录
-    Line findById(int id);                   //通过记录编号查找记录
+    Line findById(long id);                   //通过记录编号查找记录
 
-    @Query(value="SELECT * FROM line WHERE cfd = #{cfd} AND (#{ddd} IS NULL OR ddd = #{ddd}) AND (#{ts} IS NULL OR ts = #{ts}))",nativeQuery = true)
+    @Query(value="SELECT * FROM line WHERE cfd = #{cfd} AND (#{ddd} IS NULL OR ddd = #{ddd}) AND (#{ts} IS NULL OR ts = #{ts})",nativeQuery = true)
     List<Line> findByManyterms(String cfd,String ddd,String ts);                //多条件查询
 }

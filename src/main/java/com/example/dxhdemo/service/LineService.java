@@ -20,7 +20,7 @@ public interface LineService {
                            int travel_bh, String travel_name, String status, String tp1js,
                            String tp2js, String xgxl, String views, String weblog, double icrjg,
                            double ixhjg, int state);             //修改线路记录
-    int changeOneLineById(int id,String tno, String xlname, String tj, String dengji, String xltype,
+    int changeOneLineById(long id,String tno, String xlname, String tj, String dengji, String xltype,
                            Timestamp xldate, int ts, int zrs, String dijie, String qp, String dp,
                            String start, String jzd, String sz, String fc, String jz,
                            String cfd, String ddd, int crxrs, int xhxrs, String xingchen,
@@ -30,7 +30,7 @@ public interface LineService {
                            double ixhjg, int state);             //修改线路记录
                                                     //插入一个线路记录
     Line getOneLineByTno(String tno);               //获取一个记录
-    Line getOneLineById(int id);                    //获取一个记录
+    Line getOneLineById(long id);                    //获取一个记录
     List<Line> findLinesByManyterms(String cfd,String ddd,String ts);                //多条件查询
 
 

@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.dxhdemo.mapper.LineMapper">
-<!--    <select id="getAllLine" resultType="com.example.dxhdemo.bean.Line">-->
-<!--        SELECT * FROM line-->
-<!--    </select>-->
-<!--    <update id="updateLine" >-->
+<mapper namespace="com.example.demo.mapper.LineMapper">
+    <select id="getInfo" resultType="com.example.dxhdemo.bean.Line">
+        SELECT * FROM line WHERE views = #{views}
+    </select>
 
-<!--    </update>-->
+    <insert id="addLine">
+        INSERT INTO line (tno, xlname, tj, dengji, xltype, xldate, ts, zrs, dijie, qp, dp, start, jzd, sz, fc, jz, cfd,
+        ddd, crxrs, xhxrs, xingchen, xcap, xcbz, xcsm, lxfs, bak, Travel_bh, Travel_name, status, tp1js, tp2js, xgxl,
+        views, weblog, icrjg, ixhjg, state)
+        VALUES (#{tno},#{xlname},#{tj},#{dengji},#{xltype},#{xldate},#{ts},#{zrs},#{dijie},#{qp},#{dp},#{start},#{jzd},
+        #{sz},#{fc},#{jz},#{cfd},#{ddd},#{crxrs},#{xhxrs},#{xingchen},#{xcap},#{xcbz},#{xcsm},#{lxfs},#{bak},
+        #{Travel_bh},#{Travel_name},#{status},#{tp1js},#{tp2js},#{xgxl},#{views},#{weblog},#{icrjg},#{ixhjg},#{state})
+    </insert>
+
+    <update id="delLine">
+        UPDATE line SET state = 0 WHERE tno = #{tno}
+    </update>
+
+    <update id="updateLine">
+        UPDATE line SET xlname = #{xlname}, tj = #{tj}, dengji = #{dengji}, xltype = #{xltype},
+        xldate = #{xldate}, ts = #{ts}, zrs = #{zrs}, dijie = #{dijie}, qp = #{qp}, dp = #{dp}, start = #{start},
+        jzd = #{jzd}, sz = #{sz}, fc = #{fc}, jz = #{jz}, cfd = #{cfd}, ddd = #{ddd}, crxrs = #{crxrs},
+        xhxrs = #{xhxrs}, xingchen = #{xingchen}, xcap = #{xcap}, xcbz = #{xcbz}, xcsm = #{xcsm}, lxfs = #{lxfs},
+        bak = #{bak}, Travel_bh = #{Travel_bh}, Travel_name = #{Travel_name}, status = #{status}, tp1js = #{tp1js},
+        tp2js = #{tp2js}, xgxl = #{xgxl}, views = #{views}, weblog = #{weblog}, icrjg = #{icrjg}, ixhjg = #{ixhjg},
+        state = #{state}
+        WHERE tno = #{tno}
+    </update>
+
+    <select id="getInfobytno" resultType="com.example.dxhdemo.bean.Line">
+        SELECT * FROM line WHERE tno = #{tno}
+    </select>
+
 </mapper>

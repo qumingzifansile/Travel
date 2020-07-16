@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dxhdemo.mapper.LineviewMapperGB">
+
+    <select id="getViews" resultType="com.example.dxhdemo.bean.Lineview">
+        SELECT * FROM lineview WHERE tno = #{tno}
+    </select>
+
+    <select id="getTno" resultType="com.example.dxhdemo.bean.Lineview">
+        SELECT * FROM lineview WHERE views = #{views}
+    </select>
+
+    <insert id="updateLineview">
+        INSERT INTO lineview (tno, views, ctdate)
+        VALUES (#{tno},#{views},#{ctdae})
+    </insert>
+
+    <select id="searchbytnoandviews" resultType="com.example.dxhdemo.bean.Lineview">
+        SELECT * FROM lineview WHERE tno = #{tno} AND views = #{views}
+    </select>
+
+    <insert id="addLineview">
+        INSERT INTO lineview(tno, views) VALUES (#{tno},#{views})
+    </insert>
+
+</mapper>

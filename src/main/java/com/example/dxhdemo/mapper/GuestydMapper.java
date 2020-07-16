@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 @Mapper
-public interface GuestydMapper extends JpaRepository<Guestyd,Integer> {
+public interface GuestydMapper extends JpaRepository<Guestyd,Long> {
 
     @Query(value = "SELECT * FROM guestyd",nativeQuery = true)
     List<Guestyd> findAllGuestyd();                    //查询所有订单
 
-    Guestyd findById(int id);                          //
+    Guestyd findById(long id);                          //
 
     //修改订单
     //删除订单

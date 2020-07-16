@@ -11,8 +11,8 @@ public class Guestyd {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int id;
-    private int uid;
+    private long id;
+    private long uid;
     private String tno;
     private String guestname;
     private String tel;
@@ -23,19 +23,19 @@ public class Guestyd {
     private int state;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dxhdemo.mapper.TravelviewMapperGB">
+
+    <insert id="pubTravelview">
+        INSERT INTO travelview (companyid, tno, xlname, dengji, xltype, ts, xcap, xcbz, xcsm)
+        VALUES (#{companyid},#{tno},#{xlname},#{dengji},#{xltype},#{ts},#{xcap},#{xcbz},#{xcsm})
+    </insert>
+
+    <select id="getMyTravelview" resultType="com.example.dxhdemo.bean.Travelview">
+        SELECT * FROM travelview WHERE companyid = #{companyid}
+    </select>
+
+    <select id="getCompanyid" resultType="com.example.dxhdemo.bean.Travelview">
+        SELECT * FROM travelview WHERE tno = #{tno}
+    </select>
+
+    <update id="updateTravelview">
+        UPDATE travelview SET xlname = #{xlname},dengji = #{dengji},xltype = #{xltype},ts = #{ts},xcap = #{xcap},
+                              xcbz = #{xcbz},xcsm = #{xcsm}
+        WHERE companyid = #{companyid} AND tno = #{tno}
+    </update>
+
+    <delete id="delTravelview">
+        DELETE FROM travelview WHERE tno = #{tno}
+    </delete>
+
+</mapper>

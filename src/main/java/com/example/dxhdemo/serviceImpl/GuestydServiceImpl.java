@@ -23,7 +23,7 @@ public class GuestydServiceImpl implements GuestydService {
 
     @Override
     //删除订单
-    public int deleteOneGuestyd(int id) {
+    public int deleteOneGuestyd(long id) {
         Guestyd guestyd = guestydMapper.findById(id);
         guestyd.setState(0);
         guestydMapper.save(guestyd);
@@ -31,7 +31,7 @@ public class GuestydServiceImpl implements GuestydService {
     }
 
     @Override
-    public int changeOneGuestyd(int id,int uid, String tno, String guestname, String tel, int crs, int xhs,
+    public int changeOneGuestyd(long id,long uid, String tno, String guestname, String tel, int crs, int xhs,
                                 Timestamp ydrq, String bah, int state) {
         Guestyd guestyd = guestydMapper.findById(id);
         guestyd.setUid(uid);

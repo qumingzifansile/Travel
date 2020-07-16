@@ -11,7 +11,7 @@ public class Line {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int id;
+    private long id;
     private String tno;
     private String xlname;
     private String tj;
@@ -50,11 +50,11 @@ public class Line {
     private double ixhjg;
     private int state;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

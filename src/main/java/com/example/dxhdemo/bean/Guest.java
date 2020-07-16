@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int guestId;
+    private long guestId;
     private String name;
     private String pass;
     private String sex;
@@ -21,7 +21,7 @@ public class Guest {
         return guestId;
     }
 
-    public void setGuestId(int guestId) {
+    public void setGuestId(long guestId) {
         this.guestId = guestId;
     }
 

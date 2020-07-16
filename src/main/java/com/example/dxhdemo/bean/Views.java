@@ -11,7 +11,7 @@ public class Views {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int id;
+    private long id;
     private String view;
     private String imageUrl;
     private String content;
@@ -22,7 +22,7 @@ public class Views {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

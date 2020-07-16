@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Mapper
-public interface demoMapper extends JpaRepository<Guest,Integer> {
+public interface demoMapper extends JpaRepository<Guest,Long> {
 //    Guest getInfo(String name,String pass);
 //    List<Guest> getAll();
     Guest findByName(String name);

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int adminId;
+    private long adminId;
     private String admin;
     private String passWord;
 
@@ -16,7 +16,7 @@ public class Admin {
         return adminId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(long adminId) {
         this.adminId = adminId;
     }
 

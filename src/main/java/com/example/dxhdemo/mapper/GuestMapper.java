@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 @Mapper
-public interface GuestMapper extends JpaRepository<Guest,Integer>{
+public interface GuestMapper extends JpaRepository<Guest,Long>{
 
     Guest findGuestByTelephone(String phonenumber);     //  通过电话号码查找
     @Query(value="SELECT * FROM guest",nativeQuery=true)

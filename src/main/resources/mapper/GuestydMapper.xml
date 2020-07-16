@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dxhdemo.mapper.GuestydMapperGB">
+
+    <insert id="guestYd">
+        INSERT INTO guestyd (uid, tno, guestname, tel, crs, xhs, ydrq, bah)
+        VALUES (#{uid},#{tno},#{guestname},#{tel},#{crs},#{xhs},#{ydrq},#{bah})
+    </insert>
+
+    <select id="getTnoInfo" resultType="com.example.dxhdemo.bean.Guestyd">
+        SELECT * FROM guestyd WHERE uid = #{uid}
+    </select>
+
+    <select id="getUidInfo" resultType="com.example.dxhdemo.bean.Guestyd">
+        SELECT * FROM guestyd WHERE tno =#{tno}
+    </select>
+
+</mapper>

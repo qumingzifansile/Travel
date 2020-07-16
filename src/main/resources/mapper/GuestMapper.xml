@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dxhdemo.mapper.GuestMapperGB">
+
+    <select id="login" resultType="com.example.dxhdemo.bean.Guest">
+        SELECT * FROM guest WHERE telephone = #{telephone} AND pass = #{pass}
+    </select>
+
+    <insert id="reg" >
+        INSERT INTO guest(name,pass,sex,email,telephone,idnumber) VALUES (#{name},#{pass},#{sex},#{email},#{telephone},#{idnumber})
+    </insert>
+
+    <update id="update">
+        UPDATE guest SET name = #{name}, pass = #{pass}, sex = #{sex}, email = #{email}, telephone = #{telephone}, idnumber = #{idnumber}
+        WHERE GuestID = #{GuestID}
+    </update>
+
+</mapper>
