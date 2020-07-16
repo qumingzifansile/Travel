@@ -1,0 +1,18 @@
+
+spring:
+  datasource:
+    name: traveldatabase  #数据库名
+    url: jdbc:mysql://124.70.209.207:3306/traveldatabase?characterEncoding=utf8&useUnicode=true #url
+    username: root  #用户名
+    password: Qaz225225225  #密码
+    driver-class-name: com.mysql.cj.jdbc.Driver  #数据库链接驱动
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #配置映射文件
+  type-aliases-package: com.example.dxhdemo.bean #配置实体类
