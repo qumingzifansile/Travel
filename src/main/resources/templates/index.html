@@ -1,10 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="./css/cssReset.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <style>
+        /* section */
+        #sec {
+            width: 100%;
+        }
+
+        /* summary */
+        #sec .summary {
+            height: 400px;
+        }
+
+        .summary .route {
+            width: 20%;
+            height: 100%;
+            float: left;
+        }
+
+        .route ul {
+            height: 100%;
+            /* background: red; */
+        }
+
+        .routeItem {
+            height: 20%;
+            text-align: center;
+            padding-top: 20px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            background: red;
+        }
+
+        .now {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .summary .swiper {
+            width: 80%;
+            height: 400px;
+            float: right;
+            position: relative;
+        }
+
+        .swiper .lIcon {
+            position: absolute;
+        }
+
+        .swiper .swiImg {
+            width: 100%;
+            height: 400px;
+        }
+
+        .swiper .routeItemInfo {
+            width: 100%;
+            height: 400px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 1);
+            color: white;
+        }
+
+        .routeItemInfo .routeImg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* column */
+        .column {
+            margin-top: 40px;
+            border-bottom: 2px solid #cccccc;
+        }
+
+        .column ul {
+            width: 100%;
+        }
+
+        .column ul li {
+            width: 100%;
+            height: 500px;
+            /* border: 1px solid black; */
+            margin-top: 40px;
+        }
+
+        /* column lands */
+        .column .lands {
+            width: 12%;
+            height: 100%;
+            margin-left: 22px;
+            float: left;
+            /* border:1px solid #cccccc; */
+            /* padding-top:40px; */
+            /* box-sizing: border-box  ; */
+        }
+
+        /* .lands .landsUl{
+                height: 90%;
+                background: red;
+            }
+            .lands .landItem{
+                width: 100%;
+                height: 15%;
+                text-align: center;
+                color: black;
+                border-top:1px solid #cccccc;
+                border-bottom:1px solid #cccccc;
+                margin-top:0;
+                padding-top: 14px;
+                box-sizing: border-box;
+                cursor: pointer;
+            }
+            .active{
+                color: black;
+                background: white;
+                border:5px solid blue;
+            } */
+        /* column rightContent */
+        .column .content {
+            width: 85%;
+            height: 100%;
+            /* border: 1px solid black; */
+            box-sizing: border-box;
+            float: right;
+        }
+
+        .content .conNavCtr {
+            width: 99%;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .content .conNav {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .conNavCtr .more {
+            font-size: 16px;
+            font-weight: bold;
+            padding-top: 8px;
+            box-sizing: border-box;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            cursor: pointer;
+        }
+
+        .content .conItemCtr {
+            width: 100%;
+            height: 450px;
+            display: none;
+        }
+
+        .conItemCtr ul {
+            height: 100%;
+
+        }
+
+        .conItemCtr ul .conItemInfo {
+            width: 30%;
+            height: 45%;
+            margin-left: 31px;
+            margin-top: 15px;
+            border: 1px solid black;
+            float: left;
+            cursor: pointer;
+        }
+
+        .conItemCtr .itemImg {
+            width: 100%;
+            height: 80%;
+        }
+
+        .conItemCtr div {
+            margin-left: 10px;
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+
+        /* commentsArea */
+        #sec .commentsArea {
+            width: 96%;
+            max-height: 500px;
+            margin-left: 30px;
+            margin-top: 20px;
+            padding-bottom: 30px;
+            border: 1px solid #cccccc;
+            box-sizing: border-box;
+        }
+
+        .commentsArea .userInput {
+            width: 60%;
+            height: 40px;
+            margin: 15px auto;
+        }
+
+        .userInput .msg {
+            width: 75%;
+            height: 100%;
+            margin-left: 50px;
+        }
+
+        .userInput .issue {
+            width: 50px;
+            height: 40px;
+        }
+
+        .commentsArea .showArea {
+            max-height: 400px;
+            padding: 0 50px;
+        }
+
+        .showArea .oVersion {
+            width: 1356px;
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 5px;
+            word-wrap: break-word;
+        }
+    </style>
+
+    <script src="./js/header.js"></script>
+    <script src="./js/AJAX.js"></script>
+    <script src="../static/js/ResetPage.js"></script>
+    <script>
+        window.onload = function () {
+            //初始化页面头部样式
+            headerReset();
+
+            //加载线路信息
+            var oRoute = document.getElementsByClassName("routeItem");
+            var data1 = $reset({
+                furl:"",
+                fdata:""
+            })
+
+            //加载线路图片
+            var oRouteImg = document.getElementsByClassName("routeImg");
+            var data2 = $reset({
+                furl:"",
+                fdata:""
+            })
+
+            //加载左导航图片
+            var oLands = document.getElementsByClassName("lands");
+            var data3 = $reset({
+                furl:"",
+                fdata:""
+            })
+
+            //加载内容信息
+            //获取所有内容节点
+            var oContent = document.getElementsByClassName("content");
+            var oConNavs = [];
+            var oConItemCtrs = [];
+            for (let i = 0; i < oContent.length; i++) {
+                //获取当前内容节点下的所有的内容导航节点（conNav）
+                oConNavs[i] = oContent[i].getElementsByClassName("conNav");
+                //获取当前内容节点下的所有内容项目容器（conItemCtr）
+                oConItemCtrs[i] = oContent[i].getElementsByClassName("conItemCtr");
+            }
+            // for(let i=0; )
+            var data4 = $reset({
+                furl:"",
+                fdata:"",
+            })
+
+            /* //存储景点导航选择的景点
+            var landSelected = null; */
+
+            //获取路线元素节点以及轮播图下路线具体信息节点
+            
+            var oSwiper = document.getElementsByClassName("swiper");
+            var oRouteInfo = oSwiper[0].getElementsByTagName("div");
+            //给路线节点添加鼠标移入事件
+            for (let i = 0; i < oRoute.length; i++) {
+                oRoute[i].onmouseover = function () {
+                    oRoute[i].className = "routeItem now";
+                    oRouteInfo[i].style.display = "block";
+                }
+                oRoute[i].onmouseout = function () {
+                    oRoute[i].className = "routeItem";
+                    oRouteInfo[i].style.display = "none";
+                }
+                oRouteInfo[i].onmouseover = function () {
+                    oRoute[i].className = "routeItem now";
+                    oRouteInfo[i].style.display = "block";
+                }
+                oRouteInfo[i].onmouseout = function () {
+                    oRoute[i].className = "routeItem";
+                    oRouteInfo[i].style.display = "none";
+                }
+            }
+
+
+
+            //左侧景点选项元素
+            /* var olseld = document.getElementsByClassName("landsUl");
+            var olItems = olseld[0].getElementsByClassName("landItem");
+            for(let i=0; i<olItems.length; i++){
+                olItems[i].onclick = function(){
+                    //点击时将被点击的元素激活
+                    for(var j=0; j<olItems.length ;j++){
+                        olItems[j].className = "landItem";
+                    }
+                    this.className = "landItem active";
+                    landSelected = this.innerHTML;
+                }
+            } */
+            var oMBtn = document.getElementsByClassName("more");
+            oMBtn[0].onclick = function () {
+                location.assign("/result");
+            }
+
+
+            
+            for (let i = 0; i < oConNavs.length; i++) {
+                //给内容导航节点添加点击
+                for (let j = 0; j < oConNavs[i].length; j++) {
+                    oConNavs[i][j].onclick = function () {
+                        //将前栏目下的所有内容项目容器设置为隐藏
+                        for (var k = 0; k < oConItemCtrs[i].length; k++) {
+                            oConItemCtrs[i][k].style.display = "none";
+                        }
+                        //显示选择的内容项目容器
+                        oConItemCtrs[i][j].style.display = "block";
+                    }
+                }
+            }
+
+
+            //发布评论
+            //获取元素节点
+            var oMsg = document.getElementsByClassName("msg");
+            var oIsBtn = document.getElementsByClassName("issue");
+            var oSArea = document.getElementsByClassName("showArea");
+            oIsBtn[0].onclick = function () {
+                //获取评论内容
+                var txt = oMsg[0].value;
+                //创建新节点
+                var newComment = document.createElement("div");
+                //设置新节点样式、内容
+                newComment.innerHTML = txt;
+                newComment.className = "oVersion";
+                //将新节点插入到评论展示界面
+                oSArea[0].appendChild(newComment);
+                //清空评论输入框
+                oMsg[0].value = "";
+            }
+        }
+    </script>
 </head>
+
 <body>
-    cncmcncmcnmc
+<header id="header">
+    <img src="./img/01.png" alt="" class="banner">
+    <div class="head">
+        <div class="userinfo">
+            <ul>
+                <li class="login">登录</li>
+                <li class="register">注册</li>
+                <li class="order">我的订单</li>
+            </ul>
+        </div>
+        <form action="/result" method="get" class="search">
+            <input type="text" placeholder="search" class="sInput">
+            <button class="sbtn">搜索</button>
+            <!-- <img class="sicon" src="./img/02.png" alt=""> -->
+        </form>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="/index">首页</a></li>
+            <li><a href="#">特卖优惠</a></li>
+            <li><a href="#">国内</a></li>
+            <li><a href="#">出境</a></li>
+            <li><a href="#">港澳</a></li>
+            <li><a href="#">自由行</a></li>
+            <li><a href="#">签证</a></li>
+            <li><a href="#">游轮</a></li>
+            <li><a href="#">包团定制</a></li>
+            <li><a href="#">合伙人招募</a></li>
+        </ul>
+    </div>
+</header>
+
+<section id="sec">
+    <div class="summary">
+        <div class="route">
+            <ul>
+                <li class="routeItem">线路1</li>
+                <li class="routeItem">线路2</li>
+                <li class="routeItem">线路3</li>
+                <li class="routeItem">线路4</li>
+                <li class="routeItem">线路5</li>
+            </ul>
+        </div>
+        <div class="swiper">
+            <img src="" alt="" class="lIcon">
+            <img src="./img/02.png" alt="" class="swiImg">
+            <img src="" alt="" class="rIcon">
+            <div class="routeItemInfo" style="display: none;">
+                <img src="./img/01.png" alt="" class="routeImg">
+            </div>
+            <div class="routeItemInfo" style="display: none;">
+                <img src="./img/02.png" alt="" class="routeImg">
+            </div>
+            <div class="routeItemInfo" style="display: none;">
+                <img src="./img/01.png" alt="" class="routeImg">
+            </div>
+            <div class="routeItemInfo" style="display: none;">
+                <img src="./img/02.png" alt="" class="routeImg">
+            </div>
+            <div class="routeItemInfo" style="display: none;">
+                <img src="./img/01.png" alt="" class="routeImg">
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <ul>
+            <li>
+                <!-- <div class="lands">
+                        <ul class="landsUl">
+                            <li class="landItem active">景点1</li>
+                            <li class="landItem">景点2</li>
+                            <li class="landItem">景点3</li>
+                            <li class="landItem">更多</li>
+                        </ul>
+                    </div> -->
+                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <div class="content">
+                    <div class="conNavCtr">
+                        <span class="conNav">地区1</span>
+                        <span class="conNav">地区2</span>
+                        <span class="more">更多</span>
+                    </div>
+                    <div class="conItemCtr" style="display: block;">
+                        <ul>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <div>地区1线路1</div>
+                            </li>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <div>地区1线路2</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="conItemCtr">
+                        <ul>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <div>地区2线路1</div>
+                            </li>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <div>地区2线路2</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <!-- <div class="lands">
+                        <ul class="landsUl">
+                            <li class="landItem active">景点1</li>
+                            <li class="landItem">景点2</li>
+                            <li class="landItem">景点3</li>
+                            <li class="landItem">更多</li>
+                        </ul>
+                    </div> -->
+                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <div class="content">
+                    <div class="conNavCtr">
+                        <span class="conNav">地区1</span>
+                        <span class="conNav">地区2</span>
+                    </div>
+                    <div class="conItemCtr" style="display: block;">
+                        <ul>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <div>景点1</div>
+                            </li>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <div>景点2</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="conItemCtr">
+                        <ul>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <div>景点1</div>
+                            </li>
+                            <li class="conItemInfo">
+                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <div>景点2</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="commentsArea">
+        <div class="userInput">
+            <input type="text" class="msg">
+            <button class="issue">发布</button>
+        </div>
+        <div class="showArea">
+            <div class="oVersion">
+                <span class="commenter">username:</span>
+                <span>ContentContentContentContentContentContentContentContentContent</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer">
+    <ul class="companys">
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+    </ul>
+</footer>
 </body>
+
 </html>

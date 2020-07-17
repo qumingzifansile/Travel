@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="./css/cssReset.css">
+    <style>
+        /* form */
+        #register{
+            width: 400px;
+            height: 430px;
+            margin:50px auto;
+            border:1px solid black;
+            text-align:center;
+        }
+        #register .title{
+            height: 30px;
+            font-size: 28px;
+            text-align:center;
+            margin-top:30px;
+        }
+        #register .selection{
+            height: 30px;
+            margin-bottom: -20px;
+        }
+        #register .selection input{
+            width: 15%;
+            height: 20px;
+        }
+        #register div{
+            width: 80%;
+            height: 70px;
+            margin: 30px auto;
+        }
+        #register .prompt{
+            float: left;
+            font-size: 22px;
+        }
+        #register input{
+            width: 100%;
+            height: 30px;
+        }
+        #register .warn{
+            font-size: 18px;
+        }
+        #register .rBtn{
+            width: 80%;
+            height: 40px;
+            margin:10px 40px 0;
+        }
+        #register .login{
+            font-size: 18px;
+            color: blue;
+            cursor: pointer;
+        }
+        #register .login:hover{
+            text-decoration: underline;
+        }
+    </style>
+    <script src="./js/ResetPage.js"></script>
+    <script>
+        window.onload = function(){
+            //获取注册元素节点
+            var oLog = document.getElementsByClassName("login");
+            //添加跳转事件
+            oLog[0].onclick = function(){
+                window.location.assign("/login");
+            }
+
+            //获取注册按钮
+            var oBtn = document.getElementsByClassName("rBtn");
+            var oform = document.getElementById("register");
+            oBtn[0].onclick = function(){
+                //处理注册逻辑
+                oform.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <section>
+        <form name="register" action="/index" id="register">
+            <div class="title">注册</div>
+            <div class="selection">
+                <input type="radio" name="userType" checked>个人
+                <input type="radio" name="userType">公司
+            </div>
+            <div class="accCtr">
+                <span class="prompt">手机号码</span>
+                <input type="text" placeholder="请输入手机号码" class="account">
+                <span class="warn"></span>
+            </div>
+            <div class="pasCtr">
+                <span class="prompt">验证码</span>
+                <input type="password" placeholder="请输入密码" class="password">
+                <span class="warn"></span>
+            </div>
+            <button class="rBtn">注册</button>
+            <span class="login">立即登录</span>
+        </form>
+    </section>
+</body>
+</html>

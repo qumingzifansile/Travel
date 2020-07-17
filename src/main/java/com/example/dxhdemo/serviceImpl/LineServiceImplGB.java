@@ -7,6 +7,7 @@ import com.example.dxhdemo.bean.Travelview;
 import com.example.dxhdemo.mapper.LineMapperGB;
 import com.example.dxhdemo.mapper.LineviewMapperGB;
 import com.example.dxhdemo.mapper.TravelviewMapperGB;
+import com.example.dxhdemo.service.LineService;
 import com.example.dxhdemo.service.LineServiceGB;
 import com.example.dxhdemo.tools.MyTimeTools;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,10 @@ public class LineServiceImplGB implements LineServiceGB {
         List<Line> lineList = new ArrayList<>();
         if (lineviewList!=null)
             for (Lineview l :lineviewList) {
-                lineList.add(lineMapperGB.getInfobytno(l.getTno()));
+                Line line = lineMapperGB.getInfobytno(l.getTno());
+                if (line.getXldate().after(new MyTimeTools().getCurrentTimeStamp()) && line.getStatus().equals("1")) {
+                    lineList.add(line);
+                }
             }
         return lineList;
     }

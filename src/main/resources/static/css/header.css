@@ -1,0 +1,82 @@
+/* header */
+#header{
+    height: 160px;
+}
+#header .banner{
+    width: 20%;
+    height: 100px;
+    float: left;
+}
+.head{
+    width: 80%;
+    height: 100px;
+    float: right;
+}
+/* user */
+.head .userinfo{
+    height: 30%;
+}
+.head .userinfo ul{
+    width: 20%;
+    height: 100%;
+    float:right;
+}
+.userinfo ul li{
+    font-size: 14px;
+    display:inline-block;
+    cursor: pointer;
+}
+.userinfo ul li:hover{
+    text-decoration: underline;
+    color:blue;
+}
+.userinfo .login{
+    padding-right: 5px;
+    border-right: 1px solid black;
+}
+.userinfo .order{
+    margin-left:20px;
+}
+/* search */
+.head .search{
+    width: 100%;
+    height: 70%;
+    float: right;
+    text-align: right;
+}
+.search .sInput{
+    width: 40%;
+    height: 40%;
+    margin-top:19px;
+}
+.search .sbtn{
+    width: 7%;
+    height: 40%;
+    margin-right: 30px;
+}
+/* .head .sicon{
+    width: auto;
+    height: 40%;
+} */
+
+/* menu */
+.menu{
+    height: 60px;
+    text-align: center;
+    background:lightblue;
+}
+.menu{
+    content: "";
+    clear: both;
+    display: block;
+}
+.menu ul{
+    height: 60px;
+    padding-top: 15px;
+    box-sizing: border-box;
+}
+.menu ul li{
+    font-size: 26px;
+    margin: 0 10px;
+    display: inline-block;
+}

@@ -1,12 +1,8 @@
 package com.example.dxhdemo.controller;
 
 
-import com.example.dxhdemo.mapper.demoMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
 
 @Controller
 public class DemoController {
@@ -22,5 +18,49 @@ public class DemoController {
         return "index";
     }
 
+    @RequestMapping("/detail")
+    public String demoDetail(){
+        return "detail";
+    }
+
+    @RequestMapping("/company")
+    public String demoCompany(){
+        return "company";
+    }
+
+    @RequestMapping("/login")
+    public String demoLogin(){
+        return "login";
+    }
+
+    @RequestMapping("/register")
+    public String demoRegister(){
+        return "register";
+    }
+
+    @RequestMapping("/result")
+    public String demoResult(){
+        return "result";
+    }
+
+    @RequestMapping("/userinfo")
+    public String demoUserinfo(){
+        return "userinfo";
+    }
+
+    @RequestMapping("/fp")
+    public String demoFp(){
+        return "fp";
+    }
+
+    @RequestMapping("/userdetail")
+    public String demoUserdetail(){
+        return "userdetail";
+    }
+
+    @RequestMapping("/adminlines")
+    public String demoAdmin(){
+        return "adminLines";
+    }
 
 }

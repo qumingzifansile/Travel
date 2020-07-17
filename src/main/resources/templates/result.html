@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/cssReset.css">
+    <link rel="stylesheet" href="./css/header.css">
+
+    <style>
+        #resSec {
+            width: 100%;
+        }
+
+        #resSec .main {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        /* selectCard */
+        .main .selectCard {
+            width: 98%;
+            height: 260px;
+            border: 1px solid #cccccc;
+            margin: 0 auto;
+        }
+
+        .main .summary {
+            height: 100px;
+        }
+
+        .main .selectCtr {
+            height: 180px;
+        }
+
+        .main .uarea {
+            height: 60px;
+            margin-top: 20px;
+        }
+
+        .main .area {
+            height: 60px;
+        }
+
+        .main .len {
+            height: 60px;
+        }
+
+        .main .month {
+            height: 60px;
+        }
+
+        .selectCard span {
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+        .sumItem {
+            width: 20%;
+            height: 80px;
+            padding: 20px 20px;
+            font-size: 26px;
+            float: left;
+            border: 1px solid #cccccc;
+            background: #cccccc;
+            box-sizing: border-box;
+            text-align: center;
+            /* display: inline-block; */
+        }
+
+        .now {
+            background: white;
+            border-bottom: 5px solid red;
+        }
+
+        .selectCtr ul {
+            width: 90%;
+            height: 60px;
+            float: right;
+            padding-top: 9px;
+            box-sizing: border-box;
+        }
+
+        .selectCtr ul li {
+            width: 80px;
+            font-size: 16px;
+            float: left;
+            text-align: center;
+            border-left: 1px solid #cccccc;
+            cursor: pointer;
+        }
+
+        .showing {
+            background: orange;
+            color: white;
+        }
+
+        /* .area ul{
+            width: 90%;
+            height: 60px;
+            float: right;
+            padding-top: 9px;
+            box-sizing: border-box;
+        }
+        .area ul li{
+            width: 80px;
+            font-size: 16px;
+            float: left;
+            text-align:center;
+            border-left: 1px solid #cccccc;
+        }
+        .len ul{
+            width: 90%;
+            height: 60px;
+            float: right;
+            padding-top: 9px;
+            box-sizing: border-box;
+        }
+        .len ul li{
+            width: 80px;
+            font-size: 16px;
+            float: left;
+            text-align:center;
+            border-left: 1px solid #cccccc;
+        }
+        .month ul{
+            width: 90%;
+            height: 60px;
+            float: right;
+            padding-top: 9px;
+            box-sizing: border-box;
+        }
+        .month ul li{
+            width: 80px;
+            font-size: 16px;
+            float: left;
+            text-align:center;
+            border-left: 1px solid #cccccc;
+        } */
+
+
+        /* result */
+        .main .result {
+            width: 98%;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #cccccc;
+        }
+
+        .result .item {
+            height: 100%;
+        }
+
+        .result .info {
+            width: 60%;
+            height: 90%;
+            float: left;
+            margin: 15px auto;
+            box-sizing: border-box;
+        }
+
+        .result .landscape {
+            width: 38%;
+            height: 90%;
+            float: left;
+            margin: 15px 8px;
+        }
+
+        .info .title {
+            height: 30%;
+            padding: 20px 20px;
+            box-sizing: border-box;
+        }
+
+        .info .showInfo {
+            height: 70%;
+            position: relative;
+        }
+
+        .showInfo .price {
+            color: orange;
+            position: absolute;
+            bottom: 90px;
+            right: 10px;
+        }
+
+        .showInfo .detBtn {
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            border-radius: 10px;
+            background: blue;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./js/ResetPage.js"></script>
+    <script src="./js/header.js"></script>
+    <script>
+        window.onload = function () {
+            headerReset()
+
+            var nowArea = null;
+            var selectedArea = null;
+            var selectedLen = null;
+            var selectedMonth = null;
+
+            //获取到数据 nowArea....
+
+            //修改样式
+            //获取用户所在地区、时长和日期的元素节点
+            var oAreas = document.getElementsByClassName("area");
+            var otAs = oAreas[0].getElementsByTagName("li");
+            var oUers = document.getElementsByClassName("uarea");
+            var oUas = oUers[0].getElementsByTagName("li");
+            var oLenCtr = document.getElementsByClassName("len");
+            var oLens = oLenCtr[0].getElementsByTagName("li");
+            var oMonthCtr = document.getElementsByClassName("month");
+            var oMonths = oMonthCtr[0].getElementsByTagName("li");
+
+            for (let i = 0; i < oUas.length; i++) {
+                if (selectedArea = otAs[i].innerHTML) {
+                    clsReset(otAs);
+                    this.className = "showing";
+                    break;
+                }
+            }
+
+            for (let i = 0; i < oUas.length; i++) {
+                if (selectedArea = oUas[i].innerHTML) {
+                    clsReset(oUas);
+                    this.className = "showing";
+                    break;
+                }
+            }
+            for (let i = 0; i < oLens.length; i++) {
+                if (selectedArea = oLens[i].innerHTML) {
+                    clsReset(oLens);
+                    this.className = "showing";
+                    break;
+                }
+            }
+            for (let i = 0; i < oMonths.length; i++) {
+                if (selectedArea = oMonths[i].innerHTML) {
+                    clsReset(oMonths);
+                    this.className = "showing";
+                    break;
+                }
+            }
+
+            //请求获取
+            var data1 = $reset({
+                furl:"",
+                fdata:"",
+            })
+            var oRes = document.getElementsByClassName("result");
+            //for() //显示
+
+
+            /* //获取到摘要元素和地区元素
+            var oItems = document.getElementsByClassName("sumItem");
+            var oAreas = document.getElementsByClassName("area");
+            //添加点击
+            for(let i=0; i<oItems.length; i++){
+                oItems[i].onclick = function(){
+                    //选中当前点击的元素
+                    for(var j=0; j<oItems.length ;j++){
+                        oItems[j].className = "sumItem";
+                    }
+                    oItems[i].className = "sumItem now";
+
+                    //显示当前选项的包含内容
+                    for(var j=0; j<oItems.length ;j++){
+                        oAreas[j].style.display = "none";
+                    }
+                    oAreas[i].style.display = "block";
+                
+                }
+            } */
+
+
+            //添加点击，点击返回对应文本内容
+            /* var oCtes = [];
+            for(let i=0; i<oAreas.length ;i++){
+                oCtes[i] = oAreas[i].getElementsByTagName("li");
+                for(let j=0; j<oCtes[i].length; j++){
+                    oCtes[i][j].onclick = function(){
+                        selectedArea = oCtes[i][j].innerHTML;
+                    }
+                }
+            } */
+            function clsReset(nodes) {
+                for (var j = 0; j < nodes.length; j++) {
+                    nodes[j].className = "";
+                }
+            }
+            for (let i = 0; i < oUas.length; i++) {
+                otAs[i].onclick = function () {
+                    selectedArea = otAs[i].innerHTML;
+                    // alert(otAs.length); 
+                    clsReset(otAs);
+                    this.className = "showing";
+                }
+            }
+
+            for (let i = 0; i < oUas.length; i++) {
+                oUas[i].onclick = function () {
+                    nowArea = oUas[i].innerHTML;
+                    clsReset(oUas);
+                    this.className = "showing";
+                }
+            }
+            for (let i = 0; i < oLens.length; i++) {
+                oLens[i].onclick = function () {
+                    selectedLen = oLens[i].innerHTML;
+                    clsReset(oLens);
+                    this.className = "showing";
+                }
+            }
+            for (let i = 0; i < oMonths.length; i++) {
+                oMonths[i].onclick = function () {
+                    selectedMonth = oMonths[i].innerHTML;
+                    clsReset(oMonths);
+                    this.className = "showing";
+                }
+            }
+
+
+            //详情按钮  点击跳转到详情界面
+            var oBtn = document.getElementsByClassName("detBtn");
+            for (let i = 0; i < oBtn.length; i++) {
+                oBtn[i].onclick = function () {
+                    location.assign("detail");
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <header id="header">
+        <img src="./img/01.png" alt="" class="banner">
+        <div class="head">
+            <div class="userinfo">
+                <ul>
+                    <li class="login">登录</li>
+                    <li class="register">注册</li>
+                    <li class="order">我的订单</li>
+                </ul>
+            </div>
+            <div action="www.baidu.com" class="search">
+                <input type="text" placeholder="search" class="sInput">
+                <button class="sbtn">搜索</button>
+                <!-- <img class="sicon" src="./img/02.png" alt=""> -->
+            </div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li> <a href="/index">首页</a> </li>
+                <li> <a href="#">特卖优惠</a> </li>
+                <li> <a href="#">国内</a> </li>
+                <li> <a href="#">出境</a> </li>
+                <li> <a href="#">港澳</a> </li>
+                <li> <a href="#">自由行</a> </li>
+                <li> <a href="#">签证</a> </li>
+                <li> <a href="#">游轮</a> </li>
+                <li> <a href="#">包团定制</a> </li>
+                <li> <a href="#">合伙人招募</a> </li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="resSec">
+        <div class="main">
+            <div class="selectCard">
+                <!-- <div class="summary">
+                    <ul>
+                        <li class="sumItem now">国内</li>
+                        <li class="sumItem">出境短线</li>
+                        <li class="sumItem">出境长线</li>
+                        <li class="sumItem">港澳</li>
+                        <li class="sumItem">西部假期</li>
+                    </ul>
+                </div> -->
+                <div class="selectCtr">
+                    <div class="uarea">
+                        <span>所在区域</span>
+                        <ul>
+                            <li class="showing">不限</li>
+                            <li>北京</li>
+                            <li>上海</li>
+                            <li>杭州</li>
+                            <li>天津</li>
+                        </ul>
+                    </div>
+                    <!-- <div class="area" style="display:block;"> -->
+                    <div class="area">
+                        <span>目的</span>
+                        <ul>
+                            <li class="showing">不限</li>
+                            <li>北京</li>
+                            <li>上海</li>
+                            <li>杭州</li>
+                            <li>天津</li>
+                        </ul>
+                    </div>
+
+                    <!-- <div class="area">
+                        <span>目的</span>
+                        <ul>
+                            <li>不限</li>
+                            <li>北京</li>
+                        </ul>
+                    </div>
+                    <div class="area">
+                        <span>目的</span>
+                        <ul>
+                            <li>不限</li>
+                            <li>上海</li>
+                        </ul>
+                    </div>
+                    <div class="area">
+                        <span>目的</span>
+                        <ul>
+                            <li>不限</li>
+                            <li>杭州</li>
+                        </ul>
+                    </div>
+                    <div class="area">
+                        <span>目的</span>
+                        <ul>
+                            <li>不限</li>
+                            <li>天津</li>
+                        </ul>
+                    </div> -->
+
+
+                    <div class="len">
+                        <span>时长</span>
+                        <ul>
+                            <li class="showing">不限</li>
+                            <li>一天</li>
+                            <li>两天</li>
+                            <li>三天</li>
+                        </ul>
+                    </div>
+                    <div class="month">
+                        <span>出发月份</span>
+                        <ul>
+                            <li class="showing">不限</li>
+                            <li>一月</li>
+                            <li>二月</li>
+                            <li>三月</li>
+                            <li>四月</li>
+                            <li>五月</li>
+                            <li>六月</li>
+                            <li>七月</li>
+                            <li>八月</li>
+                            <li>九月</li>
+                            <li>十月</li>
+                            <li>十一月</li>
+                            <li>十二月</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="result">
+                <li class="item">
+                    <img src="./img/01.png" alt="" class="landscape">
+                    <!-- <div class="landscape"></div> -->
+                    <div class="info">
+                        <div class="title">
+                            <strong>
+                                从化1天·走进处处如画的南平静修小镇·赏百亩荷花，邂逅荷花仙子
+                            </strong>
+                        </div>
+                        <div class="showInfo">
+                            <span class="price">价格</span>
+                            <button class="detBtn">查看详情</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+
+    </footer>
+</body>
+
+</html>

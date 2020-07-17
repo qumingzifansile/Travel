@@ -1,0 +1,36 @@
+/* footer */
+#footer{
+    margin-top:30px;
+    /* background: #cccccc; */
+    max-height: 200px;
+    padding-bottom:20px;
+    box-sizing: border-box;
+}
+#footer .companys{
+    width: 70%;
+    margin:10px auto;
+}
+.companys .cpyItem{
+    height: 22px;
+    margin-left:auto;
+    margin-right: auto;
+}
+#footer .cpyinfo{
+    font-size: 16px;
+    text-align: center;
+    color: #cccccc;
+}
+.cpyinfo .cpyname{
+
+}
+.cpyinfo .cpyphone{
+
+}
+.cpyinfo .contact{
+    color: #cccccc;
+}
+.contact:hover{
+    color: blue;
+    text-decoration:underline;
+    cursor: pointer;
+}

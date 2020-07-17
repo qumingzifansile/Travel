@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="./css/cssReset.css">
+    <style>      
+        /* form */
+        #login{
+            width: 400px;
+            height: 400px;
+            margin:50px auto;
+            border:1px solid black;
+            text-align:center;
+        }
+        #login .title{
+            height: 30px;
+            font-size: 28px;
+            text-align:center;
+            margin-top:30px;
+        }
+        #login div{
+            width: 80%;
+            height: 70px;
+            margin: 30px auto;
+        }
+        #login .prompt{
+            float: left;
+            font-size: 22px;
+        }
+        #login input{
+            width: 100%;
+            height: 30px;
+        }
+        #login .warn{
+            font-size: 18px;
+        }
+        #login .lBtn{
+            width: 80%;
+            height: 40px;
+            margin:10px 40px 0;
+        }
+        #login .register{
+            font-size: 18px;
+            color: blue;
+            cursor: pointer;
+        }
+        #login .register:hover{
+            text-decoration: underline;
+        }
+    </style>
+    <script src="./js/ResetPage.js"></script>
+    <script>
+        window.onload = function(){
+            //获取注册元素节点
+            var oReg = document.getElementsByClassName("register");
+            //添加跳转事件
+            oReg[0].onclick = function(){
+                location.assign("/register");
+            }
+
+
+            //存储登录手机与验证码
+            var phoneNum = null;
+            var iCode = null;
+
+            //获取登录按钮
+            var oBtn = document.getElementsByClassName("lBtn");
+            var oform = document.getElementById("login");
+            // var oPhoneNum = 
+            oBtn[0].onclick = function(){
+                
+                //处理登录逻辑
+                oform.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- <img src="" alt="" id="header"> -->
+
+    <section>
+        <form name="login" action="/index" id="login">
+            <div class="title">登录</div>
+            <div class="accCtr">
+                <span class="prompt">手机号码</span>
+                <input type="text" placeholder="请输入手机号码" class="account">
+                <span class="warn"></span>
+            </div>
+            <div class="pasCtr">
+                <span class="prompt">验证码</span>
+                <input type="password" placeholder="请输入密码" class="password">
+                <span class="warn"></span>
+            </div>
+            <button class="lBtn">登录</button>
+            <span class="register">立即注册</span>
+        </form>
+    </section>
+    
+</body>
+</html>

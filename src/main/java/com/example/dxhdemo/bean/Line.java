@@ -38,8 +38,8 @@ public class Line {
     private String xcsm;
     private String lxfs;
     private String bak;
-    private int travelBh;
-    private String travelName;
+    private int travel_Bh;
+    private String travel_Name;
     private String status;
     private String tp1Js;
     private String tp2Js;
@@ -267,19 +267,19 @@ public class Line {
     }
 
     public int getTravelBh() {
-        return travelBh;
+        return travel_Bh;
     }
 
     public void setTravelBh(int travelBh) {
-        this.travelBh = travelBh;
+        this.travel_Bh = travelBh;
     }
 
     public String getTravelName() {
-        return travelName;
+        return travel_Name;
     }
 
     public void setTravelName(String travelName) {
-        this.travelName = travelName;
+        this.travel_Name = travelName;
     }
 
     public String getStatus() {

@@ -1,6 +1,9 @@
 package com.example.dxhdemo;
 
 import com.example.dxhdemo.bean.Guest;
+import com.example.dxhdemo.bean.Line;
+import com.example.dxhdemo.service.LineService;
+import com.example.dxhdemo.service.LineServiceGB;
 import com.example.dxhdemo.service.demoService;
 import com.example.dxhdemo.serviceImpl.demoServiceImpl;
 import org.junit.Test;
@@ -19,10 +22,13 @@ public class DxhdemoApplicationTests {
     @Resource
     demoService demoservice;
 
+    @Resource
+    LineServiceGB lineService;
+
     @Test
     public void contextLoads() {
-        Guest g = demoservice.showByName("张三");
-        System.out.println(g);
+        List<Line> line = lineService.searchlinebyview("1");
+        System.out.println(line);
     }
 
 }
