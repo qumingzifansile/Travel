@@ -2,7 +2,7 @@ package com.example.dxhdemo.bean;
 
 
 import javax.persistence.*;
-
+import java.sql.Timestamp;
 
 
 @Entity
@@ -18,6 +18,7 @@ public class Guestbook {
     private String name;
     private String addr;
     private String content;
+    private Timestamp time;
 
 
     public long getId() {
@@ -82,4 +83,11 @@ public class Guestbook {
         this.content = content;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 }

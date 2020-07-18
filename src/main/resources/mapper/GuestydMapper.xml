@@ -14,5 +14,9 @@
     <select id="getUidInfo" resultType="com.example.dxhdemo.bean.Guestyd">
         SELECT * FROM guestyd WHERE tno =#{tno}
     </select>
+    <update id="changeGuestyd">
+        UPDATE guestyd SET uid = #{uid},tno = #{tno},guestname = #{guestname},tel = #{tel},crs = #{crs},xhs = #{xhs},bah = #{bah},state = #{state}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

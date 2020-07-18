@@ -11,11 +11,11 @@ import java.util.List;
 public interface LineviewMapperGB {
     List<Lineview> getViews(String tno);
 
-    List<Lineview> getTno(String views);
+    List<Lineview> getTno(long views);
 
     void updateLineview(String tno, String views, Timestamp ctdae);
 
-    Lineview searchbytnoandviews(String tno,String views);
+    Lineview searchbytnoandviews(String tno,long views);
 
-    void addLineview(String tno,String views);
+    void addLineview(String tno,long views);
 }

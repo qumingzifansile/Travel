@@ -2,6 +2,7 @@ package com.example.dxhdemo.serviceImpl;
 
 import com.example.dxhdemo.bean.Guestyd;
 import com.example.dxhdemo.mapper.GuestydMapper;
+import com.example.dxhdemo.mapper.GuestydMapperGB;
 import com.example.dxhdemo.service.GuestydService;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class GuestydServiceImpl implements GuestydService {
 
     @Resource
     private GuestydMapper guestydMapper;
+
+    @Resource
+    private GuestydMapperGB guestydMapperGB;
 
     @Override
     //检索所有订单
@@ -45,5 +49,9 @@ public class GuestydServiceImpl implements GuestydService {
         guestyd.setState(state);
         guestydMapper.save(guestyd);
         return 1;
+    }
+    @Override
+    public void changeGuestyd(long id, long uid, String tno, String guestname, String tel, int crs, int xhs, String bah, int state) {
+        guestydMapperGB.changeGuestyd(id, uid, tno, guestname, tel, crs, xhs, bah, state);
     }
 }

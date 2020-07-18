@@ -19,4 +19,7 @@ public class MyTimeTools {
         return new Date(timestamp.getTime());
     }
 
+    public String timetoString(String time){
+        return time.replace("-","").replace(" ","").replace(":","").replace(".","");
+    }
 }

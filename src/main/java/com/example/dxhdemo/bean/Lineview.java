@@ -4,7 +4,7 @@ package com.example.dxhdemo.bean;
 public class Lineview {
 
   private String tno;
-  private String views;
+  private long views;
   private java.sql.Timestamp ctdate;
 
 
@@ -17,11 +17,11 @@ public class Lineview {
   }
 
 
-  public String getViews() {
+  public long getViews() {
     return views;
   }
 
-  public void setViews(String views) {
+  public void setViews(long views) {
     this.views = views;
   }
 

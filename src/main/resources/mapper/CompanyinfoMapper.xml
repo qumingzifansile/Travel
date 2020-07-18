@@ -18,11 +18,15 @@
     <update id="update">
         UPDATE companyinfo SET Password = #{Password}, About = #{About}, Title = #{Title}, Description = #{Description},
                                Keywords = #{Keywords}, PhoneNumber = #{PhoneNumber}, Address = #{Address},
-                               RegPhone = #{RegPhone})
+                               RegPhone = #{RegPhone}
         WHERE CompanyID = #{CompanyID}
     </update>
 
     <select id="getMyInfo" resultType="com.example.dxhdemo.bean.Companyinfo">
         SELECT * FROM companyinfo WHERE CompanyID = #{CompanyID}
     </select>
+
+    <delete id="delInfo">
+        DELETE FROM companyinfo WHERE CompanyID = #{CompanyID}
+    </delete>
 </mapper>

@@ -2,124 +2,254 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>layout 订单查询 - Layui</title>
-  <link rel="stylesheet" href="./layui/css/layui.css">
-  <script src="./js/ResetPage.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 订单查询 - Layui</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/head.css">
+    <script src="./js/head.js"></script>
+    <script src="./js/ResetPage.js"></script>
+    <script>
+        window.onload = function () {
+            var ominfo = document.getElementsByClassName("minfo");
+            $ajax({
+                url: "/guest/getGuestInfo",
+                data: "phonenumber=" + localStorage.getItem("tele"),
+                success: function (res, nodes) {
+                    console.log(res);
+                    res = JSON.parse(res);
+                    console.log(res);
+                    ominfo[0].innerHTML = res["name"];
+                    ominfo[1].innerHTML = res["sex"];
+                    ominfo[2].innerHTML = res["email"];
+                    ominfo[3].innerHTML = res["telephone"];
+                    ominfo[4].innerHTML = res["idnumber"];
+                },
+                nodes: null
+            })
+
+            var orbody = document.getElementsByClassName("orbody");
+            $ajax({
+                url: "/guest/searchyd",
+                data: null,
+                success: function (res, nodes) {
+                    if(res){
+                        // console.log(typeof res);
+
+                        res = JSON.parse(res);
+                        for(var i=0;i<res.length;i++){
+                            var newTr = document.createElement("tr");
+                            var newTd1 = document.createElement("td");
+                            var newTd2 = document.createElement("td");
+                            var newTd3 = document.createElement("td");
+                            var newTd4 = document.createElement("td");
+                            var newTd5 = document.createElement("td");
+                            var newTd6 = document.createElement("td");
+                            var newTd7 = document.createElement("td");
+                            var newTd8 = document.createElement("td");
+                            var newTd9 = document.createElement("td");
+
+                            newTd1.innerHTML = res[i]["id"];
+                            newTd2.innerHTML = res[i]["tno"];
+                            newTd3.innerHTML = res[i]["guestname"];
+                            newTd4.innerHTML = res[i]["tel"];
+                            newTd5.innerHTML = res[i]["crs"];
+                            newTd6.innerHTML = res[i]["xhs"];
+                            newTd7.innerHTML = res[i]["ydrq"];
+                            newTd8.innerHTML = res[i]["bah"];
+                            newTd9.innerHTML = res[i]["state"];
+
+                            newTr.appendChild(newTd1);
+                            newTr.appendChild(newTd2);
+                            newTr.appendChild(newTd3);
+                            newTr.appendChild(newTd4);
+                            newTr.appendChild(newTd5);
+                            newTr.appendChild(newTd6);
+                            newTr.appendChild(newTd7);
+                            newTr.appendChild(newTd8);
+                            newTr.appendChild(newTd9);
+
+                            orbody[0].appendChild(newTr);
+                        }
+                    }
+
+                },
+                nodes: null
+            })
+
+
+            var oinfo = document.getElementsByClassName("myinfo");
+            var oOr = document.getElementsByClassName("myorder");
+            var oTa = document.getElementsByClassName("isShow");
+            oinfo[0].onclick = function(){
+                oTa[0].style.display = "block";
+                oTa[1].style.display = "none";
+            }
+            oOr[0].onclick = function(){
+                oTa[1].style.display = "block";
+                oTa[0].style.display = "none";
+            }
+        }
+    </script>
 </head>
 
-<body class="layui-layout-body">
-  <div class="layui-layout layui-layout-admin">
+<div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-      <div class="layui-logo">用户信息</div>
-      <!-- 头部区域（可配合layui已有的水平导航） -->
-      <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="/index">返回首页</a></li>
-      </ul>
-      <ul class="layui-nav layui-layout-right">
-        <li class="layui-nav-item">
-          <a href="javascript:;">
-            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-            名称
-          </a>
-          <!-- <dl class="layui-nav-child">
-            <dd><a href="">基本资料</a></dd>
-            <dd><a href="">安全设置</a></dd>
-          </dl> -->
-        </li>
-        <li class="layui-nav-item"><a href="">退出</a></li>
-      </ul>
+        <header id="header">
+            <div class="head">
+                <div class="hName">当前页面名称</div>
+                <div class="nav">
+                    <ul>
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="">路线浏览</a></li>
+                        <li><a href="">景点浏览</a></li>
+                    </ul>
+                </div>
+
+                <div class="search">
+                    <input type="text" placeholder="search" class="sInput">
+                    <button class="sbtn">搜索</button>
+                </div>
+
+                <div class="userinfo" style="display: block;">
+                    <ul>
+                        <li class="register"><a href="/register">注册</a></li>
+                        <li class="login"><a href="/login">登录</a></li>
+                    </ul>
+                </div>
+                <div class="userinfo" style="display: none;">
+                    <ul>
+                        <img src="" alt="头像" class="avtor">
+                        <dl class="username">管理员
+                            <dd><a href="">修改信息</a></dd>
+                            <dd><a href="">订单查询</a></dd>
+                            <dd><a href="">退出</a></dd>
+                        </dl>
+                    </ul>
+                </div>
+                <div class="userinfo" style="display: none;">
+                    <ul>
+                        <img src="" alt="头像" class="avtor">
+                        <dl class="username">公司
+                            <dd><a href="/company">基础信息</a></dd>
+                            <dd><a href="/company">发布路线</a></dd>
+                            <dd><a href="/company">收到的订单</a></dd>
+                            <dd><a href="/company">退出</a></dd>
+                        </dl>
+                    </ul>
+                </div>
+                <div class="userinfo" style="display: none;">
+                    <ul>
+                        <img src="" alt="头像" class="avtor">
+                        <dl class="username">个人
+                            <dd><a href="/userinfo">修改信息</a></dd>
+                            <dd><a href="/userinfo">订单查询</a></dd>
+                            <dd><a href="/userinfo">退出</a></dd>
+                        </dl>
+                    </ul>
+                </div>
+            </div>
+        </header>
     </div>
 
     <div class="layui-side layui-bg-black">
-      <div class="layui-side-scroll">
-        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-        <ul class="layui-nav layui-nav-tree" lay-filter="test">
-          <li class="layui-nav-item layui-nav-itemed">
-            <a class="" href="javascript:;">我的信息</a>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">我的订单</a>
-          </li>
-        </ul>
-      </div>
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed ">
+                    <a class="myinfo">我的信息</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="myorder">我的订单</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="layui-body">
-      <!-- 内容主体区域 -->
-      <div style="padding: 15px;">
-        <!-- 我的信息 -->
-        <div class="layui-form" style="display: block;">
-          <table class="layui-table">
-            <colgroup>
-              <col width="150">
-              <col width="150">
-              <col width="200">
-              <col>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>人物</th>
-                <th>民族</th>
-                <th>出场时间</th>
-                <th>格言</th>
-              </tr> 
-            </thead>
-            <tbody>
-              <tr>
-                <td>贤心</td>
-                <td>汉族</td>
-                <td>1989-10-14</td>
-                <td>人生似修行</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <!-- 我的信息 -->
+            <div class="layui-form isShow" style="display: block;">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="150">
+                        <col width="150">
+                    </colgroup>
+                    <tr>
+                        <th>用户登录名</th>
+                        <th class="minfo"></th>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td class="minfo"></td>
+                    </tr>
+                    <tr>
+                        <td>邮箱</td>
+                        <td class="minfo"></td>
+                    </tr>
+                    <tr>
+                        <td>联系电话</td>
+                        <td class="minfo"></td>
+                    </tr>
+                    <tr>
+                        <td>身份证号</td>
+                        <td class="minfo"></td>
+                    </tr>
+                    >
+                </table>
+            </div>
 
-        <!-- 我的订单 -->
-        <div class="layui-form" style="display: none;">
-          <table class="layui-table">
-            <colgroup>
-              <col width="150">
-              <col width="150">
-              <col width="200">
-              <col>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>订单编号</th>
-                <th>名称</th>
-                <th>日期</th>
-                <th>是否完成</th>
-              </tr> 
-            </thead>
-            <tbody>
-              <tr>
-                <td>001</td>
-                <td>xxx一日</td>
-                <td>1989-10-14</td>
-                <td>是</td>
-              </tr>
-            </tbody>
-          </table>
+
+
+            <!-- 我的订单 -->
+            <div class="layui-form isShow" style="display: none;">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="100">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>旅行团号</th>
+                        <th>真实姓名</th>
+                        <th>联系电话</th>
+                        <th>成人人数</th>
+                        <th>儿童人数</th>
+                        <th>预定日期</th>
+                        <th>备注</th>
+                        <th>订单状态</th>
+                    </tr>
+                    </thead>
+                    <tbody class="orbody">
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
     </div>
 
     <div class="layui-footer">
-      <!-- 底部固定区域 -->
-      © layui.com - 底部固定区域
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
     </div>
-  </div>
-  <script src="../src/layui.js"></script>
-  <script>
+</div>
+
+<script src="./layui/layui.js"></script>
+<script>
     //JavaScript代码区域
     layui.use('element', function () {
-      var element = layui.element;
+        var element = layui.element;
 
     });
-  </script>
+</script>
 </body>
 
 </html>

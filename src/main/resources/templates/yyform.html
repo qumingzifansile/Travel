@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+
+<form class="layui-form layui-form-pane"  lay-filter="example" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" lay-verify="required" placeholder="请输入联系电话" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">成人人数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="num1" lay-verify="required" placeholder="请输入成人人数" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">儿童人数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="num2" lay-verify="required" placeholder="请输入儿童人数" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea name="bz" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <button class="layui-btn" id="LAY-component-form-getval" lay-submit="" lay-filter="demo2">提交</button>
+    </div>
+</form>
+
+<script src="./js/AJAX.js"></script>
+<script src="./layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            username: function(value){
+                if(value.length == 0){
+                    return '用户名不能为空';
+                }
+            }
+            /*,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }*/
+        });
+
+        //监听提交
+        form.on('submit(demo2)', function(data){
+            return false;
+        });
+        layui.$('#LAY-component-form-getval').on('click', function(){
+            var data = form.val('example');
+            var id = localStorage.getItem("lineId");
+            var fdata = "tno="+id +"&" + "guestname="+data.username +"&" + "tel="+data.phone +"&" + "crs="+data.num1+"&" + "xhs="+data.num2+"&" + "bah="+data.bz;
+            console.log(fdata);
+            $ajax({
+                url:"/guest/yd",
+                data:fdata,
+                success:function(res,nodes){
+                    if(res){
+                        alert("预约成功");
+                    }else{
+                        alert("预约失败");
+                    }
+                    location.assign("/detail");
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

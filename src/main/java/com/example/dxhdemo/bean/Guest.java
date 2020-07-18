@@ -15,6 +15,7 @@ public class Guest {
     private String email;
     private String telephone;
     private String idnumber;
+    private String address;
 
 
     public long getGuestId() {
@@ -79,4 +80,11 @@ public class Guest {
         this.idnumber = idnumber;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

@@ -2,10 +2,7 @@ package com.example.dxhdemo.controller;
 
 
 import com.example.dxhdemo.bean.*;
-import com.example.dxhdemo.service.GuestService;
-import com.example.dxhdemo.service.InfoService;
-import com.example.dxhdemo.service.LineService;
-import com.example.dxhdemo.service.LineServiceGB;
+import com.example.dxhdemo.service.*;
 import com.example.dxhdemo.tools.MyTimeTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
@@ -25,6 +22,9 @@ public class GuestController {
     private GuestService guestService;
 
     @Resource
+    private UserService userService;
+
+    @Resource
     private InfoService infoService;
 
     @Resource
@@ -33,6 +33,15 @@ public class GuestController {
     private long GuestID = -1;
 
     private Guest guest;
+
+
+    //用户信息查询
+    @RequestMapping("/guest/getGuestInfo")
+    public Guest getGuestInfo(@RequestParam("phonenumber")String phonenumber){
+        Guest guest = userService.getGuestInfo(phonenumber);
+        return guest;
+    }
+
 
     //用户登录
     @RequestMapping("/guest/login")
@@ -97,9 +106,10 @@ public class GuestController {
     @RequestMapping("/guest/update")
     public int updateguest(@RequestParam("name") String name, @RequestParam("pass") String pass,
                            @RequestParam("sex") String sex, @RequestParam("email") String email,
-                           @RequestParam("telephone") String telephone, @RequestParam("idnumber") String idnumber){
+                           @RequestParam("telephone") String telephone, @RequestParam("idnumber") String idnumber,
+                           @RequestParam("address") String address){
         if (GuestID!=-1){
-            guestService.guestupdate(GuestID, name, pass, sex, email, telephone, idnumber);
+            guestService.guestupdate(GuestID, name, pass, sex, email, telephone, idnumber,address);
             return 1;
         }else
             return 0;

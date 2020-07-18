@@ -84,7 +84,7 @@
         table.render({
             elem: '#demo'
             ,height: 468
-            ,url:'/admin/getAllLines'
+            ,url:'/company/searchline'
             ,page: true
             ,cellMinWidth: 80
             ,cols: [
@@ -98,7 +98,7 @@
                     ,{field: 'travelName', title: '旅行社名称',width: 100}
                     ,{field: 'xldate', title: '出团日期',minWidth : 250, sort: true}
                     ,{field: 'ts', title: '天数', sort: true,width: 70}
-                    ,{field: 'state',title: '线路状态',sort: true,templet:'#stateTpl',width: 100}
+                    ,{field: 'status',title: '停收状态',sort: true,templet:'#stateTpl',width: 100}
                     ,{fixed: 'right',title: '操作',toolbar: '#barDemo',align:'center',minWidth : 200}
                 ]
             ]
@@ -137,10 +137,10 @@
 </script>
 
 <script type="text/html" id="stateTpl">
-    {{#  if(d.state === 0){ }}
-    <span style="color: red;">{{ d.state = '已经删除' }}</span>
+    {{#  if(d.state === '0'){ }}
+    <span style="color: red;">{{ d.state = '停止' }}</span>
     {{#  } else { }}
-    {{ d.state = '正常存在' }}
+    {{ d.state = '允许' }}
     {{#  } }}
 </script>
 
@@ -151,41 +151,41 @@
 </script>
 
 <body class="layui-layout-body">
-    <div class = "layui-layout layui-layout-admin">
-        <div class="layui-header" style="background-color: #23262E;">
-            <div class="layui-logo">This is 高博</div>
-            <ul class="layui-nav layui-layout-right" style="background-color: #23262E;">
-                <li class="layui-nav-item" lay-unselect="">
-                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">爷是管理员</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">溜了溜了</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
+<div class = "layui-layout layui-layout-admin">
+    <div class="layui-header" style="background-color: #23262E;">
+        <div class="layui-logo">This is 高博</div>
+        <ul class="layui-nav layui-layout-right" style="background-color: #23262E;">
+            <li class="layui-nav-item" lay-unselect="">
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">爷是管理员</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">溜了溜了</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item  layui-this"><a href="/adminlines">线路管理</a></li>
-                    <li class="layui-nav-item"><a href="/adminviews">景点管理</a></li>
-                    <li class="layui-nav-item"><a href="/adminguestyd">订单管理</a></li>
-                    <li class="layui-nav-item"><a href="/admininfo">个人信息查询</a></li>
-                    <li class="layui-nav-item"><a href="/adminguestbook">留言管理</a></li>
+                    <li class="layui-nav-item"><a href="">个人信息</a></li>
+                    <li class="layui-nav-item  layui-this"><a href="/adminviews">发布线路</a></li>
+                    <li class="layui-nav-item "><a href="/adminviews">发布线路查询</a></li>
                     <span class="layui-nav-bar" style="top: 22.5px; height: 0; opacity: 0;"></span></ul>
             </div>
         </div>
-
-        <div class = "layui-body" style="padding-left: 20px;padding-right: 20px;padding-bottom: 30px;">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                <legend>线路记录</legend>
-            </fieldset>
-            <blockquote class="layui-elem-quote layui-quote-nm">
-                提示：这里是所有线路的记录，包括已经结束和尚未结束。
-            </blockquote>
-            <table class="layui-table" id="demo" lay-filter="demo"></table>
-        </div>
     </div>
+
+    <div class = "layui-body" style="padding-left: 20px;padding-right: 20px;padding-bottom: 30px;">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>线路记录</legend>
+        </fieldset>
+        <blockquote class="layui-elem-quote layui-quote-nm">
+            提示：这里是所有线路的记录，包括已经结束和尚未结束。
+        </blockquote>
+        <table class="layui-table" id="demo" lay-filter="demo"></table>
+    </div>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,103 @@
+#header{
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 18px;
+    background-color: #23262E;
+    color: #cccccc;
+}
+#header .head{
+    width: 98%;
+    height: 100%;
+    margin:0 10px;
+}
+.head .hName{
+    width: 10%;
+    height: 100%;
+    float: left;
+}
+.head .nav{
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+.head .search{
+    width: 40%;
+    height: 100%;
+    float: left;
+}
+.head .userinfo{
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+.nav ul li a{
+    width: 33%;
+    height: 100%;
+    float: left;
+    color: #cccccc;
+}
+.search .sInput{
+    height: 40%;
+    width: 75%;
+    margin-top:18px;
+    margin-left:25px;
+    float: left;
+}
+.search .sbtn{
+    height: 46%;
+    width: 15%;
+    background: #33ABA0;
+    color: white;
+    border: 1px solid #33ABA0;
+    margin-top:18px;
+    float: left;    
+    cursor: pointer;
+}
+.search .sbtn:active{
+    background: #009688;
+    border: 1px solid #009688;
+}
+.userinfo ul li{
+    width: 30%;
+    height: 100%;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+}
+.register a{
+    color: #cccccc;
+}
+.login a{
+    color: #cccccc;
+}
+.userinfo .avtor{
+    width: 70px;
+    height: 100%;
+    float: right;
+    margin-right: 20px;
+}
+.userinfo .username{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.userinfo dl{
+    border: 1px solid  #23262E;
+    z-index: 5;
+}
+.username dd{
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    z-index: 5;
+    display: none;
+    background: orangered;
+}
+.username dd:hover{
+    text-decoration: underline;
+    background: #cccccc;
+}
+.username dd a{
+    line-height: 20px;
+}

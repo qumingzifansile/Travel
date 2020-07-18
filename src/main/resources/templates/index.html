@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
     <link rel="stylesheet" href="./css/cssReset.css">
-    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/head.css">
     <link rel="stylesheet" href="./css/footer.css">
     <style>
         /* section */
@@ -230,51 +230,89 @@
         }
     </style>
 
-    <script src="./js/header.js"></script>
+    <script src="./js/head.js"></script>
     <script src="./js/AJAX.js"></script>
-    <script src="../static/js/ResetPage.js"></script>
+    <script src="./js/ResetPage.js"></script>
     <script>
         window.onload = function () {
             //初始化页面头部样式
             headerReset();
 
-            //加载线路信息
+            //路线节点
             var oRoute = document.getElementsByClassName("routeItem");
-            var data1 = $reset({
-                furl:"",
-                fdata:""
-            })
-
-            //加载线路图片
+            //路线对应的图片
             var oRouteImg = document.getElementsByClassName("routeImg");
-            var data2 = $reset({
-                furl:"",
-                fdata:""
-            })
-
-            //加载左导航图片
+            //
             var oLands = document.getElementsByClassName("lands");
-            var data3 = $reset({
-                furl:"",
-                fdata:""
-            })
-
-            //加载内容信息
             //获取所有内容节点
             var oContent = document.getElementsByClassName("content");
+            var oNavCtrs = [];
             var oConNavs = [];
             var oConItemCtrs = [];
             for (let i = 0; i < oContent.length; i++) {
+                //获取当前内容节点下的所有的内容导航容器节点（conNavCtr）
+                oNavCtrs[i] = oContent[i].getElementsByClassName("conNavCtr");
                 //获取当前内容节点下的所有的内容导航节点（conNav）
                 oConNavs[i] = oContent[i].getElementsByClassName("conNav");
                 //获取当前内容节点下的所有内容项目容器（conItemCtr）
                 oConItemCtrs[i] = oContent[i].getElementsByClassName("conItemCtr");
             }
-            // for(let i=0; )
-            var data4 = $reset({
-                furl:"",
-                fdata:"",
-            })
+
+            /*$ajax({
+                url:"/admin/getAllLines",
+                data:"",
+                success:function(res,nodes){
+                    res = JSON.parse(res);
+                    var max = null;
+                    //最多显示5条路线
+                    max = Math.max(5,res.length);
+
+                    //加载线路信息和对应的图片
+                    for(var i=0;i<max;i++){
+                        oRoute[i].innerHTML = res[i]["xlname"];
+                        oRouteImg[i].src = res[i]["tp1js"];
+                    }
+
+                    //加载地区以及对应地区线路
+                    for(var i=0;i<2;i++){
+                        oConNavs[0][i].innerHTML = res[i]["ddd"];
+                    }
+
+                    $ajax({
+                        url:"/admin/getAllViews",
+                        data:"",
+                        success:function(res,nodes){
+                            alert(res);
+                            alert(res.length);
+                        },
+                        nodes:null
+                    })
+                    var oA = oConItemCtrs[0][i].getElementsByTagName("a");
+                    oA.lineId = res[i]["id"];
+                    var oIg = oConItemCtrs[0][i].getElementsByTagName("img");
+                    oIg.src = res[i]["tp1js"];
+
+                },
+                nodes:null
+            })*/
+
+            /*var landsdata = $ajax({
+                url:"/admin/getAllViews",
+                data:"",
+                success:function(res,nodes){
+                    alert(res);
+                    alert(res.length);
+                },
+                nodes:null
+            })*/
+
+
+            //加载左导航图片
+
+
+
+            //加载内容信息
+
 
             /* //存储景点导航选择的景点
             var landSelected = null; */
@@ -302,7 +340,6 @@
                     oRouteInfo[i].style.display = "none";
                 }
             }
-
 
 
             //左侧景点选项元素
@@ -345,16 +382,54 @@
             var oMsg = document.getElementsByClassName("msg");
             var oIsBtn = document.getElementsByClassName("issue");
             var oSArea = document.getElementsByClassName("showArea");
+            var ocomments = oSArea[0].getElementsByClassName("oVersion");
+            //清空缓存留言区
+            for (var i=0; i<ocomments.length; i++){
+                oSArea[0].removeChild(ocomments[i]);
+            }
+            //加载留言
+            $ajax({
+                url:"/guest/getallbook",
+                data:null,
+                success:function(res,nodes){
+                    res = JSON.parse(res);
+                    console.log(res);
+                    for(var i=0; i<res.length ;i++){
+                        //创建新节点
+                        var newComment = document.createElement("div");
+                        //设置新节点样式、内容
+                        var username = res[0]["name"];
+                        newComment.innerHTML = username + ":" + res[0]["content"];
+                        newComment.className ="oVersion";
+                        //将新节点插入到评论展示界面
+                        oSArea[0].appendChild(newComment);
+                    }
+                },
+                nodes:null
+            })
+
             oIsBtn[0].onclick = function () {
                 //获取评论内容
                 var txt = oMsg[0].value;
                 //创建新节点
                 var newComment = document.createElement("div");
                 //设置新节点样式、内容
-                newComment.innerHTML = txt;
-                newComment.className = "oVersion";
+                var username = localStorage.getItem("username");
+                newComment.innerHTML = username + ":" + txt;
+                newComment.className ="oVersion";
                 //将新节点插入到评论展示界面
                 oSArea[0].appendChild(newComment);
+                //将评论存入到数据库
+                $ajax({
+                    url:"/guest/book",
+                    data:"title="+null+"&email="+null+"&tel="+null+"&name="+username+"&addr="+null+"&content="+txt,
+                    success:function(res,nodes){
+                        if(res){
+                            console.log("发布成功");
+                        }
+                    },
+                    nodes:null
+                })
                 //清空评论输入框
                 oMsg[0].value = "";
             }
@@ -364,34 +439,58 @@
 
 <body>
 <header id="header">
-    <img src="./img/01.png" alt="" class="banner">
     <div class="head">
-        <div class="userinfo">
+        <div class="hName">This is 高博</div>
+        <div class="nav">
             <ul>
-                <li class="login">登录</li>
-                <li class="register">注册</li>
-                <li class="order">我的订单</li>
+                <li><a href="/index">首页</a></li>
+                <li><a href="">路线浏览</a></li>
+                <li><a href="">景点浏览</a></li>
             </ul>
         </div>
-        <form action="/result" method="get" class="search">
+
+        <div class="search">
             <input type="text" placeholder="search" class="sInput">
             <button class="sbtn">搜索</button>
-            <!-- <img class="sicon" src="./img/02.png" alt=""> -->
-        </form>
-    </div>
-    <div class="menu">
-        <ul>
-            <li><a href="/index">首页</a></li>
-            <li><a href="#">特卖优惠</a></li>
-            <li><a href="#">国内</a></li>
-            <li><a href="#">出境</a></li>
-            <li><a href="#">港澳</a></li>
-            <li><a href="#">自由行</a></li>
-            <li><a href="#">签证</a></li>
-            <li><a href="#">游轮</a></li>
-            <li><a href="#">包团定制</a></li>
-            <li><a href="#">合伙人招募</a></li>
-        </ul>
+        </div>
+
+        <div class="userinfo" style="display: block;">
+            <ul>
+                <li class="register"><a href="/register">注册</a></li>
+                <li class="login"><a href="/login">登录</a></li>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">管理员
+                    <dd><a href="">修改信息</a></dd>
+                    <dd><a href="">订单查询</a></dd>
+                    <dd><a href="">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">公司
+                    <dd><a href="/company">基础信息</a></dd>
+                    <dd><a href="/company">发布路线</a></dd>
+                    <dd><a href="/company">收到的订单</a></dd>
+                    <dd><a href="/company">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">个人
+                    <dd><a href="/userinfo">修改信息</a></dd>
+                    <dd><a href="/userinfo">订单查询</a></dd>
+                    <dd><a href="/userinfo">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
     </div>
 </header>
 
@@ -438,7 +537,7 @@
                             <li class="landItem">更多</li>
                         </ul>
                     </div> -->
-                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <a name="lines" href="#"><img src="./img/01.png" alt="" class="lands"></a>
                 <div class="content">
                     <div class="conNavCtr">
                         <span class="conNav">地区1</span>
@@ -480,7 +579,7 @@
                             <li class="landItem">更多</li>
                         </ul>
                     </div> -->
-                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <a name="lands" href="#"><img src="./img/01.png" alt="" class="lands"></a>
                 <div class="content">
                     <div class="conNavCtr">
                         <span class="conNav">地区1</span>

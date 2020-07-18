@@ -4,102 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录</title>
+    <link rel="stylesheet" href="./css/head.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/cssReset.css">
     <style>
         /* form */
-        #register{
+        #register {
             width: 400px;
             height: 430px;
-            margin:50px auto;
-            border:1px solid black;
-            text-align:center;
+            margin: 50px auto;
+            border: 1px solid black;
+            text-align: center;
         }
-        #register .title{
+
+        #register .title {
             height: 30px;
             font-size: 28px;
-            text-align:center;
-            margin-top:30px;
+            text-align: center;
+            margin-top: 30px;
         }
-        #register .selection{
+
+        #register .selection {
             height: 30px;
             margin-bottom: -20px;
         }
-        #register .selection input{
+
+        #register .selection input {
             width: 15%;
             height: 20px;
         }
-        #register div{
+
+        #register div {
             width: 80%;
             height: 70px;
             margin: 30px auto;
         }
-        #register .prompt{
+
+        #register .prompt {
             float: left;
             font-size: 22px;
         }
-        #register input{
+
+        #register input {
             width: 100%;
             height: 30px;
         }
-        #register .warn{
+
+        #register .warn {
             font-size: 18px;
         }
-        #register .rBtn{
+
+        #register .rBtn {
             width: 80%;
             height: 40px;
-            margin:10px 40px 0;
+            margin: 10px 40px 0;
         }
-        #register .login{
+
+        #register .login {
             font-size: 18px;
             color: blue;
             cursor: pointer;
         }
-        #register .login:hover{
+
+        #register .login:hover {
             text-decoration: underline;
         }
     </style>
+    <script src="./js/head.js"></script>
     <script src="./js/ResetPage.js"></script>
     <script>
-        window.onload = function(){
+        window.onload = function () {
             //获取注册元素节点
             var oLog = document.getElementsByClassName("login");
             //添加跳转事件
-            oLog[0].onclick = function(){
+            oLog[0].onclick = function () {
                 window.location.assign("/login");
             }
 
             //获取注册按钮
             var oBtn = document.getElementsByClassName("rBtn");
             var oform = document.getElementById("register");
-            oBtn[0].onclick = function(){
-                //处理注册逻辑
-                oform.submit();
+            var oAccount = document.getElementsByClassName("account");
+            var oUserType = document.getElementsByClassName("userType");
+            oBtn[0].onclick = function () {
+                var txt = oAccount[0].value;
+                if (txt != "") {
+                    var isTrue = window.confirm("请问是否要进行注册?");
+                    if (isTrue) {
+                        var userType = null;
+                        for (var j = 0; j < oUserType; j++) {
+                            if (oUserType[j].checked) {
+                                userType = oUserType[j].value;
+                                break;
+                            }
+                        }
+                        alert(userType);
+                        //将用户保存到数据库
+                        localStorage.setItem("username", txt);
+                        location.assign("/index");
+                    }
+                }
             }
         }
     </script>
 </head>
 <body>
-    
-    <section>
-        <form name="register" action="/index" id="register">
-            <div class="title">注册</div>
-            <div class="selection">
-                <input type="radio" name="userType" checked>个人
-                <input type="radio" name="userType">公司
+
+<header id="header">
+    <div class="head">
+        <div class="hName">当前页面名称</div>
+        <div class="nav">
+            <ul>
+                <li><a href="/index">首页</a></li>
+                <li><a href="">路线浏览</a></li>
+                <li><a href="">景点浏览</a></li>
+            </ul>
+        </div>
+
+        <div class="search">
+            <input type="text" placeholder="search" class="sInput">
+            <button class="sbtn">搜索</button>
+        </div>
+
+        <div class="userinfo" style="display: block;">
+            <ul>
+                <li class="register"><a href="/register">注册</a></li>
+                <li class="login"><a href="/login">登录</a></li>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">管理员
+                    <dd><a href="">修改信息</a></dd>
+                    <dd><a href="">订单查询</a></dd>
+                    <dd><a href="">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">公司
+                    <dd><a href="/company">基础信息</a></dd>
+                    <dd><a href="/company">发布路线</a></dd>
+                    <dd><a href="/company">收到的订单</a></dd>
+                    <dd><a href="/company">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">个人
+                    <dd><a href="/userinfo">修改信息</a></dd>
+                    <dd><a href="/userinfo">订单查询</a></dd>
+                    <dd><a href="/userinfo">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<section>
+    <div name="register" action="/index" id="register">
+        <div class="title">注册</div>
+        <div class="selection">
+            <input type="radio" name="userType" class="userType" checked>个人
+            <input type="radio" name="userType" class="userType">公司
+        </div>
+        <div class="accCtr">
+            <span class="prompt">手机号码</span>
+            <input type="text" placeholder="请输入手机号码" class="account">
+            <span class="warn"></span>
+        </div>
+        <div class="pasCtr">
+            <span class="prompt">验证码</span>
+            <input type="password" placeholder="请输入密码" class="password">
+            <span class="warn"></span>
+        </div>
+        <button class="rBtn">注册</button>
+        <span class="login">立即登录</span>
+    </div>
+</section>
+
+<footer id="footer">
+    <ul class="companys">
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
             </div>
-            <div class="accCtr">
-                <span class="prompt">手机号码</span>
-                <input type="text" placeholder="请输入手机号码" class="account">
-                <span class="warn"></span>
+        </li>
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
             </div>
-            <div class="pasCtr">
-                <span class="prompt">验证码</span>
-                <input type="password" placeholder="请输入密码" class="password">
-                <span class="warn"></span>
-            </div>
-            <button class="rBtn">注册</button>
-            <span class="login">立即登录</span>
-        </form>
-    </section>
+        </li>
+    </ul>
+</footer>
 </body>
 </html>

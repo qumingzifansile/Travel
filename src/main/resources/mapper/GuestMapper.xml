@@ -11,8 +11,17 @@
     </insert>
 
     <update id="update">
-        UPDATE guest SET name = #{name}, pass = #{pass}, sex = #{sex}, email = #{email}, telephone = #{telephone}, idnumber = #{idnumber}
+        UPDATE guest SET name = #{name}, pass = #{pass}, sex = #{sex}, email = #{email}, telephone = #{telephone}, idnumber = #{idnumber},
+                         address = #{address}
         WHERE GuestID = #{GuestID}
     </update>
+
+    <select id="getall" resultType="com.example.dxhdemo.bean.Guest">
+        SELECT * FROM guest
+    </select>
+
+    <delete id="delguest">
+        DELETE FROM guest WHERE GuestID = #{GuestID}
+    </delete>
 
 </mapper>

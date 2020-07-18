@@ -1,16 +1,22 @@
 /* header */
 #header{
-    height: 160px;
+    height: 100px;
+    background: #23262E;
 }
-#header .banner{
+/* #header .banner{
     width: 20%;
     height: 100px;
     float: left;
-}
-.head{
+} */
+/* .head{
     width: 80%;
     height: 100px;
     float: right;
+} */
+.head{
+    width: 96%;
+    height: 100%;
+    margin: 0 auto;
 }
 /* user */
 .head .userinfo{

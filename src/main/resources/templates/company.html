@@ -6,44 +6,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>layout 订单查询 - Layui</title>
   <link rel="stylesheet" href="./layui/css/layui.css">
+  <link rel="stylesheet" href="./css/head.css">
   <script src="./js/ResetPage.js"></script>
+  <script src="./js/head.js"></script>
+
+  <script>
+    window.onload = function(){
+      var oNavA = document.getElementsByClassName("navA");
+      for(let i=0; i<oNavA.length; i++){
+        oNavA[i].onclick = function(){
+          var oShow = document.getElementsByClassName("layui-form1");
+          for(var j=0; j<oShow.length ;j++){
+            oShow[j].style.display = "none";
+          }
+          oShow[i].style.display = "block";
+          if(i==0){
+            $ajax({
+              url:"/company/getinfo",
+              data:null,
+              success:function(res,nodes){
+                alert(res);
+              },
+              nodes:null
+            })
+          }
+        }
+      }
+    }
+  </script>
 </head>
 
 <body class="layui-layout-body">
   <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-      <div class="layui-logo">用户信息</div>
-      <!-- 头部区域（可配合layui已有的水平导航） -->
-      <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="/index">返回首页</a></li>
-      </ul>
-      <ul class="layui-nav layui-layout-right">
-        <li class="layui-nav-item">
-          <a href="javascript:;">
-            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-            名称
-          </a>
-          <!-- <dl class="layui-nav-child">
-            <dd><a href="">基本资料</a></dd>
-            <dd><a href="">安全设置</a></dd>
-          </dl> -->
-        </li>
-        <li class="layui-nav-item"><a href="">退出</a></li>
-      </ul>
-    </div>
+    <header id="header">
+      <div class="head">
+        <div class="hName">当前页面名称</div>
+        <div class="nav">
+          <ul>
+            <li><a href="/index">首页</a></li>
+            <li><a href="">路线浏览</a></li>
+            <li><a href="">景点浏览</a></li>
+          </ul>
+        </div>
+
+        <div class="search">
+          <input type="text" placeholder="search" class="sInput">
+          <button class="sbtn">搜索</button>
+        </div>
+
+        <div class="userinfo" style="display: block;">
+          <ul>
+            <li class="register"><a href="/register">注册</a></li>
+            <li class="login"><a href="/login">登录</a></li>
+          </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+          <ul>
+            <img src="" alt="头像" class="avtor">
+            <dl class="username">管理员
+              <dd><a href="">修改信息</a></dd>
+              <dd><a href="">订单查询</a></dd>
+              <dd><a href="">退出</a></dd>
+            </dl>
+          </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+          <ul>
+            <img src="" alt="头像" class="avtor">
+            <dl class="username">公司
+              <dd><a href="/company">基础信息</a></dd>
+              <dd><a href="/company">发布路线</a></dd>
+              <dd><a href="/company">收到的订单</a></dd>
+              <dd><a href="/company">退出</a></dd>
+            </dl>
+          </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+          <ul>
+            <img src="" alt="头像" class="avtor">
+            <dl class="username">个人
+              <dd><a href="/userinfo">修改信息</a></dd>
+              <dd><a href="/userinfo">订单查询</a></dd>
+              <dd><a href="/userinfo">退出</a></dd>
+            </dl>
+          </ul>
+        </div>
+      </div>
+    </header>
 
     <div class="layui-side layui-bg-black">
       <div class="layui-side-scroll">
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
           <li class="layui-nav-item layui-nav-itemed">
-            <a class="" href="javascript:;">我的信息</a>
+            <a class="navA">我的信息</a>
           </li>
           <li class="layui-nav-item">
-            <a href="javascript:;">我的订单</a>
+            <a class="navA">我的订单</a>
           </li>
           <li class="layui-nav-item">
-            <a href="javascript:;">发布线路</a>
+            <a class="navA">发布线路</a>
           </li>
         </ul>
       </div>
@@ -53,265 +115,291 @@
       <!-- 内容主体区域 -->
       <div style="padding: 15px;">
         <!-- 我的信息 -->
-        <div class="layui-form" style="display: none;">
+        <div class="layui-form1" style="display: block;">
           <table class="layui-table">
             <colgroup>
               <col width="150">
               <col width="150">
-              <col width="200">
-              <col>
             </colgroup>
-            <thead>
-              <tr>
-                <th>人物</th>
-                <th>民族</th>
-                <th>出场时间</th>
-                <th>格言</th>
-              </tr> 
-            </thead>
-            <tbody>
-              <tr>
-                <td>贤心</td>
-                <td>汉族</td>
-                <td>1989-10-14</td>
-                <td>人生似修行</td>
-              </tr>
-            </tbody>
+            <tr class="cmpinfo">
+              <th>公司名</th>
+              <th class="cmpitem"></th>
+            </tr>
+            <tr class="cmpinfo">
+              <th>公司简介</th>
+              <th class="cmpitem"></th>
+            </tr>
+            <tr class="cmpinfo">
+              <td>关于公司</td>
+              <td class="cmpitem"></td>
+            </tr>
+            <tr class="cmpinfo">
+              <td>公司许可证号</td>
+              <td class="cmpitem"></td>
+            </tr>
+            <tr class="cmpinfo">
+              <td>联系方式</td>
+              <td class="cmpitem"></td>
+            </tr>
+            <tr class="cmpinfo">
+              <td>联系地址</td>
+              <td class="cmpitem"></td>
+            </tr>
           </table>
         </div>
+        <script>
+          window.onload = function(){
+            var oCmp = document.getElementsByClassName("cmpitem");
+            $ajax({
+              url:"/company/getinfo",
+              data:null,
+              success:function(res,nodes){
+                res = JSON.parse(res);
+                console.log(res);
+                oCmp[0].innerHTML = res["title"];
+                oCmp[1].innerHTML = res["description"];
+                oCmp[2].innerHTML = res["about"];
+                oCmp[3].innerHTML = res["keywords"];
+                oCmp[4].innerHTML = res["phoneNumber"];
+                oCmp[5].innerHTML = res["address"];
+              },
+              nodes:null
+            })
+          }
+        </script>
 
-        <!-- 我的订单 -->
-        <div class="layui-form" style="display: none;">
+
+        <!-- 路线信息 -->
+        <div class="layui-form1" style="display: none;">
           <table class="layui-table">
             <colgroup>
               <col width="150">
               <col width="150">
-              <col width="200">
-              <col>
             </colgroup>
-            <thead>
-              <tr>
-                <th>订单编号</th>
-                <th>名称</th>
-                <th>日期</th>
-                <th>是否完成</th>
-              </tr> 
-            </thead>
+            <tr class="lineinfo">
+              <th>公司名</th>
+              <th class=""></th>
+            </tr>
             <tbody>
-              <tr>
-                <td>001</td>
-                <td>xxx一日</td>
-                <td>1989-10-14</td>
-                <td>是</td>
-              </tr>
+            <tr class="lineinfo">
+              <td>公司简介</td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </div>
 
         <!-- 发布线路 -->
-        <form class="layui-form layui-form-pane" action="">
+        <div class="layui-form1" style="display: none;">
+          <form class="layui-form layui-form-pane" lay-filter="example" action="">
 
-          <!-- 路线名称 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">线路名称</label>
-            <div class="layui-input-block">
-              <input type="text" name="title" autocomplete="off" placeholder="请输入线路名称" class="layui-input">
-            </div>
-          </div>
-          
-          <!-- 出团日期 -->
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">出团日期</label>
-              <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-mid">-</div>
-              <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input">
+            <!-- 路线名称 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">线路名称</label>
+              <div class="layui-input-block">
+                <input type="text" name="xlname" autocomplete="off" placeholder="请输入线路名称" class="layui-input">
               </div>
             </div>
-          </div>
 
-          <!-- 天数 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">持续天数</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入天数" autocomplete="off" class="layui-input">
+            <!-- 出团日期 -->
+            <div class="layui-form-item">
+              <div class="layui-inline">
+                <label class="layui-form-label">出团日期</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                  <input type="text" name="xldate" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- 总人数 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">总人数</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入总人数" autocomplete="off" class="layui-input">
+            <!-- 天数 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">持续天数</label>
+              <div class="layui-input-inline">
+                <input type="text" name="ts" lay-verify="required" placeholder="请输入天数" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 地接社 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">地接社</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入地接社" autocomplete="off" class="layui-input">
+            <!-- 总人数 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">总人数</label>
+              <div class="layui-input-inline">
+                <input type="text" name="zrs" lay-verify="required" placeholder="请输入总人数" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 全陪 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">全陪</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入全陪" autocomplete="off" class="layui-input">
+            <!-- 地接社 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">地接社</label>
+              <div class="layui-input-inline">
+                <input type="text" name="dijie" lay-verify="required" placeholder="请输入地接社" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 地陪 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">地陪</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入地陪" autocomplete="off" class="layui-input">
+            <!-- 全陪 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">全陪</label>
+              <div class="layui-input-inline">
+                <input type="text" name="qp" lay-verify="required" placeholder="请输入全陪" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 出发交通 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">出发交通</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入出发交通" autocomplete="off" class="layui-input">
+            <!-- 地陪 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">地陪</label>
+              <div class="layui-input-inline">
+                <input type="text" name="dp" lay-verify="required" placeholder="请输入地陪" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 集合地点 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">集合地点</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入集合地点" autocomplete="off" class="layui-input">
+            <!-- 出发交通 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">出发交通</label>
+              <div class="layui-input-inline">
+                <input type="text" name="start" lay-verify="required" placeholder="请输入出发交通" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 送站 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">送站</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入送站" autocomplete="off" class="layui-input">
+            <!-- 集合地点 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">集合地点</label>
+              <div class="layui-input-inline">
+                <input type="text" name="jzd" lay-verify="required" placeholder="请输入集合地点" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 返程交通 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">返程交通</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入返程交通" autocomplete="off" class="layui-input">
+            <!-- 送站 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">送站</label>
+              <div class="layui-input-inline">
+                <input type="text" name="sz" lay-verify="required" placeholder="请输入送站" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 接站电话 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">接站电话</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入接站电话" autocomplete="off" class="layui-input">
+            <!-- 返程交通 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">返程交通</label>
+              <div class="layui-input-inline">
+                <input type="text" name="fc" lay-verify="required" placeholder="请输入返程交通" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 出发地点 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">出发地点</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入出发地点" autocomplete="off" class="layui-input">
+            <!-- 接站电话 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">接站电话</label>
+              <div class="layui-input-inline">
+                <input type="text" name="jz" lay-verify="required" placeholder="请输入接站电话" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 抵达地点 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">抵达地点</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入抵达地点" autocomplete="off" class="layui-input">
+            <!-- 出发地点 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">出发地点</label>
+              <div class="layui-input-inline">
+                <input type="text" name="cfd" lay-verify="required" placeholder="请输入出发地点" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 成人人数 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">成人人数</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入成人人数" autocomplete="off" class="layui-input">
+            <!-- 抵达地点 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">抵达地点</label>
+              <div class="layui-input-inline">
+                <input type="text" name="ddd" lay-verify="required" placeholder="请输入抵达地点" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 儿童人数 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">儿童人数</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入儿童人数" autocomplete="off" class="layui-input">
+            <!-- 成人人数 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">成人人数</label>
+              <div class="layui-input-inline">
+                <input type="text" name="crxrs" lay-verify="required" placeholder="请输入成人人数" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 行程备注 -->
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">行程备注</label>
-            <div class="layui-input-block">
-              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <!-- 儿童人数 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">儿童人数</label>
+              <div class="layui-input-inline">
+                <input type="text" name="xhxrs" lay-verify="required" placeholder="请输入儿童人数" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 行程标准 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">行程标准</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入行程标准" autocomplete="off" class="layui-input">
+            <!-- 行程备注 -->
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">行程备注</label>
+              <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="xingchen" class="layui-textarea"></textarea>
+              </div>
             </div>
-          </div>
 
-          <!-- 安排 -->
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">安排</label>
-            <div class="layui-input-block">
-              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <!-- 行程标准 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">行程标准</label>
+              <div class="layui-input-inline">
+                <input type="text" name="xcbz" lay-verify="required" placeholder="请输入行程标准" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 行程说明 -->
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">行程说明</label>
-            <div class="layui-input-block">
-              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <!-- 安排 -->
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">安排</label>
+              <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="xcap" class="layui-textarea"></textarea>
+              </div>
             </div>
-          </div>
 
-          <!-- 联系方式 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">联系方式</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+            <!-- 行程说明 -->
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">行程说明</label>
+              <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="xcsm" class="layui-textarea"></textarea>
+              </div>
             </div>
-          </div>
 
-          <!-- 备注 -->
-          <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">备注</label>
-            <div class="layui-input-block">
-              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <!-- 联系方式 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">联系方式</label>
+              <div class="layui-input-inline">
+                <input type="text" name="lxfs" lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+              </div>
             </div>
-          </div>
 
-          <!-- 成人价格 -->
-          <div class="layui-form-item">
-            <label class="layui-form-label">成人价格</label>
-            <div class="layui-input-inline">
-              <input type="text" name="username" lay-verify="required" placeholder="请输入成人价格" autocomplete="off" class="layui-input">
+            <!-- 备注 -->
+            <div class="layui-form-item layui-form-text">
+              <label class="layui-form-label">备注</label>
+              <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="bak" class="layui-textarea"></textarea>
+              </div>
             </div>
-          </div>
-          
-          <!-- 提交按钮 -->
-          <div class="layui-form-item">
-            <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
-          </div>
-        </form>
+
+            <!-- 成人价格 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">成人价格</label>
+              <div class="layui-input-inline">
+                <input type="text" name="icrjg" lay-verify="required" placeholder="请输入成人价格" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <!-- 儿童价格 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">儿童价格</label>
+              <div class="layui-input-inline">
+                <input type="text" name="ixhjg" lay-verify="required" placeholder="请输入儿童价格" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <!-- 提交按钮 -->
+            <div class="layui-form-item">
+              <button class="layui-btn" lay-submit="" id="LAY-component-form-getval" lay-filter="demo2">跳转式提交</button>
+            </div>
+          </form>
+        </div>
+
       </div>
     </div>
 
     <div class="layui-footer">
       <!-- 底部固定区域 -->
-      
+
     </div>
   </div>
 
@@ -331,20 +419,13 @@
       ,layer = layui.layer
       ,layedit = layui.layedit
       ,laydate = layui.laydate;
-      
-      //日期
-      laydate.render({
-        elem: '#date'
-      });
-      laydate.render({
-        elem: '#date1'
-      });
+
       
       //创建一个编辑器
       var editIndex = layedit.build('LAY_demo_editor');
      
       //自定义验证规则
-      form.verify({
+      /*form.verify({
         title: function(value){
           if(value.length < 5){
             return '标题至少得5个字符啊';
@@ -357,41 +438,48 @@
         ,content: function(value){
           layedit.sync(editIndex);
         }
-      });
-      
-      //监听指定开关
-      form.on('switch(switchTest)', function(data){
-        layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-          offset: '6px'
-        });
-        layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-      });
+      });*/
+
       
       //监听提交
-      form.on('submit(demo1)', function(data){
-        layer.alert(JSON.stringify(data.field), {
+      form.on('submit(demo2)', function(data){
+        /*layer.alert(JSON.stringify(data.field), {
           title: '最终的提交信息'
-        })
+        })*/
         return false;
       });
-     
-      //表单赋值
-      layui.$('#LAY-component-form-setval').on('click', function(){
-        form.val('example', {
-          "username": "贤心" // "name": "value"
-          ,"password": "123456"
-          ,"interest": 1
-          ,"like[write]": true //复选框选中状态
-          ,"close": true //开关状态
-          ,"sex": "女"
-          ,"desc": "我爱 layui"
-        });
-      });
-      
+
       //表单取值
       layui.$('#LAY-component-form-getval').on('click', function(){
-        var data = form.val('example');
-        alert(JSON.stringify(data));
+        var isTrue = confirm("确认发布吗？");
+        if(isTrue){
+          var data = form.val('example');
+          var fdata = "tno="+ null +"&xlname="+ data.xlname +"&tj="+ null
+                  +"&dengji="+ null +"&xltype="+ null +"&ts=" + data.ts
+                  +"&zrs="+ data.zrs +"&dijie="+ data.dijie +"&qp=" + data.qp
+                  +"&dp="+ data.dp +"&start="+ data.start +"&jzd=" + data.jzd
+                  +"&sz="+ data.sz +"&fc="+ data.fc +"&jz=" + data.jz
+                  +"&cfd="+ data.cfd +"&ddd="+ data.ddd +"&crxrs=" + data.crxrs
+                  +"&xhxrs="+ data.xhxrs +"&xingchen="+ data.xingchen +"&xcap=" + data.xcap
+                  +"&xcbz="+ data.xcbz +"&xcsm="+ data.xcsm +"&lxfs=" + data.lxfs
+                  +"&bak="+ data.bak +"&Travel_bh="+ null +"&Travel_name="+ null +"&status=" + null
+                  +"&tp1js="+ null +"&tp2js="+ null
+                  +"&xgxl="+ null +"&views=" + null
+                  +"&weblog="+ null +"&icrjg="+ data.icrjg +"&ixhjg=" + data.ixhjg +"&state=" + null;
+          $ajax({
+            url:"/company/publine",
+            data:fdata,
+            success:function(res,nodes){
+              if(res){
+                alert("预约成功");
+              }else{
+                alert("预约失败");
+              }
+              location.assign("/company");
+            }
+          })
+        }
+
       });
       
     });

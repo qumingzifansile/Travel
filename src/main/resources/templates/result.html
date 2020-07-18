@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/cssReset.css">
-    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/head.css">
+    <link rel="stylesheet" href="./css/footer.css">
 
     <style>
         #resSec {
@@ -21,7 +22,7 @@
         /* selectCard */
         .main .selectCard {
             width: 98%;
-            height: 260px;
+            height: 200px;
             border: 1px solid #cccccc;
             margin: 0 auto;
         }
@@ -143,13 +144,14 @@
         /* result */
         .main .result {
             width: 98%;
-            height: 300px;
+            max-height: 2000px;
             margin: 20px auto;
             border: 1px solid #cccccc;
         }
 
         .result .item {
-            height: 100%;
+            height: 300px;
+            border: 1px solid #cccccc;
         }
 
         .result .info {
@@ -199,66 +201,89 @@
         }
     </style>
     <script src="./js/ResetPage.js"></script>
-    <script src="./js/header.js"></script>
+    <script src="./js/head.js"></script>
     <script>
+        function searchResult({oResult,max,res,nodes}){
+            //清空上一次查询结果
+            var oChild = oResult[0].getElementsByClassName("item");
+            for(var j=0;j<oChild.length;j++){
+                oResult[0].removeChild(oChild[j]);
+            }
+
+            //创建显示新的查询结果
+            for(let i=0;i<max; i++){
+                //创建新路线节点，并设置它们的类样式
+                var newLi = document.createElement("li");
+                newLi.className = "item";
+                var newImg = document.createElement("img");
+                newImg.className = "landscape";
+                newImg.src = res[i]["tp1js"];
+                var newInfo = document.createElement("div");
+                newInfo.className = "info";
+                var newTitle = document.createElement("div");
+                newTitle.className = "title";
+                newTitle.innerHTML = res[i]["xlname"];
+                var newShowInfo = document.createElement("div");
+                newShowInfo.className = "showInfo";
+                var newPrice = document.createElement("span");
+                newPrice.className = "price"
+                newPrice.innerHTML = "价格：" + res[i]["icrjg"];
+                var newBtn = document.createElement("button");
+                newBtn.className = "detBtn";
+                newBtn.innerHTML = "查看详情";
+                newBtn.lineId = res[i]["id"];
+                newBtn.onclick = function(){
+                    localStorage.setItem("lineId",this.lineId);
+                    location.assign("/detail");
+                }
+
+                //将生成的节点按层级插入到对应的节点中
+                newShowInfo.appendChild(newPrice);
+                newShowInfo.appendChild(newBtn);
+                newInfo.appendChild(newTitle);
+                newInfo.appendChild(newShowInfo);
+                newLi.appendChild(newImg);
+                newLi.appendChild(newInfo);
+                nodes.appendChild(newLi);
+            }
+        }
+
         window.onload = function () {
             headerReset()
 
             var nowArea = null;
             var selectedArea = null;
             var selectedLen = null;
-            var selectedMonth = null;
+            // var selectedMonth = null;
 
-            //获取到数据 nowArea....
 
-            //修改样式
-            //获取用户所在地区、时长和日期的元素节点
-            var oAreas = document.getElementsByClassName("area");
-            var otAs = oAreas[0].getElementsByTagName("li");
-            var oUers = document.getElementsByClassName("uarea");
-            var oUas = oUers[0].getElementsByTagName("li");
-            var oLenCtr = document.getElementsByClassName("len");
-            var oLens = oLenCtr[0].getElementsByTagName("li");
-            var oMonthCtr = document.getElementsByClassName("month");
-            var oMonths = oMonthCtr[0].getElementsByTagName("li");
-
-            for (let i = 0; i < oUas.length; i++) {
-                if (selectedArea = otAs[i].innerHTML) {
-                    clsReset(otAs);
-                    this.className = "showing";
-                    break;
-                }
-            }
-
-            for (let i = 0; i < oUas.length; i++) {
-                if (selectedArea = oUas[i].innerHTML) {
-                    clsReset(oUas);
-                    this.className = "showing";
-                    break;
-                }
-            }
-            for (let i = 0; i < oLens.length; i++) {
-                if (selectedArea = oLens[i].innerHTML) {
-                    clsReset(oLens);
-                    this.className = "showing";
-                    break;
-                }
-            }
-            for (let i = 0; i < oMonths.length; i++) {
-                if (selectedArea = oMonths[i].innerHTML) {
-                    clsReset(oMonths);
-                    this.className = "showing";
-                    break;
-                }
-            }
-
-            //请求获取
-            var data1 = $reset({
-                furl:"",
-                fdata:"",
+            var oResult = document.getElementsByClassName("result");
+            //请求获取用户使用景点查询获取到的线路
+            $ajax({
+                url:"/guest/searchline",
+                data:"views="+localStorage.getItem("searchContent"),
+                success:function(res,nodes){
+                    res = JSON.parse(res);
+                    console.log(res);
+                    console.log(res.length);
+                    var max = null;
+                    //最多显示5条路线
+                    if(res.length>5){
+                        max = 5;
+                    }else{
+                        max = res.length;
+                    }
+                    searchResult({
+                        oResult : oResult,
+                        max : max,
+                        res : res,
+                        nodes : nodes
+                    });
+                },
+                nodes:oResult[0]
             })
-            var oRes = document.getElementsByClassName("result");
-            //for() //显示
+
+            /*根据选项卡进行数据显示*/
 
 
             /* //获取到摘要元素和地区元素
@@ -278,11 +303,20 @@
                         oAreas[j].style.display = "none";
                     }
                     oAreas[i].style.display = "block";
-                
+
                 }
             } */
 
 
+            //获取用户所在地区、时长和日期的元素节点
+            var oAreas = document.getElementsByClassName("area");
+            var otAs = oAreas[0].getElementsByTagName("li");
+            var oUers = document.getElementsByClassName("uarea");
+            var oUas = oUers[0].getElementsByTagName("li");
+            var oLenCtr = document.getElementsByClassName("len");
+            var oLens = oLenCtr[0].getElementsByTagName("li");
+            /*var oMonthCtr = document.getElementsByClassName("month");
+            var oMonths = oMonthCtr[0].getElementsByTagName("li");*/
             //添加点击，点击返回对应文本内容
             /* var oCtes = [];
             for(let i=0; i<oAreas.length ;i++){
@@ -304,6 +338,34 @@
                     // alert(otAs.length); 
                     clsReset(otAs);
                     this.className = "showing";
+                    $ajax({
+                        url:"/guest/searchline",
+                        data:"views="+localStorage.getItem("searchContent"),
+                        success:function(res,nodes){
+                            res = JSON.parse(res);
+                            var fres = [];
+                            var index = 0;
+                            for(var i=0;i<res.length; i++){
+                                if(res[i]["ddd"]==selectedArea){
+                                    fres[index++] = res[i];
+                                }
+                            }
+                            var max = null;
+                            //最多显示5条路线
+                            if(fres.length>5){
+                                max = 5;
+                            }else{
+                                max = fres.length;
+                            }
+                            searchResult({
+                                oResult : oResult,
+                                max : max,
+                                res : fres,
+                                nodes : nodes
+                            });
+                        },
+                        nodes:oResult[0]
+                    })
                 }
             }
 
@@ -312,6 +374,34 @@
                     nowArea = oUas[i].innerHTML;
                     clsReset(oUas);
                     this.className = "showing";
+                    $ajax({
+                        url:"/guest/searchline",
+                        data:"views="+localStorage.getItem("searchContent"),
+                        success:function(res,nodes){
+                            res = JSON.parse(res);
+                            var fres = [];
+                            var index = 0;
+                            for(var i=0;i<res.length; i++){
+                                if(res[i]["ddd"]==nowArea){
+                                    fres[index++] = res[i];
+                                }
+                            }
+                            var max = null;
+                            //最多显示5条路线
+                            if(fres.length>5){
+                                max = 5;
+                            }else{
+                                max = fres.length;
+                            }
+                            searchResult({
+                                oResult : oResult,
+                                max : max,
+                                res : fres,
+                                nodes : nodes
+                            });
+                        },
+                        nodes:oResult[0]
+                    })
                 }
             }
             for (let i = 0; i < oLens.length; i++) {
@@ -319,63 +409,116 @@
                     selectedLen = oLens[i].innerHTML;
                     clsReset(oLens);
                     this.className = "showing";
+                    $ajax({
+                        url:"/guest/searchline",
+                        data:"views="+localStorage.getItem("searchContent"),
+                        success:function(res,nodes){
+                            res = JSON.parse(res);
+                            var fres = [];
+                            var index = 0;
+                            for(var i=0;i<res.length; i++){
+                                if(res[i]["ddd"]==selectedLen){
+                                    fres[index++] = res[i];
+                                }
+                            }
+                            var max = null;
+                            //最多显示5条路线
+                            if(fres.length>5){
+                                max = 5;
+                            }else{
+                                max = fres.length;
+                            }
+                            searchResult({
+                                oResult : oResult,
+                                max : max,
+                                res : fres,
+                                nodes : nodes
+                            });
+                        },
+                        nodes:oResult[0]
+                    })
                 }
             }
-            for (let i = 0; i < oMonths.length; i++) {
+            /*for (let i = 0; i < oMonths.length; i++) {
                 oMonths[i].onclick = function () {
                     selectedMonth = oMonths[i].innerHTML;
                     clsReset(oMonths);
                     this.className = "showing";
                 }
-            }
+            }*/
 
 
-            //详情按钮  点击跳转到详情界面
+            /*//详情按钮  点击跳转到详情界面
             var oBtn = document.getElementsByClassName("detBtn");
             for (let i = 0; i < oBtn.length; i++) {
                 oBtn[i].onclick = function () {
                     location.assign("detail");
                 }
-            }
+            }*/
         }
 
     </script>
 </head>
 
 <body>
-    <header id="header">
-        <img src="./img/01.png" alt="" class="banner">
-        <div class="head">
-            <div class="userinfo">
-                <ul>
-                    <li class="login">登录</li>
-                    <li class="register">注册</li>
-                    <li class="order">我的订单</li>
-                </ul>
-            </div>
-            <div action="www.baidu.com" class="search">
-                <input type="text" placeholder="search" class="sInput">
-                <button class="sbtn">搜索</button>
-                <!-- <img class="sicon" src="./img/02.png" alt=""> -->
-            </div>
-        </div>
-        <div class="menu">
+<header id="header">
+    <div class="head">
+        <div class="hName">当前页面名称</div>
+        <div class="nav">
             <ul>
-                <li> <a href="/index">首页</a> </li>
-                <li> <a href="#">特卖优惠</a> </li>
-                <li> <a href="#">国内</a> </li>
-                <li> <a href="#">出境</a> </li>
-                <li> <a href="#">港澳</a> </li>
-                <li> <a href="#">自由行</a> </li>
-                <li> <a href="#">签证</a> </li>
-                <li> <a href="#">游轮</a> </li>
-                <li> <a href="#">包团定制</a> </li>
-                <li> <a href="#">合伙人招募</a> </li>
+                <li><a href="/index">首页</a></li>
+                <li><a href="">路线浏览</a></li>
+                <li><a href="">景点浏览</a></li>
             </ul>
         </div>
-    </header>
 
-    <section id="resSec">
+        <div class="search">
+            <input type="text" placeholder="search" class="sInput">
+            <button class="sbtn">搜索</button>
+        </div>
+
+        <div class="userinfo" style="display: block;">
+            <ul>
+                <li class="register"><a href="/register">注册</a></li>
+                <li class="login"><a href="/login">登录</a></li>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">管理员
+                    <dd><a href="">修改信息</a></dd>
+                    <dd><a href="">订单查询</a></dd>
+                    <dd><a href="">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">公司
+                    <dd><a href="/company">基础信息</a></dd>
+                    <dd><a href="/company">发布路线</a></dd>
+                    <dd><a href="/company">收到的订单</a></dd>
+                    <dd><a href="/company">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">个人
+                    <dd><a href="/userinfo">修改信息</a></dd>
+                    <dd><a href="/userinfo">订单查询</a></dd>
+                    <dd><a href="/userinfo">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<section id="resSec">
         <div class="main">
             <div class="selectCard">
                 <!-- <div class="summary">
@@ -449,7 +592,7 @@
                             <li>三天</li>
                         </ul>
                     </div>
-                    <div class="month">
+                    <!--<div class="month">
                         <span>出发月份</span>
                         <ul>
                             <li class="showing">不限</li>
@@ -466,7 +609,7 @@
                             <li>十一月</li>
                             <li>十二月</li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <ul class="result">
@@ -489,9 +632,24 @@
         </div>
     </section>
 
-    <footer>
-
-    </footer>
+<footer id="footer">
+    <ul class="companys">
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+    </ul>
+</footer>
 </body>
 
 </html>

@@ -64,13 +64,17 @@ function headerReset(){
     }
 
     //表单
-    var oForm = $gbID("search");
+    // var oForm = document.getElementsByClassName("search");
     //搜索输入框
-    var osInput = $gbID("sInput");
+    var osInput = document.getElementsByClassName("sInput");
     //搜索按钮
-    var osbtn = $gbID("sbtn");
+    var osbtn = document.getElementsByClassName("sbtn");
     osbtn[0].onclick = function(){
         var txt = osInput[0].value;
-        oForm[0].submit();
+        var url = "/result";
+
+        alert(txt);
+        localStorage.setItem("searchContent",txt);
+        location.assign("/result");
     }
 }

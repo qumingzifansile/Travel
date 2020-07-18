@@ -11,4 +11,5 @@ public interface GuestydMapperGB {
     void guestYd(long uid, String tno, String guestname, String tel, long crs, long xhs, Timestamp ydrq,String bah);
     List<Guestyd> getTnoInfo(long uid);
     List<Guestyd> getUidInfo(String tno);
+    void changeGuestyd(long id, long uid, String tno, String guestname, String tel, int crs, int xhs, String bah, int state);
 }

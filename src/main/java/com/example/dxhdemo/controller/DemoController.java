@@ -63,4 +63,28 @@ public class DemoController {
         return "adminLines";
     }
 
+    @RequestMapping("/adminLinesIframe")
+    public String demoAdminLinesIframe(){
+        return "adminLinesIframe";
+    }
+
+    @RequestMapping("/companyInfo")
+    public String demoCompanyInfo(){
+        return "CompanyInfo";
+    }
+
+    @RequestMapping("/CompanyLines")
+    public String demoCompanylines(){return "CompanyLines";}
+
+    @RequestMapping("/adminguestyd")
+    public String demoAdminguestyd(){return "adminGuestyd"; }
+
+    @RequestMapping("/admininfo")
+    public String demoAdminInfo(){ return "adminInfo"; }
+
+    @RequestMapping("/adminguestbook")
+    public String demoadminguestbook(){ return "adminGuestbook"; }
+
+    @RequestMapping("/adminviews")
+    public String demoadminviews(){ return "adminViews"; }
 }

@@ -3,8 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <style>
+        .layui-logo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            line-height: 60px;
+            text-align: center;
+            color: #009688;
+            font-size: 16px;
+        }
+    </style>
 </head>
-<body>
-    嘿！小逼崽子！
+
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function (elem) {
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+</script>
+
+<body class="layui-layout-body">
+<div class="layui-header" style="background-color: #23262E;">
+    <div class="layui-logo">This is 高博</div>
+    <ul class="layui-nav layui-layout-left" style="background-color: #23262E;">
+        <li class="layui-nav-item"><a href="/index">首页</a></li>
+        <li class="layui-nav-item layui-this">
+            <a href="javascript:;">线路浏览</a>
+            <!--        <dl class="layui-nav-child">-->
+            <!--            <dd><a href="">选项1</a></dd>-->
+            <!--            <dd><a href="">选项2</a></dd>-->
+            <!--            <dd><a href="">选项3</a></dd>-->
+            <!--        </dl>-->
+        </li>
+        <li class="layui-nav-item"><a href="">新闻浏览</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-left" style="background-color: #23262E;">
+        <li class="layui-nav-item">
+            <input type="text" placeholder="search" class="sInput">
+        </li>
+        <li class="layui-nav-item">
+            <button class="sbtn">搜索</button>
+        </li>
+    </ul>
+    </div>
+    <ul class="layui-nav layui-layout-right" style="background-color: #23262E;">
+        <li class="layui-nav-item" lay-unselect="">
+            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:;">修改信息</a></dd>
+                <dd><a href="javascript:;">订单查询</a></dd>
+                <dd><a href="javascript:;">溜了溜了</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item" lay-unselect="">
+            <dl class="layui-nav-child">登录</dl>
+            <dl class="layui-nav-child">注册</dl>
+        </li>
+    </ul>
+</div>
 </body>
+
 </html>

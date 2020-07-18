@@ -8,6 +8,7 @@ import com.example.dxhdemo.service.InfoService;
 import com.example.dxhdemo.tools.MyTimeTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,29 +61,38 @@ public class CompanyController {
     }
 
     //公司发布新的线路信息
+//    @RequestMapping("/company/publine")
+//    public int publine(@RequestParam("tno")String tno, @RequestParam("xlname")String xlname,@RequestParam("tj")String tj,
+//                       @RequestParam("dengji")String dengji,@RequestParam("xltype")String xltype,
+//                       @RequestParam("ts")int ts, @RequestParam("zrs")int zrs, @RequestParam("dijie")String dijie,
+//                       @RequestParam("qp")String qp,@RequestParam("dp")String dp,@RequestParam("start")String start,
+//                       @RequestParam("jzd")String jzd,@RequestParam("sz")String sz,@RequestParam("fc")String fc,
+//                       @RequestParam("jz")String jz, @RequestParam("cfd")String cfd, @RequestParam("ddd")String ddd,
+//                       @RequestParam("crxrs")String crxrs,@RequestParam("xhxrs")String xhxrs,@RequestParam("xingchen")String xingchen,
+//                       @RequestParam("xcap")String xcap,@RequestParam("xcbz")String xcbz,@RequestParam("xcsm")String xcsm,
+//                       @RequestParam("lxfs")String lxfs, @RequestParam("bak")String bak,@RequestParam("Travel_bh")long Travel_bh,
+//                       @RequestParam("Travel_name")String Travel_name,@RequestParam("status")String status,@RequestParam("tp1js")String tp1js,
+//                       @RequestParam("tp2js")String tp2js, @RequestParam("xgxl")String xgxl, @RequestParam("views")String views,
+//                       @RequestParam("weblog")String weblog,@RequestParam("icrjg")double icrjg,@RequestParam("ixhjg")double ixhjg,
+//                       @RequestParam("state")int state){
+//        if (CompanyID!=-1){
+//            companyService.publine(CompanyID,tno, xlname, tj, dengji, xltype,ts, zrs, dijie, qp, dp, start, jzd, sz, fc, jz, cfd,
+//                    ddd, crxrs, xhxrs, xingchen, xcap, xcbz, xcsm, lxfs, bak, Travel_bh, Travel_name, status, tp1js, tp2js,
+//                    xgxl, views, weblog, icrjg, ixhjg, state);
+//            return 1;
+//        }else
+//            return 0;
+//    }
     @RequestMapping("/company/publine")
-    public int publine(@RequestParam("tno")String tno, @RequestParam("xlname")String xlname,@RequestParam("tj")String tj,
-                       @RequestParam("dengji")String dengji,@RequestParam("xltype")String xltype,
-                       @RequestParam("ts")long ts, @RequestParam("zrs")long zrs, @RequestParam("dijie")String dijie,
-                       @RequestParam("qp")String qp,@RequestParam("dp")String dp,@RequestParam("start")String start,
-                       @RequestParam("jzd")String jzd,@RequestParam("sz")String sz,@RequestParam("fc")String fc,
-                       @RequestParam("jz")String jz, @RequestParam("cfd")String cfd, @RequestParam("ddd")String ddd,
-                       @RequestParam("crxrs")String crxrs,@RequestParam("xhxrs")String xhxrs,@RequestParam("xingchen")String xingchen,
-                       @RequestParam("xcap")String xcap,@RequestParam("xcbz")String xcbz,@RequestParam("xcsm")String xcsm,
-                       @RequestParam("lxfs")String lxfs, @RequestParam("bak")String bak,@RequestParam("Travel_bh")long Travel_bh,
-                       @RequestParam("Travel_name")String Travel_name,@RequestParam("status")String status,@RequestParam("tp1js")String tp1js,
-                       @RequestParam("tp2js")String tp2js, @RequestParam("xgxl")String xgxl, @RequestParam("views")String views,
-                       @RequestParam("weblog")String weblog,@RequestParam("icrjg")double icrjg,@RequestParam("ixhjg")double ixhjg,
-                       @RequestParam("state")long state){
-        if (CompanyID!=-1){
-            companyService.publine(CompanyID,tno, xlname, tj, dengji, xltype,ts, zrs, dijie, qp, dp, start, jzd, sz, fc, jz, cfd,
-                    ddd, crxrs, xhxrs, xingchen, xcap, xcbz, xcsm, lxfs, bak, Travel_bh, Travel_name, status, tp1js, tp2js,
-                    xgxl, views, weblog, icrjg, ixhjg, state);
+    public int publine(@RequestBody Line line){
+            companyService.publine(line.getXlname(),line.getTj(),line.getDengji(),line.getXltype(),line.getXldate(),
+                    line.getTs(),line.getZrs(), line.getDijie(),line.getQp(),line.getDp(),line.getStart(),line.getJzd(),line.getSz()
+                    ,line.getFc(),line.getJz(),line.getCfd(),line.getDdd(),line.getCrxrs(),line.getXhxrs(),
+                    line.getXingchen(),line.getXcap(),line.getXcbz(),line.getXcsm(),line.getLxfs(),line.getBak(),line.getTravelBh(),line.getTravelName(),
+                    line.getStatus(),line.getTp1Js(),line.getTp2Js(),line.getXgxl(),line.getViews(),line.getWeblog(),line.getIcrjg(),line.getIxhjg()
+                    ,line.getState());
             return 1;
-        }else
-            return 0;
     }
-
     //公司查询自己的线路信息
     @RequestMapping("/company/searchline")
     public List<Line> searchline(){

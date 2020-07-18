@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/cssReset.css">
-    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/head.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./layui/css/layui.css">
 
@@ -144,7 +144,7 @@
         }
     </style>
 
-    <script src="./js/header.js"></script>
+    <script src="./js/head.js"></script>
     <script src="./js/ResetPage.js"></script>
     <script>
         window.onload = function(){
@@ -154,67 +154,150 @@
             //获取到路线编号
 
             //使用编号发起数据请求
-            var data = $reset({
-                furl:"",
-                fdata:""
+            var Routedata = $ajax({
+                url:"/admin/getAllLines",
+                data:"",
+                success:function(res,nodes){
+                    localStorage.setItem("lineId","1");
+
+                    res = JSON.parse(res);
+                    var id = localStorage.getItem("lineId");
+                    var k = null
+                    for(k=0;k<res.length;k++){
+                        if(id == res[k]["id"]){
+                            break;
+                        }
+                    }
+
+                    //显示图片
+                    var oImg = document.getElementsByClassName("sImg");
+                    for(var i=0;i<oImg.length;i++){
+                        oImg[i].src = res[k]["tp1js"];
+                    }
+
+                    //线路名称
+                    var oTitle = document.getElementsByClassName("desTitle");
+                    oTitle[0].innerHTML = res[k]["xlname"];
+
+                    //具体信息
+                    var oDes = document.getElementsByClassName("desDetail");
+                    var oSpan = oDes[0].getElementsByTagName("span");
+                    oSpan[0].innerHTML = res[k]["tj"];
+                    oSpan[1].innerHTML = res[k]["start"];
+                    oSpan[2].innerHTML = res[k]["jzd"];
+                    oSpan[3].innerHTML = res[k]["jz"];
+                    oSpan[4].innerHTML = res[k]["cfd"];
+                    oSpan[5].innerHTML = res[k]["ddd"];
+                    oSpan[6].innerHTML = res[k]["xcap"];
+                    oSpan[7].innerHTML = res[k]["xcbz"];
+
+                    //设置价格
+                    var oPrice = document.getElementsByClassName("txtcor");
+                    oPrice[0].innerHTML = "成人/"+res[k]["icrjg"] + "    " + "儿童/" + res[k]["ixhjg"];
+
+                    localStorage.setItem("lineId",id);
+                    //立即预约
+                    var oOrder = document.getElementsByClassName("order");
+                    oOrder[0].onclick = function(){
+                        var flag = confirm("请问是否要预约吗？");
+
+                        if(flag){
+                            window.open("/yyform","form");
+                        }
+                    }
+
+                    //显示行程备注
+                    var oPt = document.getElementsByClassName("pttinfo");
+                    oPt[0].innerHTML = res[k]["xingchen"];
+
+                    //显示行程路线
+                    var oDi = document.getElementsByClassName("detailInfo");
+                    oDi[0].innerHTML = res[k]["cfd"] + "-----" +res[k]["status"] +"-----" + res[k]["ddd"];
+
+                },
+                nodes:null
             })
 
-            //设置图片显示
+            /*//设置图片显示
             var oImg = document.getElementsByClassName("swiImg");
-            //for //
             //设置行程信息
             var oplus = document.getElementsByClassName("surplus");
-            //for
+            for
             //设置标题
             var odt = document.getElementsByClassName("desTitle");
-            //odt[0].innerHTML = ;
+            odt[0].innerHTML = ;
             //设置摘要
             var odd = document.getElementsByClassName("desDetail");
             var odds = odd[0].getElementsByTagName("span");
-            //for()
+            for()
             //设置价格
             var oPri = document.getElementsByClassName("price");
-            //oPri[0].innerHTML = ;
+            oPri[0].innerHTML = ;
             //设置行程备注
             var oPtt = document.getElementsByClassName("pttinfo");
-            //oPtt[0].innerHTML = ;
+            oPtt[0].innerHTML = ;*/
         }
     </script>
 </head>
 <body>
-    <header id="header">
-        <img src="./img/01.png" alt="" class="banner">
-        <div class="head">
-            <div class="userinfo">
-                <ul>
-                    <li class="login">登录</li>
-                    <li class="register">注册</li>
-                    <li class="order">我的订单</li>
-                </ul>
-            </div>
-            <div action="www.baidu.com" class="search">
-                <input type="text" placeholder="search" class="sInput">
-                <button class="sbtn">搜索</button>
-                <!-- <img class="sicon" src="./img/02.png" alt=""> -->
-            </div>
-        </div>
-        <div class="menu">
+<header id="header">
+    <div class="head">
+        <div class="hName">当前页面名称</div>
+        <div class="nav">
             <ul>
-                <li> <a href="/index">首页</a> </li>
-                <li> <a href="#">特卖优惠</a> </li>
-                <li> <a href="#">国内</a> </li>
-                <li> <a href="#">出境</a> </li>
-                <li> <a href="#">港澳</a> </li>
-                <li> <a href="#">自由行</a> </li>
-                <li> <a href="#">签证</a> </li>
-                <li> <a href="#">游轮</a> </li>
-                <li> <a href="#">包团定制</a> </li>
-                <li> <a href="#">合伙人招募</a> </li>
+                <li><a href="/index">首页</a></li>
+                <li><a href="">路线浏览</a></li>
+                <li><a href="">景点浏览</a></li>
             </ul>
         </div>
-    </header>
 
-    <section id="deSec">
+        <div class="search">
+            <input type="text" placeholder="search" class="sInput">
+            <button class="sbtn">搜索</button>
+        </div>
+
+        <div class="userinfo" style="display: block;">
+            <ul>
+                <li class="register"><a href="/register">注册</a></li>
+                <li class="login"><a href="/login">登录</a></li>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">管理员
+                    <dd><a href="">修改信息</a></dd>
+                    <dd><a href="">订单查询</a></dd>
+                    <dd><a href="">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">公司
+                    <dd><a href="/company">基础信息</a></dd>
+                    <dd><a href="/company">发布路线</a></dd>
+                    <dd><a href="/company">收到的订单</a></dd>
+                    <dd><a href="/company">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+        <div class="userinfo" style="display: none;">
+            <ul>
+                <img src="" alt="头像" class="avtor">
+                <dl class="username">个人
+                    <dd><a href="/userinfo">修改信息</a></dd>
+                    <dd><a href="/userinfo">订单查询</a></dd>
+                    <dd><a href="/userinfo">退出</a></dd>
+                </dl>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<section id="deSec">
         <div class="summary">
             <div class="sumCtr">
                 <div class="sumLeft">
@@ -222,11 +305,11 @@
                         <!-- 轮播图 -->
                         <div class="layui-carousel" id="test1" lay-filter="test1">
                             <div carousel-item="">
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;"></div>
-                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;"></div>
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;"></div>
-                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;"></div>
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
                             </div>
                         </div> 
                     </div>
@@ -311,9 +394,24 @@
         </div>
     </section>
 
-    <footer id="footer">
-
-    </footer>
+<footer id="footer">
+    <ul class="companys">
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+        <li class="cpyItem">
+            <div class="cpyinfo">
+                <span class="cpyname">公司名称</span>
+                <span class="cpyphone">11111111111</span>
+                <a href="#" class="contact">联系我们</a>
+            </div>
+        </li>
+    </ul>
+</footer>
 
 
 

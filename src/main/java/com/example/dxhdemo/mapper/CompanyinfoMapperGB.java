@@ -20,4 +20,6 @@ public interface CompanyinfoMapperGB {
 
     Companyinfo getMyInfo(long CompanyID);
 
+    void delInfo(long CompanyID);
+
 }

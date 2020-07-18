@@ -46,8 +46,8 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
-    public void guestupdate(long GuestID, String name, String pass, String sex, String email, String telephone, String idnumber) {
-        guestMapperGB.update(GuestID, name, pass, sex, email, telephone, idnumber);
+    public void guestupdate(long GuestID, String name, String pass, String sex, String email, String telephone, String idnumber,String address) {
+        guestMapperGB.update(GuestID, name, pass, sex, email, telephone, idnumber, address);
     }
 
     @Override
@@ -55,5 +55,15 @@ public class GuestServiceImpl implements GuestService {
         guestMapperGB.reg(name, pass, sex, email, telephone, idnumber);
     }
 
+
+    @Override
+    public List<Guest> getall() {
+        return guestMapperGB.getall();
+    }
+
+    @Override
+    public void delguest(long GuestID) {
+        guestMapperGB.delguest(GuestID);
+    }
 
 }

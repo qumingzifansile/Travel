@@ -1,4 +1,4 @@
-function $ajax({method="get",url,data}) {
+function $ajax({method="get",url,data,success,nodes}) {
     //1、创建ajax对象
     var xhr = null;
     try {
@@ -25,6 +25,7 @@ function $ajax({method="get",url,data}) {
         if (xhr.readyState == 4) {
             //判断本次下载的状态码都是多少
             if (xhr.status == 200) {
+                success(xhr.responseText,nodes);
                 return xhr.responseText;
             } else {
                 alert("error");
