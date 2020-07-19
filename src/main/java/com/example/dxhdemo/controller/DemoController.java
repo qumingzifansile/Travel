@@ -48,6 +48,11 @@ public class DemoController {
         return "userinfo";
     }
 
+    @RequestMapping("/yyform")
+    public String demoYyform(){
+        return "yyform";
+    }
+
     @RequestMapping("/fp")
     public String demoFp(){
         return "fp";
@@ -87,4 +92,9 @@ public class DemoController {
 
     @RequestMapping("/adminviews")
     public String demoadminviews(){ return "adminViews"; }
+
+    @RequestMapping("/views")
+    public String demoViews(){
+        return "views";
+    }
 }

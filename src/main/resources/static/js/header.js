@@ -1,4 +1,3 @@
-document.write("<script language=javascript src='./js/ResetPage.js'></script>");
 function headerReset(){
 
     //获取存储的用户姓名

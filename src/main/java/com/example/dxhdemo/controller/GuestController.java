@@ -30,6 +30,9 @@ public class GuestController {
     @Resource
     private LineServiceGB lineService;
 
+    @Resource
+    private LineService lineService1;
+
     private long GuestID = -1;
 
     private Guest guest;
@@ -73,12 +76,12 @@ public class GuestController {
 
     //用户预定
     @RequestMapping("/guest/yd")
-    public int guestyd(@RequestParam("tno") String tno, @RequestParam("guestname") String guestname,
+    public int guestyd(@RequestParam("tno") long tno, @RequestParam("guestname") String guestname,
                        @RequestParam("tel") String tel, @RequestParam("crs") long crs, @RequestParam("xhs") long xhs,
                        @RequestParam("bah") String bah){
         if (GuestID!=-1) {
             MyTimeTools myTimeTools = new MyTimeTools();
-            guestService.guestyd(GuestID, tno, guestname, tel, crs, xhs, myTimeTools.getCurrentTimeStamp(), bah);
+            guestService.guestyd(GuestID,lineService1.getOneLineById(tno).getTno(), guestname, tel, crs, xhs, myTimeTools.getCurrentTimeStamp(), bah);
             return 1;
         }else
             return 0;

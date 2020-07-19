@@ -4,6 +4,7 @@ package com.example.dxhdemo.serviceImpl;
 import com.example.dxhdemo.bean.Line;
 import com.example.dxhdemo.bean.Lineview;
 import com.example.dxhdemo.bean.Travelview;
+import com.example.dxhdemo.bean.Views;
 import com.example.dxhdemo.mapper.*;
 import com.example.dxhdemo.service.LineService;
 import com.example.dxhdemo.service.LineServiceGB;
@@ -72,16 +73,22 @@ public class LineServiceImplGB implements LineServiceGB {
 
     @Override
     public List<Line> searchlinebyview(String views) {
-        List<Lineview> lineviewList = lineviewMapperGB.getTno(viewsMapperGB.getInfobyview(views).getId());
-        List<Line> lineList = new ArrayList<>();
-        if (lineviewList!=null)
-            for (Lineview l :lineviewList) {
-                Line line = lineMapperGB.getInfobytno(l.getTno());
-                if (line.getXldate().after(new MyTimeTools().getCurrentTimeStamp()) && line.getStatus().equals("1")) {
-                    lineList.add(line);
+        Views view = viewsMapperGB.getInfobyview(views);
+        if(view!=null) {
+            List<Lineview> lineviewList = lineviewMapperGB.getTno(viewsMapperGB.getInfobyview(views).getId());
+            List<Line> lineList = new ArrayList<>();
+            if (lineviewList != null) {
+                for (Lineview l : lineviewList) {
+                    Line line = lineMapperGB.getInfobytno(l.getTno());
+                    if (line.getState() == 1 && line.getStatus().equals("1")) {
+                        lineList.add(line);
+                    }
                 }
             }
-        return lineList;
+            return lineList;
+        }else{
+            return null;
+        }
     }
 
     @Override

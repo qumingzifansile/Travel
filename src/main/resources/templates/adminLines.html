@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
     <style>
-        .layui-logo{
+        .layui-logo a{
             position: absolute;
             left: 0;
             top: 0;
@@ -19,6 +19,7 @@
             color: #009688;
             font-size: 18px;
         }
+
     </style>
 </head>
 
@@ -43,9 +44,7 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
-            } else if(obj.event === 'del'){
+            if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     $.ajax({
@@ -145,7 +144,6 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -153,7 +151,7 @@
 <body class="layui-layout-body">
     <div class = "layui-layout layui-layout-admin">
         <div class="layui-header" style="background-color: #23262E;">
-            <div class="layui-logo">This is 高博</div>
+            <div class="layui-logo"><a href="/index"> This is <span style="font-size: 24px;font-weight:bold;color:white;">&nbsp&nbsp高博!</span></a></div>
             <ul class="layui-nav layui-layout-right" style="background-color: #23262E;">
                 <li class="layui-nav-item" lay-unselect="">
                     <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">爷是管理员</a>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+
+<link href="./css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+
+<link rel="stylesheet" href="./css/style.css" type="text/css" media="all" />
+
+<link rel="stylesheet" href="./css/owl.carousel.css" type="text/css" media="all">
+
+<link href="./css/owl.theme.css" rel="stylesheet">
+
+<link type="text/css" rel="stylesheet" href="./css/cm-overlay.css" />
+
+<link href="./css/font-awesome.css" rel="stylesheet">
+
+<link rel="stylesheet" href="./css/lightbox.css">
+
+<link rel="stylesheet" href="./css/jquery.countdown.css" />
+</head>
+<body>
+
+	<div data-vide-bg="video/beach1">
+		<div class="banner jarallax">
+				<div class="head">
+					<div class="container">
+						<div class="navbar-top">
+								<!-- Brand and toggle get grouped for better mobile display -->
+								<div class="navbar-header">
+									
+									<div class="navbar-brand logo">
+										<h1><a href=""><i class="fa fa-globe" aria-hidden="true"></i> 所有景点介绍<span>Tour</span></a></h1>
+									</div>
+								</div>
+
+								<!-- Collect the nav links, forms, and other content for toggling -->
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <div class="wthree-subscribe">
+                                        
+                                            <div class="w3-agileits-subscribe-form">
+                                               <!-- <h2>所有景点介绍</h2> -->
+                                            </div>
+                                        
+                                    </div>
+								</div><!-- /.navbar-collapse -->
+							</div>
+					</div>
+				</div>
+				<div class="w3layouts-banner-slider">
+					<div class="container">
+					</div>
+				</div>
+		</div>
+    </div>	<!-- banner -->
+    
+    <div class="gallery" id="gallery">
+		<div class="container">
+			<div class="w3-agileits-gallery-grids">
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img class="img-list" src="" alt="" />	
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img class="img-list" src="" alt="" />		
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img class="img-list" src="" alt="" />		
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img class="img-list" src="" alt="" />		
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img class="img-list" src="" alt="" />
+								
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="col-md-3 gallery-grid">
+					<div class="grid">
+						<figure class="effect-apollo">
+							<a class="example-image-link" href="" data-lightbox="example-set" data-title="">
+								<img  class="img-list" src="" alt="" />		
+							</a>
+						</figure>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+				
+			</div>
+		</div>
+    </div>
+
+    <div class="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="footer-grids">
+					<div class="col-md-3 footer-logo">
+						<h3><a href=""><i class="fa fa-globe" aria-hidden="true"></i> The world<span>wonderful</span></a></h3>
+						<p>如果有什么问题可以拨打我们的电话：8208208820.</p>
+					</div>
+
+					<div class="col-md-3 footer-grid">
+						<h3>select</h3>
+						<ul class="w3agile_footer_grid_list">
+							<li class="active first-list"><a href="/index">首页</a> </li>
+							<li><a href="" class="scroll">关于我们</a></li>
+							<li><a href="" class="scroll">旅游新闻</a></li>
+							<li><a href="" class="scroll">用户订单</a></li>
+						</ul>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<p>版权所有 &copy; 2020 鑫豪旅游社 </p>
+			</div>
+		</div>
+	</div>
+	<script src="js/lightbox-plus-jquery.min.js"> </script>
+	<script>
+		var global = "";
+		var list = new Array();
+		$(".img-list").click(function(){
+			global = list[$('.img-list').index(this)]
+			
+		});
+		$.ajax({
+			type: "get",
+			async: false,
+			url: "/admin/getAllViews",
+			dataType: "json",
+			success: function (result) {
+				for (var i = 0; i < result.length; i++) {
+					$('.img-list').eq(i).attr("src", result[i].imageUrl);
+					$('.example-image-link').eq(i).attr("href", result[i].imageUrl).attr("data-title", result[i].content);			
+					console.log(result[i].view)
+					list.push(result[i].view);
+				}
+				
+				// var data = result.data;
+				// var image = result.image;
+				// $("#kaptchaImage").attr("src", "data:image/png;base64," + image);
+				// $("#showByte").text(image);
+	
+			}
+		})
+		// console.log(document.getElementById("my-win").innerHTML);
+		// console.log(document.getElementsByClassName('lb-container').length)
+		
+	</script>
+
+
+
+<script src="js/responsiveslides.min.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		/*
+			var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear' 
+			};
+		*/
+							
+		$().UItoTop({ easingType: 'easeOutQuart' });
+							
+		});
+		
+</script>
+</body>
+
+
+</html>

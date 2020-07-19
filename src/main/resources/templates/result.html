@@ -200,14 +200,16 @@
             cursor: pointer;
         }
     </style>
-    <script src="./js/ResetPage.js"></script>
+    <script src="./js/AJAX.js"></script>
+    <script src="./js/footer.js"></script>
     <script src="./js/head.js"></script>
     <script>
         function searchResult({oResult,max,res,nodes}){
             //清空上一次查询结果
             var oChild = oResult[0].getElementsByClassName("item");
-            for(var j=0;j<oChild.length;j++){
-                oResult[0].removeChild(oChild[j]);
+            var lenc = oChild.length;
+            for(var j=0;j<lenc;j++){
+                oResult[0].removeChild(oChild[0]);
             }
 
             //创建显示新的查询结果
@@ -217,7 +219,7 @@
                 newLi.className = "item";
                 var newImg = document.createElement("img");
                 newImg.className = "landscape";
-                newImg.src = res[i]["tp1js"];
+                newImg.src = res[i]["tp1Js"];
                 var newInfo = document.createElement("div");
                 newInfo.className = "info";
                 var newTitle = document.createElement("div");
@@ -249,7 +251,8 @@
         }
 
         window.onload = function () {
-            headerReset()
+            headerReset();
+            footer();
 
             var nowArea = null;
             var selectedArea = null;
@@ -263,9 +266,41 @@
                 url:"/guest/searchline",
                 data:"views="+localStorage.getItem("searchContent"),
                 success:function(res,nodes){
+                    if(res.length == 0){
+                        $ajax({
+                            url:"/admin/getAllLines",
+                            data:null,
+                            success:function(res,nodes){
+                                res = JSON.parse(res);
+                                var fres = [];
+                                var index = 0;
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["state"]== 1 && res[i]["status"]=="1") {
+                                        fres[index++] = res[i];
+                                    }
+                                }
+                                var max = null;
+                                //最多显示5条路线
+                                if(fres.length>5){
+                                    max = 5;
+                                }else{
+                                    max = fres.length;
+                                }
+                                searchResult({
+                                    oResult : oResult,
+                                    max : max,
+                                    res : fres,
+                                    nodes : nodes
+                                });
+                            },
+                            nodes:oResult[0]
+                        })
+                        return ;
+                    }
                     res = JSON.parse(res);
                     console.log(res);
                     console.log(res.length);
+
                     var max = null;
                     //最多显示5条路线
                     if(res.length>5){
@@ -339,17 +374,26 @@
                     clsReset(otAs);
                     this.className = "showing";
                     $ajax({
-                        url:"/guest/searchline",
-                        data:"views="+localStorage.getItem("searchContent"),
+                        url:"/admin/getAllLines",
+                        data:null,
                         success:function(res,nodes){
                             res = JSON.parse(res);
                             var fres = [];
                             var index = 0;
-                            for(var i=0;i<res.length; i++){
-                                if(res[i]["ddd"]==selectedArea){
-                                    fres[index++] = res[i];
+                            if(selectedArea == "不限"){
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["state"]== 1 && res[i]["status"]=="1"){
+                                        fres[index++] = res[i];
+                                    }
+                                }
+                            }else{
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["ddd"]==selectedArea){
+                                        fres[index++] = res[i];
+                                    }
                                 }
                             }
+
                             var max = null;
                             //最多显示5条路线
                             if(fres.length>5){
@@ -375,17 +419,26 @@
                     clsReset(oUas);
                     this.className = "showing";
                     $ajax({
-                        url:"/guest/searchline",
-                        data:"views="+localStorage.getItem("searchContent"),
+                        url:"/admin/getAllLines",
+                        data:null,
                         success:function(res,nodes){
                             res = JSON.parse(res);
                             var fres = [];
                             var index = 0;
-                            for(var i=0;i<res.length; i++){
-                                if(res[i]["ddd"]==nowArea){
-                                    fres[index++] = res[i];
+                            if(nowArea == "不限"){
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["state"]== 1 && res[i]["status"]=="1"){
+                                        fres[index++] = res[i];
+                                    }
+                                }
+                            }else{
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["cfd"]==nowArea){
+                                        fres[index++] = res[i];
+                                    }
                                 }
                             }
+
                             var max = null;
                             //最多显示5条路线
                             if(fres.length>5){
@@ -407,20 +460,30 @@
             for (let i = 0; i < oLens.length; i++) {
                 oLens[i].onclick = function () {
                     selectedLen = oLens[i].innerHTML;
+                    selectedLen = parseInt(selectedLen);
                     clsReset(oLens);
                     this.className = "showing";
                     $ajax({
-                        url:"/guest/searchline",
-                        data:"views="+localStorage.getItem("searchContent"),
+                        url:"/admin/getAllLines",
+                        data:null,
                         success:function(res,nodes){
                             res = JSON.parse(res);
                             var fres = [];
                             var index = 0;
-                            for(var i=0;i<res.length; i++){
-                                if(res[i]["ddd"]==selectedLen){
-                                    fres[index++] = res[i];
+                            if(selectedLen == "不限"){
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["state"]== 1 && res[i]["status"]=="1"){
+                                        fres[index++] = res[i];
+                                    }
+                                }
+                            }else{
+                                for(var i=0;i<res.length; i++){
+                                    if(res[i]["ts"]==selectedLen){
+                                        fres[index++] = res[i];
+                                    }
                                 }
                             }
+
                             var max = null;
                             //最多显示5条路线
                             if(fres.length>5){
@@ -467,8 +530,8 @@
         <div class="nav">
             <ul>
                 <li><a href="/index">首页</a></li>
-                <li><a href="">路线浏览</a></li>
-                <li><a href="">景点浏览</a></li>
+                <li><a href="/result">路线浏览</a></li>
+                <li><a href="/views">景点浏览</a></li>
             </ul>
         </div>
 
@@ -487,9 +550,9 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">管理员
-                    <dd><a href="">修改信息</a></dd>
-                    <dd><a href="">订单查询</a></dd>
-                    <dd><a href="">退出</a></dd>
+                    <dd><a href="/adminlines">修改信息</a></dd>
+                    <dd><a href="/adminlines">订单查询</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -497,10 +560,10 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">公司
-                    <dd><a href="/company">基础信息</a></dd>
-                    <dd><a href="/company">发布路线</a></dd>
-                    <dd><a href="/company">收到的订单</a></dd>
-                    <dd><a href="/company">退出</a></dd>
+                    <dd><a href="/companyInfo">基础信息</a></dd>
+                    <dd><a href="/companyInfo">发布路线</a></dd>
+                    <dd><a href="/companyInfo">收到的订单</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -510,7 +573,7 @@
                 <dl class="username">个人
                     <dd><a href="/userinfo">修改信息</a></dd>
                     <dd><a href="/userinfo">订单查询</a></dd>
-                    <dd><a href="/userinfo">退出</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -587,9 +650,9 @@
                         <span>时长</span>
                         <ul>
                             <li class="showing">不限</li>
-                            <li>一天</li>
-                            <li>两天</li>
-                            <li>三天</li>
+                            <li>1天</li>
+                            <li>2天</li>
+                            <li>3天</li>
                         </ul>
                     </div>
                     <!--<div class="month">

@@ -4,54 +4,65 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="./layui/css/layui.css">
+    <style>
+        .bound{
+            width: 400px;
+            margin:70px auto;
+        }
+    </style>
 </head>
 <body>
 
-<form class="layui-form layui-form-pane"  lay-filter="example" action="">
+<div class="bound">
+    <form class="layui-form layui-form-pane"  lay-filter="example" action="">
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实姓名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off"
-                   class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">联系电话</label>
-        <div class="layui-input-inline">
-            <input type="text" name="phone" lay-verify="required" placeholder="请输入联系电话" autocomplete="off"
-                   class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" lay-verify="required" placeholder="请输入联系电话" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">成人人数</label>
-        <div class="layui-input-inline">
-            <input type="text" name="num1" lay-verify="required" placeholder="请输入成人人数" autocomplete="off"
-                   class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">成人人数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="num1" lay-verify="required" placeholder="请输入成人人数" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">儿童人数</label>
-        <div class="layui-input-inline">
-            <input type="text" name="num2" lay-verify="required" placeholder="请输入儿童人数" autocomplete="off"
-                   class="layui-input">
+        <div class="layui-form-item">
+            <label class="layui-form-label">儿童人数</label>
+            <div class="layui-input-inline">
+                <input type="text" name="num2" lay-verify="required" placeholder="请输入儿童人数" autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">备注</label>
-        <div class="layui-input-block">
-            <textarea name="bz" placeholder="请输入内容" class="layui-textarea"></textarea>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="bz" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
         </div>
-    </div>
 
-    <div class="layui-form-item">
-        <button class="layui-btn" id="LAY-component-form-getval" lay-submit="" lay-filter="demo2">提交</button>
-    </div>
-</form>
+        <div class="layui-form-item">
+            <button class="layui-btn" id="LAY-component-form-getval" lay-submit="" lay-filter="demo2">提交</button>
+        </div>
+    </form>
+
+</div>
+
+
 
 <script src="./js/AJAX.js"></script>
 <script src="./layui/layui.js"></script>

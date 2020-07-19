@@ -1,4 +1,3 @@
-document.write("<script language=javascript src='./js/ResetPage.js'></script>");
 function headerReset(){
 
     //获取存储的用户姓名
@@ -37,7 +36,16 @@ function headerReset(){
         oUserinfo[0].style.display = "block";
     }
 
-
+    //退出
+    var oQit = document.getElementsByClassName("quit");
+    for(let i=0;i<oQit.length;i++){
+        oQit[i].onclick = function(){
+            localStorage.removeItem("userType");
+            localStorage.removeItem("username");
+            localStorage.removeItem("tele");
+            location.assign("/index");
+        }
+    }
 
     //表单
     // var oForm = document.getElementsByClassName("search");

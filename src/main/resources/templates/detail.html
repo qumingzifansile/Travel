@@ -145,11 +145,13 @@
     </style>
 
     <script src="./js/head.js"></script>
-    <script src="./js/ResetPage.js"></script>
+    <script src="./js/footer.js"></script>
+    <script src="./js/AJAX.js"></script>
     <script>
         window.onload = function(){
             //对header部分进行初始化
             headerReset();
+            footer();
 
             //获取到路线编号
 
@@ -158,8 +160,6 @@
                 url:"/admin/getAllLines",
                 data:"",
                 success:function(res,nodes){
-                    localStorage.setItem("lineId","1");
-
                     res = JSON.parse(res);
                     var id = localStorage.getItem("lineId");
                     var k = null
@@ -172,7 +172,8 @@
                     //显示图片
                     var oImg = document.getElementsByClassName("sImg");
                     for(var i=0;i<oImg.length;i++){
-                        oImg[i].src = res[k]["tp1js"];
+                        console.log(res[k]);
+                        oImg[i].src = res[k]["tp1Js"];
                     }
 
                     //线路名称
@@ -195,14 +196,13 @@
                     var oPrice = document.getElementsByClassName("txtcor");
                     oPrice[0].innerHTML = "成人/"+res[k]["icrjg"] + "    " + "儿童/" + res[k]["ixhjg"];
 
-                    localStorage.setItem("lineId",id);
                     //立即预约
                     var oOrder = document.getElementsByClassName("order");
                     oOrder[0].onclick = function(){
                         var flag = confirm("请问是否要预约吗？");
 
                         if(flag){
-                            window.open("/yyform","form");
+                            location.assign("/yyform");
                         }
                     }
 
@@ -246,8 +246,8 @@
         <div class="nav">
             <ul>
                 <li><a href="/index">首页</a></li>
-                <li><a href="">路线浏览</a></li>
-                <li><a href="">景点浏览</a></li>
+                <li><a href="/result">路线浏览</a></li>
+                <li><a href="/views">景点浏览</a></li>
             </ul>
         </div>
 
@@ -266,9 +266,9 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">管理员
-                    <dd><a href="">修改信息</a></dd>
-                    <dd><a href="">订单查询</a></dd>
-                    <dd><a href="">退出</a></dd>
+                    <dd><a href="/adminlines">修改信息</a></dd>
+                    <dd><a href="/adminlines">订单查询</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -276,10 +276,10 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">公司
-                    <dd><a href="/company">基础信息</a></dd>
-                    <dd><a href="/company">发布路线</a></dd>
-                    <dd><a href="/company">收到的订单</a></dd>
-                    <dd><a href="/company">退出</a></dd>
+                    <dd><a href="/companyInfo">基础信息</a></dd>
+                    <dd><a href="/companyInfo">发布路线</a></dd>
+                    <dd><a href="/companyInfo">收到的订单</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -289,7 +289,7 @@
                 <dl class="username">个人
                     <dd><a href="/userinfo">修改信息</a></dd>
                     <dd><a href="/userinfo">订单查询</a></dd>
-                    <dd><a href="/userinfo">退出</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -303,13 +303,13 @@
                 <div class="sumLeft">
                     <div class="swiper">
                         <!-- 轮播图 -->
-                        <div class="layui-carousel" id="test1" lay-filter="test1">
+                        <div class="layui-carousel" id="test2" lay-filter="test1" style="width: 100%; height: 280px;">
                             <div carousel-item="">
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
-                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
-                            <div><img src="./img/02.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
-                            <div><img src="./img/01.png" alt="" style = "width: 600px ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 100% ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/02.png" alt="" style = "width: 100% ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 100% ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/02.png" alt="" style = "width: 100% ;height: 280px;" class="sImg"></div>
+                            <div><img src="./img/01.png" alt="" style = "width: 100% ;height: 280px;" class="sImg"></div>
                             </div>
                         </div> 
                     </div>
@@ -325,46 +325,54 @@
                         <div class="tj">
                             推荐:
                             <span>推荐内容</span>
+
                         </div>
                         
                         <div class="start">
                             出发交通:
-                            <span>出发交通</span>  
+                            <span>出发交通</span>
+
                         </div>
 
                         <div class="jzd">
                             集合地点:
                             <span>集合地点</span>
+
                         </div>
                         
                         <div class="jz">
                             接站电话:
                             <span>接站电话</span>
+
                         </div>
                         
                         <div class="cfd">
                             出发地点:
                             <span>出发地点</span>
+
                         </div>
                         
                         <div class="ddd">
                             抵达地点:
                             <span>抵达地点</span>
+
                         </div>
                         
                         <div class="xcap">
                             行程标准:
                             <span>行程标准</span>
+
                         </div>
                         
                         <div class="xcbz">
                             安排:
                             <span>安排</span>
+
                         </div>
                     </div>
                     <div class="price">
                         <div class="txtcor">
-                            ￥99/成人 
+                            ￥99/成人 &nbsp;&nbsp;
                             ￥99/儿童 <br/>
                         </div>
                         <button class="order">立即预订</button>
@@ -435,7 +443,8 @@
         elem: '#test2'
         ,interval: 1800
         ,anim: 'fade'
-        ,height: '120px'
+        ,height: '280px'
+        ,width: '100%'
     });
     
     //图片轮播

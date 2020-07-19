@@ -3,533 +3,444 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
-    <link rel="stylesheet" href="./css/cssReset.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/footer.css">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
     <style>
-        /* section */
-        #sec {
-            width: 100%;
-        }
-
-        /* summary */
-        #sec .summary {
-            height: 400px;
-        }
-
-        .summary .route {
-            width: 20%;
+        .layui-logo{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
             height: 100%;
-            float: left;
-        }
-
-        .route ul {
-            height: 100%;
-            /* background: red; */
-        }
-
-        .routeItem {
-            height: 20%;
+            line-height: 60px;
             text-align: center;
-            padding-top: 20px;
-            border: 1px solid black;
-            box-sizing: border-box;
-            background: red;
-        }
-
-        .now {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .summary .swiper {
-            width: 80%;
-            height: 400px;
-            float: right;
-            position: relative;
-        }
-
-        .swiper .lIcon {
-            position: absolute;
-        }
-
-        .swiper .swiImg {
-            width: 100%;
-            height: 400px;
-        }
-
-        .swiper .routeItemInfo {
-            width: 100%;
-            height: 400px;
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 1);
-            color: white;
-        }
-
-        .routeItemInfo .routeImg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* column */
-        .column {
-            margin-top: 40px;
-            border-bottom: 2px solid #cccccc;
-        }
-
-        .column ul {
-            width: 100%;
-        }
-
-        .column ul li {
-            width: 100%;
-            height: 500px;
-            /* border: 1px solid black; */
-            margin-top: 40px;
-        }
-
-        /* column lands */
-        .column .lands {
-            width: 12%;
-            height: 100%;
-            margin-left: 22px;
-            float: left;
-            /* border:1px solid #cccccc; */
-            /* padding-top:40px; */
-            /* box-sizing: border-box  ; */
-        }
-
-        /* .lands .landsUl{
-                height: 90%;
-                background: red;
-            }
-            .lands .landItem{
-                width: 100%;
-                height: 15%;
-                text-align: center;
-                color: black;
-                border-top:1px solid #cccccc;
-                border-bottom:1px solid #cccccc;
-                margin-top:0;
-                padding-top: 14px;
-                box-sizing: border-box;
-                cursor: pointer;
-            }
-            .active{
-                color: black;
-                background: white;
-                border:5px solid blue; 
-            } */
-        /* column rightContent */
-        .column .content {
-            width: 85%;
-            height: 100%;
-            /* border: 1px solid black; */
-            box-sizing: border-box;
-            float: right;
-        }
-
-        .content .conNavCtr {
-            width: 99%;
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .content .conNav {
-            margin-left: 20px;
-            cursor: pointer;
-        }
-
-        .conNavCtr .more {
-            font-size: 16px;
+            color: #009688;
+            font-size: 18px;
             font-weight: bold;
-            padding-top: 8px;
-            box-sizing: border-box;
-            position: absolute;
-            right: 10px;
-            top: 0;
-            cursor: pointer;
-        }
-
-        .content .conItemCtr {
-            width: 100%;
-            height: 450px;
-            display: none;
-        }
-
-        .conItemCtr ul {
-            height: 100%;
-
-        }
-
-        .conItemCtr ul .conItemInfo {
-            width: 30%;
-            height: 45%;
-            margin-left: 31px;
-            margin-top: 15px;
-            border: 1px solid black;
-            float: left;
-            cursor: pointer;
-        }
-
-        .conItemCtr .itemImg {
-            width: 100%;
-            height: 80%;
-        }
-
-        .conItemCtr div {
-            margin-left: 10px;
-            margin-top: 0;
-            font-size: 20px;
-        }
-
-
-        /* commentsArea */
-        #sec .commentsArea {
-            width: 96%;
-            max-height: 500px;
-            margin-left: 30px;
-            margin-top: 20px;
-            padding-bottom: 30px;
-            border: 1px solid #cccccc;
-            box-sizing: border-box;
-        }
-
-        .commentsArea .userInput {
-            width: 60%;
-            height: 40px;
-            margin: 15px auto;
-        }
-
-        .userInput .msg {
-            width: 75%;
-            height: 100%;
-            margin-left: 50px;
-        }
-
-        .userInput .issue {
-            width: 50px;
-            height: 40px;
-        }
-
-        .commentsArea .showArea {
-            max-height: 400px;
-            padding: 0 50px;
-        }
-
-        .showArea .oVersion {
-            width: 1356px;
-            border-bottom: 1px solid #cccccc;
-            padding-bottom: 5px;
-            word-wrap: break-word;
         }
     </style>
-
-    <script src="./js/header.js"></script>
-    <script src="./js/AJAX.js"></script>
-    <script>
-        window.onload = function () {
-            //初始化页面头部样式
-            headerReset();
-
-            //加载数据库信息到页面
-            //请求信息
-            $ajax({
-                method: "get",
-                url: "/loginReuslt",
-                data: "telephone=111",
-                success: function (res) {
-                    alert(res);
-                },
-                error: function () {
-                    alert("error111111");
-                }
-            })
-
-
-            /* //存储景点导航选择的景点
-            var landSelected = null; */
-
-            //获取路线元素节点以及轮播图下路线具体信息节点
-            var oRoute = document.getElementsByClassName("routeItem");
-            var oSwiper = document.getElementsByClassName("swiper");
-            var oRouteInfo = oSwiper[0].getElementsByTagName("div");
-            //给路线节点添加鼠标移入事件
-            for (let i = 0; i < oRoute.length; i++) {
-                oRoute[i].onmouseover = function () {
-                    oRoute[i].className = "routeItem now";
-                    oRouteInfo[i].style.display = "block";
-                }
-                oRoute[i].onmouseout = function () {
-                    oRoute[i].className = "routeItem";
-                    oRouteInfo[i].style.display = "none";
-                }
-                oRouteInfo[i].onmouseover = function () {
-                    oRoute[i].className = "routeItem now";
-                    oRouteInfo[i].style.display = "block";
-                }
-                oRouteInfo[i].onmouseout = function () {
-                    oRoute[i].className = "routeItem";
-                    oRouteInfo[i].style.display = "none";
-                }
-            }
-
-
-            //左侧景点选项元素
-            /* var olseld = document.getElementsByClassName("landsUl");
-            var olItems = olseld[0].getElementsByClassName("landItem");
-            for(let i=0; i<olItems.length; i++){
-                olItems[i].onclick = function(){
-                    //点击时将被点击的元素激活
-                    for(var j=0; j<olItems.length ;j++){
-                        olItems[j].className = "landItem";
-                    }
-                    this.className = "landItem active";
-                    landSelected = this.innerHTML;
-                }
-            } */
-            var oMBtn = document.getElementsByClassName("more");
-            oMBtn[0].onclick = function () {
-                location.assign("result.html");
-            }
-
-
-            //获取所有内容节点
-            var oContent = document.getElementsByClassName("content");
-            var oConNavs = [];
-            var oConItemCtrs = [];
-            for (let i = 0; i < oContent.length; i++) {
-                //获取当前内容节点下的所有的内容导航节点（conNav）
-                oConNavs[i] = oContent[i].getElementsByClassName("conNav");
-                //获取当前内容节点下的所有内容项目容器（conItemCtr）
-                oConItemCtrs[i] = oContent[i].getElementsByClassName("conItemCtr");
-            }
-            for (let i = 0; i < oConNavs.length; i++) {
-                //给内容导航节点添加点击
-                for (let j = 0; j < oConNavs[i].length; j++) {
-                    oConNavs[i][j].onclick = function () {
-                        //将前栏目下的所有内容项目容器设置为隐藏
-                        for (var k = 0; k < oConItemCtrs[i].length; k++) {
-                            oConItemCtrs[i][k].style.display = "none";
-                        }
-                        //显示选择的内容项目容器
-                        oConItemCtrs[i][j].style.display = "block";
-                    }
-                }
-            }
-
-
-            //发布评论
-            //获取元素节点
-            var oMsg = document.getElementsByClassName("msg");
-            var oIsBtn = document.getElementsByClassName("issue");
-            var oSArea = document.getElementsByClassName("showArea");
-            oIsBtn[0].onclick = function () {
-                //获取评论内容
-                var txt = oMsg[0].value;
-                //创建新节点
-                var newComment = document.createElement("div");
-                //设置新节点样式、内容
-                newComment.innerHTML = txt;
-                newComment.className = "oVersion";
-                //将新节点插入到评论展示界面
-                oSArea[0].appendChild(newComment);
-                //清空评论输入框
-                oMsg[0].value = "";
-            }
-        }
-    </script>
 </head>
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script src="./js/head.js"></script>
+<script src="./js/AJAX.js"></script>
 
-<body>
-<header id="header">
-    <img src="./img/01.png" alt="" class="banner">
-    <div class="head">
-        <div class="userinfo">
-            <ul>
-                <li class="login">登录</li>
-                <li class="register">注册</li>
-                <li class="order">我的订单</li>
+<body class="layui-layout-body" style="min-width:1536px;">
+    <div class = "layui-layout layui-layout-admin">
+        <div class="layui-header" style="background-color: #23262E;">
+            <div class="layui-logo"><a href="/index"> This is <span style="font-size: 24px;font-weight:bold;color:white;">&nbsp&nbsp高博!</span></a></div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item  layui-this"><a href="/fp">首页</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">线路浏览</a>
+                </li>
+                <li class="layui-nav-item"><a href="">新闻浏览</a></li>
+                <li class = "layui-nav-item" style="padding-left: 50px;">景点搜索:</li>
+                <li class = "layui-nav-item" style="padding-left: 20px;width: 400px;">
+                    <input type="text" name = "sInput" id="sInput" placeholder="热门搜索：天安门" class="layui-input">
+                </li>
+                <li class = "layui-nav-item" style="padding-left: 30px">
+                    <button type="button" id="sButton" class="layui-btn">搜索</button>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" style="background-color: #23262E;"  >
+                <div class="userinfo" style="display: block;">
+                    <ul>
+                        <li class="layui-nav-item"><a href="/register">注册</a></li>
+                        <li class="layui-nav-item"><a href="/login">登录</a></li>
+                    </ul>
+                </div>
+                <li class="layui-nav-item" lay-unselect="" style="display: none;">
+                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">总之是个名字</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">进入后台</a></dd>
+                        <dd><a href="javascript:;">溜了溜了</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" lay-unselect="" style="display: none;">
+                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">总之是个好名字</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                        <dd><a href="javascript:;">查询订单</a></dd>
+                        <dd><a href="javascript:;">溜了溜了</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" lay-unselect="" style="display: none;" >
+                    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">总之是个名字</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                        <dd><a href="javascript:;">查询发布线路</a></dd>
+                        <dd><a href="javascript:;">溜了溜了</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
-        <div action="www.baidu.com" class="search">
-            <input type="text" placeholder="search" class="sInput">
-            <button class="sbtn">搜索</button>
-            <!-- <img class="sicon" src="./img/02.png" alt=""> -->
-        </div>
-    </div>
-    <div class="menu">
-        <ul>
-            <li><a href="fp.html">首页</a></li>
-            <li><a href="#">特卖优惠</a></li>
-            <li><a href="#">国内</a></li>
-            <li><a href="#">出境</a></li>
-            <li><a href="#">港澳</a></li>
-            <li><a href="#">自由行</a></li>
-            <li><a href="#">签证</a></li>
-            <li><a href="#">游轮</a></li>
-            <li><a href="#">包团定制</a></li>
-            <li><a href="#">合伙人招募</a></li>
-        </ul>
-    </div>
-</header>
-
-<section id="sec">
-    <div class="summary">
-        <div class="route">
-            <ul>
-                <li class="routeItem">线路1</li>
-                <li class="routeItem">线路2</li>
-                <li class="routeItem">线路3</li>
-                <li class="routeItem">线路4</li>
-                <li class="routeItem">线路5</li>
-            </ul>
-        </div>
-        <div class="swiper">
-            <img src="" alt="" class="lIcon">
-            <img src="./img/02.png" alt="" class="swiImg">
-            <img src="" alt="" class="rIcon">
-            <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
-            </div>
-            <div class="routeItemInfo" style="display: none;">
-                <img src="./img/02.png" alt="" class="routeImg">
-            </div>
-            <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
-            </div>
-            <div class="routeItemInfo" style="display: none;">
-                <img src="./img/02.png" alt="" class="routeImg">
-            </div>
-            <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <ul>
-            <li>
-                <!-- <div class="lands">
-                        <ul class="landsUl">
-                            <li class="landItem active">景点1</li>
-                            <li class="landItem">景点2</li>
-                            <li class="landItem">景点3</li>
-                            <li class="landItem">更多</li>
-                        </ul>
-                    </div> -->
-                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
-                <div class="content">
-                    <div class="conNavCtr">
-                        <span class="conNav">地区1</span>
-                        <span class="conNav">地区2</span>
-                        <span class="more">更多</span>
-                    </div>
-                    <div class="conItemCtr" style="display: block;">
-                        <ul>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/01.png" alt="" class="itemImg"></a>
-                                <div>地区1线路1</div>
-                            </li>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/01.png" alt="" class="itemImg"></a>
-                                <div>地区1线路2</div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="conItemCtr">
-                        <ul>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>地区2线路1</div>
-                            </li>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>地区2线路2</div>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="layui-body" style="left: 150px;right: 150px">
+            <div class="layui-carousel" style="width: 100%" id="tjxl">
+                <div carousel-item="">
+                    <div><img src="./img/02.jpg" style="width:100%; height: 100%;display: block;"></div>
+                    <div><img src="./img/03.jpg" style="width:100%; height: 100%;display: block;"></div>
+                    <div><img src="./img/04.jpg" style="width:100%; height: 100%;display: block;"></div>
                 </div>
-            </li>
-            <li>
-                <!-- <div class="lands">
-                        <ul class="landsUl">
-                            <li class="landItem active">景点1</li>
-                            <li class="landItem">景点2</li>
-                            <li class="landItem">景点3</li>
-                            <li class="landItem">更多</li>
-                        </ul>
-                    </div> -->
-                <a href="#"><img src="./img/01.png" alt="" class="lands"></a>
-                <div class="content">
-                    <div class="conNavCtr">
-                        <span class="conNav">地区1</span>
-                        <span class="conNav">地区2</span>
-                    </div>
-                    <div class="conItemCtr" style="display: block;">
-                        <ul>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/01.png" alt="" class="itemImg"></a>
-                                <div>景点1</div>
-                            </li>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/01.png" alt="" class="itemImg"></a>
-                                <div>景点2</div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="conItemCtr">
-                        <ul>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>景点1</div>
-                            </li>
-                            <li class="conItemInfo">
-                                <a href="detail.html"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>景点2</div>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div style="padding-top: 20px">
+                <span class="layui-breadcrumb" lay-separator="  " >
+                    <a href="" style="font-size: 16px">热门景点：&nbsp&nbsp&nbsp&nbsp</a>
+                    <a href="" style="font-size: 16px">天安门</a>
+                    <a href="" style="font-size: 16px">西湖</a>
+                    <a href="" style="font-size: 16px">布达拉宫</a>
+                    <a href="" style="font-size: 16px">东方明珠广播电视塔</a>
+                    <a href="" style="font-size: 16px">钱塘江</a>
+                    <a href="" style="font-size: 16px">洞庭湖</a>
+                </span>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>热门线路</legend>
+            </fieldset>
+            <div class = "layui-row layui-col-space30">
+                <div class="layui-col-md10">
+                    <div class="grid-demo grid-demo-bg1">10/12</div>
                 </div>
-            </li>
-        </ul>
-    </div>
-    <div class="commentsArea">
-        <div class="userInput">
-            <input type="text" class="msg">
-            <button class="issue">发布</button>
+                <div class = "layui-col-md2">
+                    <div class="grid-demo grid-demo-bg1">2/12</div>
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>热门景点</legend>
+            </fieldset>
+            <div class = "layui-row layui-col-space30">
+                <div class="layui-col-md10">
+                    <div class="grid-demo grid-demo-bg1">10/12</div>
+                </div>
+                <div class = "layui-col-md2">
+                    <div class="grid-demo grid-demo-bg1">2/12</div>
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>留言区</legend>
+            </fieldset>
         </div>
-        <div class="showArea">
-            <div class="oVersion">
-                <span class="commenter">username:</span>
-                <span>ContentContentContentContentContentContentContentContentContent</span>
-            </div>
-        </div>
     </div>
-</section>
-
-<footer id="footer">
-    <ul class="companys">
-        <li class="cpyItem">
-            <div class="cpyinfo">
-                <span class="cpyname">公司名称</span>
-                <span class="cpyphone">11111111111</span>
-                <a href="#" class="contact">联系我们</a>
-            </div>
-        </li>
-        <li class="cpyItem">
-            <div class="cpyinfo">
-                <span class="cpyname">公司名称</span>
-                <span class="cpyphone">11111111111</span>
-                <a href="#" class="contact">联系我们</a>
-            </div>
-        </li>
-    </ul>
-</footer>
 </body>
+<script>
+    layui.use(['carousel','form','element'],function () {
+        var carousel = layui.carousel,
+            form = layui.form,
+            element = layui.element;
+        carousel.render({
+            elem:'#tjxl'
+            ,interval:2000
+            ,anim:'fade'
+            ,height:'400px'
+            ,width: '100%'
+        });
+        element.on('nav(demo)', function(elem){
+        });
+    })
+</script>
+<!--<script>-->
+<!--    window.onload = function () {-->
+<!--        //初始化页面头部样式-->
+<!--        headerReset();-->
 
+<!--        //路线节点-->
+<!--        var oRoute = document.getElementsByClassName("routeItem");-->
+<!--        //路线对应的图片-->
+<!--        var oRouteImg = document.getElementsByClassName("routeImg");-->
+<!--        //-->
+<!--        var oLands = document.getElementsByClassName("lands");-->
+<!--        //获取所有内容节点-->
+<!--        var oContent = document.getElementsByClassName("content");-->
+<!--        var oNavCtrs = [];-->
+<!--        var oConNavs = [];-->
+<!--        var oConItemCtrs = [];-->
+<!--        for (let i = 0; i < oContent.length; i++) {-->
+<!--            //获取当前内容节点下的所有的内容导航容器节点（conNavCtr）-->
+<!--            oNavCtrs[i] = oContent[i].getElementsByClassName("conNavCtr");-->
+<!--            //获取当前内容节点下的所有的内容导航节点（conNav）-->
+<!--            oConNavs[i] = oContent[i].getElementsByClassName("conNav");-->
+<!--            //获取当前内容节点下的所有内容项目容器（conItemCtr）-->
+<!--            oConItemCtrs[i] = oContent[i].getElementsByClassName("conItemCtr");-->
+<!--        }-->
+<!--        var nq = oConNavs[0].length;-->
+<!--        for(var n=0;n<nq;n++){-->
+<!--            oNavCtrs[0][0].removeChild(oConNavs[0][0]);-->
+<!--            oContent[0].removeChild(oConItemCtrs[0][0]);-->
+<!--        }-->
+
+<!--        $ajax({-->
+<!--            url:"/admin/getAllLines",-->
+<!--            data:"",-->
+<!--            success:function(res,nodes){-->
+<!--                res = JSON.parse(res);-->
+<!--                console.log(res);-->
+<!--                var max = null;-->
+<!--                var count = 0;-->
+<!--                var cfd = [];-->
+<!--                var fline = new Array();-->
+
+<!--                for(var i=0;i<res.length;i++){-->
+<!--                    var flag = false;-->
+<!--                    for(var j=0; j<cfd.length ;j++){-->
+<!--                        if(cfd[j] == res[i]["cfd"]){-->
+<!--                            fline[j].push(res[i]);-->
+<!--                            flag = true;-->
+<!--                            break;-->
+<!--                        }-->
+<!--                    }-->
+<!--                    if(flag){-->
+<!--                        continue;-->
+<!--                    }else{-->
+<!--                        cfd[count] = res[i]["cfd"];-->
+<!--                        fline[count] = new Array();-->
+<!--                        fline[count++].push(res[i]);-->
+<!--                    }-->
+<!--                }-->
+<!--                console.log(cfd);-->
+<!--                console.log(fline);-->
+<!--                //最多显示5个地区-->
+<!--                max = Math.max(5,cfd.length);-->
+
+<!--                for(let i=0; i<cfd.length; i++){-->
+<!--                    var newConNav = document.createElement("span");-->
+<!--                    newConNav.className = "conNav";-->
+<!--                    newConNav.innerHTML = cfd[i];-->
+<!--                    newConNav.onclick = function(){-->
+<!--                        var Items = document.getElementsByClassName("conItemCtr");-->
+<!--                        for(var k=0;k<Items.length;k++){-->
+<!--                            Items[k].style.display = "none";-->
+<!--                        }-->
+<!--                        Items[i].style.display = "block";-->
+<!--                    }-->
+<!--                    oNavCtrs[0][0].appendChild(newConNav);-->
+
+<!--                    var newItem = document.createElement("div");-->
+<!--                    newItem.className = "conItemCtr";-->
+<!--                    if(i==0){-->
+<!--                        newItem.style.display = "block";-->
+<!--                    }else{-->
+<!--                        newItem.style.display = "none";-->
+<!--                    }-->
+<!--                    var newUl = document.createElement("ul");-->
+<!--                    for(let j=0;j<fline[i].length;j++){-->
+<!--                        if(j>6){-->
+<!--                            break;-->
+<!--                        }-->
+<!--                        var newLi = document.createElement("li");-->
+<!--                        newLi.className = "conItemInfo";-->
+<!--                        var newImg = document.createElement("img");-->
+<!--                        newImg.className = "itemImg";-->
+<!--                        newImg.src = fline[i][j]["tp1Js"];-->
+<!--                        var newdiv = document.createElement("div");-->
+<!--                        newdiv.innerHTML = fline[i][j]["xlname"];-->
+<!--                        newLi.appendChild(newImg);-->
+<!--                        newLi.appendChild(newdiv);-->
+<!--                        newLi.lineId = fline[i][j]["id"];-->
+<!--                        newLi.onclick = function(){-->
+<!--                            localStorage.setItem("lineId",this.lineId);-->
+<!--                            location.assign("/detail");-->
+<!--                        }-->
+<!--                        newUl.appendChild(newLi);-->
+<!--                    }-->
+<!--                    newItem.appendChild(newUl);-->
+<!--                    oContent[0].appendChild(newItem);-->
+<!--                }-->
+
+
+<!--            },-->
+<!--            nodes:null-->
+<!--        })-->
+
+<!--        /*var landsdata = $ajax({-->
+<!--            url:"/admin/getAllViews",-->
+<!--            data:"",-->
+<!--            success:function(res,nodes){-->
+<!--                alert(res);-->
+<!--                alert(res.length);-->
+<!--            },-->
+<!--            nodes:null-->
+<!--        })*/-->
+
+
+<!--        //加载左导航图片-->
+
+
+
+<!--        //加载内容信息-->
+
+
+<!--        /* //存储景点导航选择的景点-->
+<!--        var landSelected = null; */-->
+
+<!--        //获取路线元素节点以及轮播图下路线具体信息节点-->
+
+<!--        var oSwiper = document.getElementsByClassName("swiper");-->
+<!--        var oRouteInfo = oSwiper[0].getElementsByTagName("div");-->
+<!--        //给路线节点添加鼠标移入事件-->
+<!--        for (let i = 0; i < oRoute.length; i++) {-->
+<!--            oRoute[i].onclick = function(){-->
+<!--                localStorage.setItem("lineId",i+1);-->
+<!--                location.assign("/detail");-->
+<!--            }-->
+<!--            oRouteImg[i].onclick = function(){-->
+<!--                localStorage.setItem("lineId","i");-->
+<!--                location.assign("/detail");-->
+<!--            }-->
+<!--            oRoute[i].onmouseover = function () {-->
+<!--                oRoute[i].className = "routeItem now";-->
+<!--                oRouteInfo[i].style.display = "block";-->
+<!--            }-->
+<!--            oRoute[i].onmouseout = function () {-->
+<!--                oRoute[i].className = "routeItem";-->
+<!--                oRouteInfo[i].style.display = "none";-->
+<!--            }-->
+<!--            oRouteInfo[i].onmouseover = function () {-->
+<!--                oRoute[i].className = "routeItem now";-->
+<!--                oRouteInfo[i].style.display = "block";-->
+<!--            }-->
+<!--            oRouteInfo[i].onmouseout = function () {-->
+<!--                oRoute[i].className = "routeItem";-->
+<!--                oRouteInfo[i].style.display = "none";-->
+<!--            }-->
+<!--        }-->
+
+
+<!--        //左侧景点选项元素-->
+<!--        /* var olseld = document.getElementsByClassName("landsUl");-->
+<!--        var olItems = olseld[0].getElementsByClassName("landItem");-->
+<!--        for(let i=0; i<olItems.length; i++){-->
+<!--            olItems[i].onclick = function(){-->
+<!--                //点击时将被点击的元素激活-->
+<!--                for(var j=0; j<olItems.length ;j++){-->
+<!--                    olItems[j].className = "landItem";-->
+<!--                }-->
+<!--                this.className = "landItem active";-->
+<!--                landSelected = this.innerHTML;-->
+<!--            }-->
+<!--        } */-->
+<!--        var oMBtn = document.getElementsByClassName("more");-->
+<!--        oMBtn[0].onclick = function () {-->
+<!--            location.assign("/result");-->
+<!--        }-->
+
+
+
+<!--        for (let i = 0; i < oConNavs.length; i++) {-->
+<!--            //给内容导航节点添加点击-->
+<!--            for (let j = 0; j < oConNavs[i].length; j++) {-->
+<!--                oConNavs[i][j].onclick = function () {-->
+<!--                    //将前栏目下的所有内容项目容器设置为隐藏-->
+<!--                    for (var k = 0; k < oConItemCtrs[i].length; k++) {-->
+<!--                        oConItemCtrs[i][k].style.display = "none";-->
+<!--                    }-->
+<!--                    //显示选择的内容项目容器-->
+<!--                    oConItemCtrs[i][j].style.display = "block";-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+
+<!--        //发布评论-->
+<!--        //获取元素节点-->
+<!--        var oMsg = document.getElementsByClassName("msg");-->
+<!--        var omt = document.getElementsByClassName("msgt");-->
+<!--        var oIsBtn = document.getElementsByClassName("issue");-->
+<!--        var oSArea = document.getElementsByClassName("showArea");-->
+<!--        var ocomments = oSArea[0].getElementsByClassName("oVersion");-->
+<!--        //清空缓存留言区-->
+<!--        for (var i=0; i<ocomments.length; i++){-->
+<!--            oSArea[0].removeChild(ocomments[i]);-->
+<!--        }-->
+<!--        //加载留言-->
+<!--        $ajax({-->
+<!--            url:"/guest/getallbook",-->
+<!--            data:null,-->
+<!--            success:function(res,nodes){-->
+<!--                res = JSON.parse(res);-->
+<!--                console.log(res);-->
+<!--                for(var i=0; i<res.length ;i++){-->
+<!--                    //创建新节点-->
+<!--                    var newComment = document.createElement("div");-->
+<!--                    //设置新节点样式、内容-->
+<!--                    var newtl = document.createElement("div");-->
+<!--                    newtl.className = "ctitle";-->
+<!--                    var username = res[i]["name"];-->
+<!--                    newtl.innerHTML = username + ":" + res[i]["title"];-->
+<!--                    var newcct = document.createElement("div");-->
+<!--                    newcct.className = "cct";-->
+<!--                    newcct.innerHTML = res[i]["content"];-->
+<!--                    var newdat = document.createElement("div");-->
+<!--                    newdat.className = "cdate";-->
+<!--                    newdat.innerHTML = res[i]["time"];-->
+<!--                    newComment.className ="oVersion";-->
+<!--                    newComment.appendChild(newtl);-->
+<!--                    newComment.appendChild(newcct);-->
+<!--                    newComment.appendChild(newdat);-->
+<!--                    //将新节点插入到评论展示界面-->
+<!--                    oSArea[0].appendChild(newComment);-->
+<!--                }-->
+<!--            },-->
+<!--            nodes:null-->
+<!--        })-->
+
+<!--        oIsBtn[0].onclick = function () {-->
+<!--            var tele = null;-->
+<!--            tele = localStorage.getItem("tele");-->
+<!--            if(tele==null){-->
+<!--                alert("请先登录！");-->
+<!--                return;-->
+<!--            }-->
+
+<!--            //获取评论内容-->
+<!--            var mt = omt[0].value;-->
+<!--            var txt = oMsg[0].value;-->
+<!--            var data = "phonenumber="+tele;-->
+<!--            $ajax({-->
+<!--                url:"/guest/getGuestInfo",-->
+<!--                data:data,-->
+<!--                success:function(res,nodes){-->
+<!--                    res = JSON.parse(res);-->
+<!--                    console.log(res);-->
+<!--                    //创建新节点-->
+<!--                    var newComment = document.createElement("div");-->
+<!--                    //设置新节点样式、内容-->
+<!--                    var newtl = document.createElement("div");-->
+<!--                    newtl.className = "ctitle";-->
+<!--                    var username = res["name"];-->
+<!--                    newtl.innerHTML = username + ":" + mt;-->
+<!--                    var newcct = document.createElement("div");-->
+<!--                    newcct.className = "cct";-->
+<!--                    newcct.innerHTML = txt;-->
+<!--                    var newdat = document.createElement("div");-->
+<!--                    newdat.className = "cdate";-->
+<!--                    var d = new Date();-->
+<!--                    newdat.innerHTML = d.toLocaleDateString() + " " + d.toLocaleTimeString();-->
+<!--                    newComment.className ="oVersion";-->
+<!--                    newComment.appendChild(newtl);-->
+<!--                    newComment.appendChild(newcct);-->
+<!--                    newComment.appendChild(newdat);-->
+<!--                    //将新节点插入到评论展示界面-->
+<!--                    oSArea[0].appendChild(newComment);-->
+<!--                    //将评论存入到数据库-->
+<!--                    $ajax({-->
+<!--                        url:"/guest/book",-->
+<!--                        data:"title="+mt+"&email="+res["email"]+"&tel="+tele+"&name="+username+"&addr="+res["addr"]+"&content="+txt,-->
+<!--                        success:function(res,nodes){-->
+<!--                            if(res){-->
+<!--                                console.log("发布成功");-->
+<!--                            }-->
+<!--                        },-->
+<!--                        nodes:null-->
+<!--                    })-->
+<!--                },-->
+<!--                nodes:null-->
+<!--            })-->
+
+<!--            //清空评论输入框-->
+<!--            oMsg[0].value = "";-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 </html>

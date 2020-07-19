@@ -34,13 +34,14 @@
             height: 20%;
             text-align: center;
             padding-top: 20px;
-            border: 1px solid black;
+            color: white;
+            border: 1px solid white;
             box-sizing: border-box;
-            background: red;
+            background: #C02937;
         }
 
         .now {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(192,41,55, 0.1);
         }
 
         .summary .swiper {
@@ -179,37 +180,51 @@
 
         .conItemCtr .itemImg {
             width: 100%;
-            height: 80%;
+            height: 70%;
         }
 
         .conItemCtr div {
+            height: 30%;
             margin-left: 10px;
             margin-top: 0;
             font-size: 20px;
+            overflow: hidden;
         }
 
 
         /* commentsArea */
         #sec .commentsArea {
             width: 96%;
-            max-height: 500px;
+            max-height: 1000px;
             margin-left: 30px;
             margin-top: 20px;
             padding-bottom: 30px;
             border: 1px solid #cccccc;
             box-sizing: border-box;
         }
-
+        .commentsArea .areaTitle{
+            height: 40px;
+            margin-top:15px;
+            font-size: 30px;
+            text-align: center;
+        }
         .commentsArea .userInput {
             width: 60%;
             height: 40px;
             margin: 15px auto;
         }
+        .userInput .msgt{
+            width: 30%;
+            height: 100%;
+            margin-left:50px;
+            float:left;
+        }
 
         .userInput .msg {
-            width: 75%;
+            width: 50%;
             height: 100%;
-            margin-left: 50px;
+            margin-left: 10px;
+            float: left;
         }
 
         .userInput .issue {
@@ -227,16 +242,39 @@
             border-bottom: 1px solid #cccccc;
             padding-bottom: 5px;
             word-wrap: break-word;
+            position:relative;
+        }
+        .oVersion .ctitle{
+            width: 30%;
+            height: 30px;
+            font-weight: bold;
+            font-size: 24px;
+            /*border-bottom: 1px solid #cccccc;*/
+        }
+        .oVersion .cct{
+            width: 80%;
+            margin-top:5px;
+            margin-left:30px;
+            min-height: 20px;
+            font-size: 20px;
+        }
+        .oVersion .cdate{
+            position: absolute;
+            right:0px;
+            bottom: 0px;
+            font-size: 16px;
+            color:lightblue;
         }
     </style>
 
     <script src="./js/head.js"></script>
+    <script src="./js/footer.js" ></script>
     <script src="./js/AJAX.js"></script>
-    <script src="./js/ResetPage.js"></script>
     <script>
         window.onload = function () {
             //初始化页面头部样式
             headerReset();
+            footer();
 
             //路线节点
             var oRoute = document.getElementsByClassName("routeItem");
@@ -257,44 +295,94 @@
                 //获取当前内容节点下的所有内容项目容器（conItemCtr）
                 oConItemCtrs[i] = oContent[i].getElementsByClassName("conItemCtr");
             }
+            var nq = oConNavs[0].length;
+            for(var n=0;n<nq;n++){
+                oNavCtrs[0][0].removeChild(oConNavs[0][0]);
+                oContent[0].removeChild(oConItemCtrs[0][0]);
+            }
 
-            /*$ajax({
+            $ajax({
                 url:"/admin/getAllLines",
                 data:"",
                 success:function(res,nodes){
                     res = JSON.parse(res);
+                    console.log(res);
                     var max = null;
-                    //最多显示5条路线
-                    max = Math.max(5,res.length);
+                    var count = 0;
+                    var cfd = [];
+                    var fline = new Array();
 
-                    //加载线路信息和对应的图片
-                    for(var i=0;i<max;i++){
-                        oRoute[i].innerHTML = res[i]["xlname"];
-                        oRouteImg[i].src = res[i]["tp1js"];
+                    for(var i=0;i<res.length;i++){
+                        var flag = false;
+                        for(var j=0; j<cfd.length ;j++){
+                            if(cfd[j] == res[i]["cfd"]){
+                                fline[j].push(res[i]);
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if(flag){
+                            continue;
+                        }else{
+                            cfd[count] = res[i]["cfd"];
+                            fline[count] = new Array();
+                            fline[count++].push(res[i]);
+                        }
+                    }
+                    console.log(cfd);
+                    console.log(fline);
+                    //最多显示5个地区
+                    max = Math.max(5,cfd.length);
+
+                    for(let i=0; i<cfd.length; i++){
+                        var newConNav = document.createElement("span");
+                        newConNav.className = "conNav";
+                        newConNav.innerHTML = cfd[i];
+                        newConNav.onclick = function(){
+                            var Items = document.getElementsByClassName("conItemCtr");
+                            for(var k=0;k<Items.length;k++){
+                                Items[k].style.display = "none";
+                            }
+                            Items[i].style.display = "block";
+                        }
+                        oNavCtrs[0][0].appendChild(newConNav);
+
+                        var newItem = document.createElement("div");
+                        newItem.className = "conItemCtr";
+                        if(i==0){
+                            newItem.style.display = "block";
+                        }else{
+                            newItem.style.display = "none";
+                        }
+                        var newUl = document.createElement("ul");
+                        for(let j=0;j<fline[i].length;j++){
+                            if(j>6){
+                                break;
+                            }
+                            var newLi = document.createElement("li");
+                            newLi.className = "conItemInfo";
+                            var newImg = document.createElement("img");
+                            newImg.className = "itemImg";
+                            newImg.src = fline[i][j]["tp1Js"];
+                            var newdiv = document.createElement("div");
+                            newdiv.innerHTML = fline[i][j]["xlname"];
+                            newLi.appendChild(newImg);
+                            newLi.appendChild(newdiv);
+                            newLi.lineId = fline[i][j]["id"];
+                            newLi.onclick = function(){
+                                localStorage.setItem("lineId",this.lineId);
+                                location.assign("/detail");
+                            }
+                            newUl.appendChild(newLi);
+                        }
+                        newItem.appendChild(newUl);
+                        oContent[0].appendChild(newItem);
                     }
 
-                    //加载地区以及对应地区线路
-                    for(var i=0;i<2;i++){
-                        oConNavs[0][i].innerHTML = res[i]["ddd"];
-                    }
-
-                    $ajax({
-                        url:"/admin/getAllViews",
-                        data:"",
-                        success:function(res,nodes){
-                            alert(res);
-                            alert(res.length);
-                        },
-                        nodes:null
-                    })
-                    var oA = oConItemCtrs[0][i].getElementsByTagName("a");
-                    oA.lineId = res[i]["id"];
-                    var oIg = oConItemCtrs[0][i].getElementsByTagName("img");
-                    oIg.src = res[i]["tp1js"];
 
                 },
                 nodes:null
-            })*/
+            })
 
             /*var landsdata = $ajax({
                 url:"/admin/getAllViews",
@@ -323,6 +411,14 @@
             var oRouteInfo = oSwiper[0].getElementsByTagName("div");
             //给路线节点添加鼠标移入事件
             for (let i = 0; i < oRoute.length; i++) {
+                oRoute[i].onclick = function(){
+                    localStorage.setItem("lineId",i+1);
+                    location.assign("/detail");
+                }
+                oRouteImg[i].onclick = function(){
+                    localStorage.setItem("lineId","i");
+                    location.assign("/detail");
+                }
                 oRoute[i].onmouseover = function () {
                     oRoute[i].className = "routeItem now";
                     oRouteInfo[i].style.display = "block";
@@ -375,11 +471,12 @@
                     }
                 }
             }
-
+            
 
             //发布评论
             //获取元素节点
             var oMsg = document.getElementsByClassName("msg");
+            var omt = document.getElementsByClassName("msgt");
             var oIsBtn = document.getElementsByClassName("issue");
             var oSArea = document.getElementsByClassName("showArea");
             var ocomments = oSArea[0].getElementsByClassName("oVersion");
@@ -398,9 +495,20 @@
                         //创建新节点
                         var newComment = document.createElement("div");
                         //设置新节点样式、内容
-                        var username = res[0]["name"];
-                        newComment.innerHTML = username + ":" + res[0]["content"];
+                        var newtl = document.createElement("div");
+                        newtl.className = "ctitle";
+                        var username = res[i]["name"];
+                        newtl.innerHTML = username + ":" + res[i]["title"];
+                        var newcct = document.createElement("div");
+                        newcct.className = "cct";
+                        newcct.innerHTML = res[i]["content"];
+                        var newdat = document.createElement("div");
+                        newdat.className = "cdate";
+                        newdat.innerHTML = res[i]["time"];
                         newComment.className ="oVersion";
+                        newComment.appendChild(newtl);
+                        newComment.appendChild(newcct);
+                        newComment.appendChild(newdat);
                         //将新节点插入到评论展示界面
                         oSArea[0].appendChild(newComment);
                     }
@@ -409,27 +517,58 @@
             })
 
             oIsBtn[0].onclick = function () {
+                var tele = null;
+                tele = localStorage.getItem("tele");
+                if(tele==null){
+                    alert("请先登录！");
+                    return;
+                }
+
                 //获取评论内容
+                var mt = omt[0].value;
                 var txt = oMsg[0].value;
-                //创建新节点
-                var newComment = document.createElement("div");
-                //设置新节点样式、内容
-                var username = localStorage.getItem("username");
-                newComment.innerHTML = username + ":" + txt;
-                newComment.className ="oVersion";
-                //将新节点插入到评论展示界面
-                oSArea[0].appendChild(newComment);
-                //将评论存入到数据库
+                var data = "phonenumber="+tele;
                 $ajax({
-                    url:"/guest/book",
-                    data:"title="+null+"&email="+null+"&tel="+null+"&name="+username+"&addr="+null+"&content="+txt,
+                    url:"/guest/getGuestInfo",
+                    data:data,
                     success:function(res,nodes){
-                        if(res){
-                            console.log("发布成功");
-                        }
+                        res = JSON.parse(res);
+                        console.log(res);
+                        //创建新节点
+                        var newComment = document.createElement("div");
+                        //设置新节点样式、内容
+                        var newtl = document.createElement("div");
+                        newtl.className = "ctitle";
+                        var username = res["name"];
+                        newtl.innerHTML = username + ":" + mt;
+                        var newcct = document.createElement("div");
+                        newcct.className = "cct";
+                        newcct.innerHTML = txt;
+                        var newdat = document.createElement("div");
+                        newdat.className = "cdate";
+                        var d = new Date();
+                        newdat.innerHTML = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+                        newComment.className ="oVersion";
+                        newComment.appendChild(newtl);
+                        newComment.appendChild(newcct);
+                        newComment.appendChild(newdat);
+                        //将新节点插入到评论展示界面
+                        oSArea[0].appendChild(newComment);
+                        //将评论存入到数据库
+                        $ajax({
+                            url:"/guest/book",
+                            data:"title="+mt+"&email="+res["email"]+"&tel="+tele+"&name="+username+"&addr="+res["addr"]+"&content="+txt,
+                            success:function(res,nodes){
+                                if(res){
+                                    console.log("发布成功");
+                                }
+                            },
+                            nodes:null
+                        })
                     },
                     nodes:null
                 })
+
                 //清空评论输入框
                 oMsg[0].value = "";
             }
@@ -440,12 +579,12 @@
 <body>
 <header id="header">
     <div class="head">
-        <div class="hName">This is 高博</div>
+        <div class="hName">当前页面名称</div>
         <div class="nav">
             <ul>
                 <li><a href="/index">首页</a></li>
-                <li><a href="">路线浏览</a></li>
-                <li><a href="">景点浏览</a></li>
+                <li><a href="/result">路线浏览</a></li>
+                <li><a href="/views">景点浏览</a></li>
             </ul>
         </div>
 
@@ -464,9 +603,8 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">管理员
-                    <dd><a href="">修改信息</a></dd>
-                    <dd><a href="">订单查询</a></dd>
-                    <dd><a href="">退出</a></dd>
+                    <dd><a href="/adminlines">进入后台</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -474,10 +612,10 @@
             <ul>
                 <img src="" alt="头像" class="avtor">
                 <dl class="username">公司
-                    <dd><a href="/company">基础信息</a></dd>
-                    <dd><a href="/company">发布路线</a></dd>
-                    <dd><a href="/company">收到的订单</a></dd>
-                    <dd><a href="/company">退出</a></dd>
+                    <dd><a href="/companyInfo">基础信息</a></dd>
+                    <dd><a href="/companyInfo">发布路线</a></dd>
+                    <dd><a href="/companyInfo">收到的订单</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -487,7 +625,7 @@
                 <dl class="username">个人
                     <dd><a href="/userinfo">修改信息</a></dd>
                     <dd><a href="/userinfo">订单查询</a></dd>
-                    <dd><a href="/userinfo">退出</a></dd>
+                    <dd><a class="quit">退出</a></dd>
                 </dl>
             </ul>
         </div>
@@ -507,22 +645,32 @@
         </div>
         <div class="swiper">
             <img src="" alt="" class="lIcon">
-            <img src="./img/02.png" alt="" class="swiImg">
+            <img src="./img/03.jpg" alt="" class="swiImg">
             <img src="" alt="" class="rIcon">
             <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
+                <a href="" class="routeA">
+                    <img src="./img/02.jpg" alt="" class="routeImg">
+                </a>
             </div>
             <div class="routeItemInfo" style="display: none;">
-                <img src="./img/02.png" alt="" class="routeImg">
+                <a href="" class="routeA">
+                    <img src="./img/04.jpg" alt="" class="routeImg">
+                </a>
             </div>
             <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
+                <a href="" class="routeA">
+                    <img src="./img/02.jpg" alt="" class="routeImg">
+                </a>
             </div>
             <div class="routeItemInfo" style="display: none;">
-                <img src="./img/02.png" alt="" class="routeImg">
+                <a href="" class="routeA">
+                    <img src="./img/04.jpg" alt="" class="routeImg">
+                </a>
             </div>
             <div class="routeItemInfo" style="display: none;">
-                <img src="./img/01.png" alt="" class="routeImg">
+                <a href="" class="routeA">
+                    <img src="./img/02.jpg" alt="" class="routeImg">
+                </a>
             </div>
         </div>
     </div>
@@ -537,7 +685,7 @@
                             <li class="landItem">更多</li>
                         </ul>
                     </div> -->
-                <a name="lines" href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <a name="lines" href="#"><img src="./img/06.jpg" alt="" class="lands"></a>
                 <div class="content">
                     <div class="conNavCtr">
                         <span class="conNav">地区1</span>
@@ -547,11 +695,11 @@
                     <div class="conItemCtr" style="display: block;">
                         <ul>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <a href="/detail"><img src="./img/01.jpg" alt="" class="itemImg"></a>
                                 <div>地区1线路1</div>
                             </li>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                                <a href="/detail"><img src="./img/01.jpg" alt="" class="itemImg"></a>
                                 <div>地区1线路2</div>
                             </li>
                         </ul>
@@ -559,11 +707,11 @@
                     <div class="conItemCtr">
                         <ul>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <a href="/detail"><img src="./img/02.jpg" alt="" class="itemImg"></a>
                                 <div>地区2线路1</div>
                             </li>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
+                                <a href="/detail"><img src="./img/02.jpg" alt="" class="itemImg"></a>
                                 <div>地区2线路2</div>
                             </li>
                         </ul>
@@ -579,20 +727,20 @@
                             <li class="landItem">更多</li>
                         </ul>
                     </div> -->
-                <a name="lands" href="#"><img src="./img/01.png" alt="" class="lands"></a>
+                <a name="lands" href="#"><img src="./img/06.jpg" alt="" class="lands"></a>
                 <div class="content">
                     <div class="conNavCtr">
                         <span class="conNav">地区1</span>
                         <span class="conNav">地区2</span>
                     </div>
                     <div class="conItemCtr" style="display: block;">
-                        <ul>
-                            <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                        <ul style="cursor: default">
+                            <li class="conItemInfo" style="cursor: default">
+                                <img src="./img/05.jpg" alt="" class="itemImg">
                                 <div>景点1</div>
                             </li>
-                            <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/01.png" alt="" class="itemImg"></a>
+                            <li class="conItemInfo" style="cursor: default">
+                                <img src="./img/01.jpg" alt="" class="itemImg">
                                 <div>景点2</div>
                             </li>
                         </ul>
@@ -600,12 +748,12 @@
                     <div class="conItemCtr">
                         <ul>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>景点1</div>
+                                <a href="/detail"><img src="./img/05.jpg" alt="" class="itemImg"></a>
+                                <div>景点3</div>
                             </li>
                             <li class="conItemInfo">
-                                <a href="/detail"><img src="./img/02.png" alt="" class="itemImg"></a>
-                                <div>景点2</div>
+                                <a href="/detail"><img src="./img/01.jpg" alt="" class="itemImg"></a>
+                                <div>景点4</div>
                             </li>
                         </ul>
                     </div>
@@ -614,14 +762,19 @@
         </ul>
     </div>
     <div class="commentsArea">
+        <div class="areaTitle">
+            用户留言区
+        </div>
         <div class="userInput">
-            <input type="text" class="msg">
+            <input type="text" class="msgt" placeholder="请输入主题">
+            <input type="text" class="msg" placeholder="请输入内容">
             <button class="issue">发布</button>
         </div>
         <div class="showArea">
             <div class="oVersion">
-                <span class="commenter">username:</span>
-                <span>ContentContentContentContentContentContentContentContentContent</span>
+                <div class="ctitle">title</div>
+                <div class="cct">content</div>
+                <div class="cdate">date</div>
             </div>
         </div>
     </div>
